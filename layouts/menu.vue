@@ -4,12 +4,11 @@
       v-model="collapsed"
       :trigger="null"
       collapsible
-      breakpoint="sm"
-      collapsed-width="0"
+      :class="['sider', null]"
     >
       <div class="logo">
         <img class="logo-img" src="https://picsum.photos/100/100?random=1">
-        <span class="logo-text">VJP</span>
+        <h1>CRM</h1>
       </div>
       <a-menu
         v-model="selectedKeys"
@@ -19,20 +18,20 @@
       >
         <a-menu-item key="index">
           <nuxt-link to="/">
-            <a-icon type="user" />Home
+            <a-icon type="user" />
+            <span>Home</span>
           </nuxt-link>
         </a-menu-item>
 
         <a-menu-item key="about">
           <nuxt-link to="/about">
-            <a-icon type="play-circle" />About
+            <a-icon type="play-circle" />
+            <span>About</span>
           </nuxt-link>
         </a-menu-item>
 
         <a-sub-menu key="data">
-          <span
-            slot="title"
-          ><a-icon type="appstore" /><span>Data</span></span>
+          <span slot="title"><a-icon type="appstore" /><span>Data</span></span>
 
           <a-menu-item key="data-user">
             <nuxt-link to="/data/user">
@@ -72,12 +71,12 @@
           :type="collapsed ? 'menu-unfold' : 'menu-fold'"
           @click="() => (collapsed = !collapsed)"
         />
-        <a href="#">breadcrumb/here</a>
-
-        <a href="#" @click.prevent="logout">Logout</a>
+        <a class="user-wrapper" href="#" @click.prevent="logout">Logout</a>
       </a-layout-header>
 
-      <a-layout-content :style="{ margin: '10px 8px', padding: '10px', background: '#fff', minHeight: '280px', overflow: 'auto' }">
+      <a-layout-content
+        :style="{ margin: '10px 8px', padding: '10px', overflow: 'auto' }"
+      >
         <nuxt />
       </a-layout-content>
       <a-layout-footer style="text-align: center">
@@ -88,13 +87,12 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-@Component({
-})
+@Component({})
 export default class MenuLayout extends Vue {
-  private collapsed:boolean = false
-  private selectedKeys:string[] = []
-
-  private openKeys: string[] = []
+  private collapsed: boolean = false;
+  private selectedKeys: string[] = [];
+  private collapsible: Boolean = false;
+  private openKeys: string[] = [];
 
   created () {
     const menuKeysFromPath = this.$route.path.split('/')
@@ -114,40 +112,24 @@ export default class MenuLayout extends Vue {
 }
 </script>
 <style scoped>
-
-#components-layout-custom-trigger .trigger {
-  font-size: 18px;
-  line-height: 64px;
-  padding: 0 24px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-#components-layout-custom-trigger .trigger:hover {
-  color: #1890ff;
-}
-#components-layout-custom-trigger .logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px;
-}
-.logo {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  background-color: transparent !important;
-}
-.logo-text {
-  font-size: 32px;
-  color: aliceblue;
-  text-align: left;;
-  width: 100%;
-  padding-left: 10px;
-}
 .logo-img {
   width: 32px;
   height: 32px;
 }
-#Layer_1{
-  background-color: transparent;
+.logo-text {
+  font-size: 32px;
+  color: aliceblue;
+  text-align: left;
+  width: 100%;
+  padding-left: 10px;
+}
+.user-wrapper {
+  float: right;
+  height: 100%;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 25px;
 }
 </style>

@@ -35,10 +35,10 @@ import { Vue, Component } from 'vue-property-decorator'
   name: 'index'
 })
 export default class IndexPage extends Vue {
-  async created () {
+  /* async created () {
     const a = await this.$axios.$get('/Users')
     console.log(a)
-  }
+  } */
 }
 </script>
 

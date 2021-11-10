@@ -18,6 +18,14 @@
                 ]"
               />
             </a-form-item>
+            <a-form-item label="Tuổi">
+              <a-input
+                v-decorator="[
+                  'age',
+                  {rules: []}
+                ]"
+              />
+            </a-form-item>
             <a-form-item label="Căn cước công dân">
               <a-input
                 v-decorator="[
@@ -197,9 +205,11 @@ export default class Customer extends Vue {
       this.formCustomer.getFieldDecorator('purpose', { initialValue: '' })
       this.formCustomer.getFieldDecorator('taxCode', { initialValue: '' })
       this.formCustomer.getFieldDecorator('phoneNumber', { initialValue: '' })
+      this.formCustomer.getFieldDecorator('age', { initialValue: '' })
       this.formCustomer.setFields({
         id: { value: this.customer.id },
         name: { value: this.customer.name },
+        age: { value: this.customer.age },
         phoneNumber: { value: this.customer.phoneNumber },
         email: { value: this.customer.email },
         gender: { value: this.customer.gender + '' },

@@ -25,7 +25,7 @@
         <a-popconfirm
           v-if="dataCustomers.length"
           title="Chắc chắn muốn xóa?"
-          @confirm="() => onDeleteExp(record.id)"
+          @confirm="() => onDeleteCustomer(record.id)"
         >
           <a href="#"><a-icon type="delete" style="font-size: 20px" /></a>
         </a-popconfirm>
@@ -48,6 +48,7 @@ import { Context } from '@nuxt/types'
   }
 })
 export default class About extends Vue {
+    $notification: any
     private loading:boolean = false
     private dataCustomers: Array<ICustomer>=[]
     private columns = [
@@ -80,6 +81,29 @@ export default class About extends Vue {
         key: 'action'
       }
     ]
+
+    onDeleteCustomer (key:any) {
+      this.$axios.$delete('/Customer/delete-customer/' + key)
+        .then((response) => {
+          this.dataCustomers = this.dataCustomers.filter(item => item.id !== key)
+          this.openNotification(response)
+        })
+    }
+
+    openNotification (result: boolean): void {
+      this.$notification.config({
+        duration: 1
+      })
+      if (result === true) {
+        this.$notification.success({
+          message: 'Xóa thành công'
+        })
+      } else {
+        this.$notification.error({
+          message: 'Xóa không thành công'
+        })
+      }
+    }
 }
 </script>
 

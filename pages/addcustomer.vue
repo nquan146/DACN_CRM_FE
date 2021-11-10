@@ -15,6 +15,14 @@
                 ]"
               />
             </a-form-item>
+            <a-form-item label="Tuổi">
+              <a-input
+                v-decorator="[
+                  'age',
+                  {rules: []}
+                ]"
+              />
+            </a-form-item>
             <a-form-item label="Căn cước công dân">
               <a-input
                 v-decorator="[
@@ -185,6 +193,7 @@ export default class Customer extends Vue {
       this.formCustomer.getFieldDecorator('purpose', { initialValue: '' })
       this.formCustomer.getFieldDecorator('taxCode', { initialValue: '' })
       this.formCustomer.getFieldDecorator('phoneNumber', { initialValue: '' })
+      this.formCustomer.getFieldDecorator('age', { initialValue: '' })
     }
 
     handleSubmit (e: any) {
@@ -192,7 +201,12 @@ export default class Customer extends Vue {
       this.formCustomer.validateFields((err: any, values: any) => {
         if (!err) {
           this.$axios.$post('/Customer/create-customer', values).then((response) => {
-            this.openNotification(response)
+            const url = '/customerinfor/' + response
+            const link = document.createElement('a')
+            link.href = url
+            document.body.appendChild(link)
+            this.openNotification(true)
+            link.click()
           }).catch(() => this.openNotification(false))
         }
       }
