@@ -5,9 +5,6 @@
     </div>
     <a-card class="card" title="Thông tin khách hàng" :bordered="false">
       <a-form :form="formCustomer" class="form" @submit="handleSubmit">
-        <a-form-item hidden>
-          <a-input v-decorator="['id']" />
-        </a-form-item>
         <a-row :gutter="16">
           <a-col :lg="10" :md="10" :sm="24">
             <a-form-item label="Họ và tên">
@@ -148,16 +145,9 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { ICustomer } from '@/src/models/response/customerResponse'
 import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
-import { Context } from '@nuxt/types'
 @Component({
   layout: 'menu',
-  name: 'customerManagement',
-  async asyncData (context:Context) {
-    const customer = await context.$axios.$get('/Customer/get-customer/' + context.route.params.id)
-    return {
-      customer
-    }
-  }
+  name: 'customerManagement'
 })
 export default class Customer extends Vue {
     private formCustomer!: WrappedFormUtils
@@ -180,11 +170,9 @@ export default class Customer extends Vue {
 
     created () {
       this.formCustomer = this.$form.createForm(this)
-      this.setFieldFrom()
     }
 
     setFieldFrom () {
-      this.formCustomer.getFieldDecorator('id', { initialValue: undefined })
       this.formCustomer.getFieldDecorator('name', { initialValue: '' })
       this.formCustomer.getFieldDecorator('email', { initialValue: '' })
       this.formCustomer.getFieldDecorator('gender', { initialValue: '' })
@@ -197,39 +185,18 @@ export default class Customer extends Vue {
       this.formCustomer.getFieldDecorator('purpose', { initialValue: '' })
       this.formCustomer.getFieldDecorator('taxCode', { initialValue: '' })
       this.formCustomer.getFieldDecorator('phoneNumber', { initialValue: '' })
-      this.formCustomer.setFields({
-        id: { value: this.customer.id },
-        name: { value: this.customer.name },
-        phoneNumber: { value: this.customer.phoneNumber },
-        email: { value: this.customer.email },
-        gender: { value: this.customer.gender + '' },
-        ward: { value: this.customer.ward },
-        address: { value: this.customer.address },
-        customerGroupId: { value: this.customer.customerGroupId + '' },
-        district: { value: this.customer.district },
-        city: { value: this.customer.city },
-        identificationCardID: { value: this.customer.identificationCardID },
-        purpose: { value: this.customer.purpose },
-        taxCode: { value: this.customer.taxCode }
-      })
     }
 
     handleSubmit (e: any) {
       e.preventDefault()
       this.formCustomer.validateFields((err: any, values: any) => {
         if (!err) {
-          if (values.id === undefined) {
-            this.openNotification(false)
-          } else {
-            this.$axios.$put('/Customer/update-customer/' + this.$route.params.id, values).then(async (response) => {
-              this.openNotification(response)
-              if (response) {
-                this.customer = await this.$axios.$get('/Customer/get-customer/' + this.$route.params.id)
-              }
-            }).catch(() => this.openNotification(false))
-          }
+          this.$axios.$post('/Customer/create-customer', values).then((response) => {
+            this.openNotification(response)
+          }).catch(() => this.openNotification(false))
         }
-      })
+      }
+      )
     }
 }
 </script>

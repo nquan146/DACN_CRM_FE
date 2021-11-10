@@ -3,6 +3,9 @@
     <a-divider orientation="left">
       Danh sách khách hàng
     </a-divider>
+    <div class="buttonback">
+      <a :href="'/addcustomer/'"><a-button> <a-icon type="plus" />Thêm khách hàng </a-button></a>
+    </div>
     <a-table
       :columns="columns"
       :row-key="(record) => record.id"
@@ -93,5 +96,12 @@ export default class About extends Vue {
       }
     }
   }
+}
+.buttonback{
+  display: flex;
+  justify-content: right;
+  align-items: right;
+  text-align: center;
+  margin-bottom: 10px;
 }
 </style>
