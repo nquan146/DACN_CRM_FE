@@ -55,6 +55,7 @@ export default {
         baseURL: 'https://localhost:44348' // Used as fallback if no runtime config is provided
     },
 
+
     // auth: {
     //   redirect: {
     //     login: '/login',
