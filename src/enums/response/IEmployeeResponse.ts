@@ -10,7 +10,8 @@ export interface IEmployeeResponse{
     address: String,
     password: String,
     ward: String,
+    userID: number,
     permissionID: number,
     active: boolean,
-    permission_Name: number
+    permission_Name: String,
 }

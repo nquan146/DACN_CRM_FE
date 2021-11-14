@@ -137,11 +137,11 @@
                 @change="handleSelectChangeAdd"
               >
                 <a-select-option
-                  v-for="type in typeDocuments"
-                  :key="type.type"
-                  :value="type.type"
+                  v-for="position in positioned"
+                  :key="position.name"
+                  :value="position.name"
                 >
-                  {{ type.type }}
+                  {{ position.name }}
                 </a-select-option>
               </a-select>
             </a-form-item>
@@ -155,11 +155,6 @@
                       {
                         required: true,
                         message: 'Nhập Địa Chỉ',
-                      },
-                      {
-                        pattern:
-                          /^[A-Z a-z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ]?[0-9]{1,50}$/,
-                        message: 'Chỉ nhập ký tự',
                       },
                     ],
                   },
@@ -180,14 +175,14 @@
                   },
                 ]"
                 placeholder="Chọn Tỉnh/Thành"
-                @change="handleSelectChangeAdd"
+                @change="handleSelectCities"
               >
                 <a-select-option
-                  v-for="type in typeDocuments"
-                  :key="type.type"
-                  :value="type.type"
+                  v-for="city in cities"
+                  :key="city.name"
+                  :value="city.name"
                 >
-                  {{ type.type }}
+                  {{ city.name }}
                 </a-select-option>
               </a-select>
             </a-form-item>
@@ -205,14 +200,14 @@
                   },
                 ]"
                 placeholder="Chọn Quận/Huyện"
-                @change="handleSelectChangeAdd"
+                @change="handleSelectDistricts"
               >
                 <a-select-option
-                  v-for="type in typeDocuments"
-                  :key="type.type"
-                  :value="type.type"
+                  v-for="district in districts"
+                  :key="district.name"
+                  :value="district.name"
                 >
-                  {{ type.type }}
+                  {{ district.name }}
                 </a-select-option>
               </a-select>
             </a-form-item>
@@ -233,11 +228,11 @@
                 @change="handleSelectChangeAdd"
               >
                 <a-select-option
-                  v-for="type in typeDocuments"
-                  :key="type.type"
-                  :value="type.type"
+                  v-for="ward in wards"
+                  :key="ward.name"
+                  :value="ward.name"
                 >
-                  {{ type.type }}
+                  {{ ward.name }}
                 </a-select-option>
               </a-select>
             </a-form-item>
@@ -267,17 +262,13 @@
             @cancel="handleCancel"
           >
             <template slot="footer">
-              <a-button
-                type="primary"
-                @click="handleOk"
-              >
-                Đóng
-              </a-button>
+              <a-button type="primary" @click="handleOk"> Đóng </a-button>
             </template>
             <a-table
               :columns="columnsFeedBack"
               :data-source="dataFeedBack"
               bordered
+              :rowKey="(data) => data.id"
             >
               <span slot="employeenames" slot-scope="employeenames">
                 <a-tag color="geekblue">
@@ -445,11 +436,11 @@
                     @change="handleSelectChangeAdd"
                   >
                     <a-select-option
-                      v-for="type in typeDocuments"
-                      :key="type.type"
-                      :value="type.type"
+                      v-for="position in positioned"
+                      :key="position.name"
+                      :value="position.name"
                     >
-                      {{ type.type }}
+                      {{ position.name }}
                     </a-select-option>
                   </a-select>
                 </a-form-item>
@@ -462,11 +453,6 @@
                         rules: [
                           {
                             required: true,
-                            message: 'Nhập Địa Chỉ',
-                          },
-                          {
-                            pattern:
-                              /^[A-Z a-z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ]?[0-9]{1,50}$/,
                             message: 'Nhập Địa Chỉ',
                           },
                         ],
@@ -488,14 +474,14 @@
                       },
                     ]"
                     placeholder="Chọn Tỉnh/Thành"
-                    @change="handleSelectChangeAdd"
+                    @change="handleSelectCities"
                   >
                     <a-select-option
-                      v-for="type in typeDocuments"
-                      :key="type.type"
-                      :value="type.type"
+                      v-for="city in cities"
+                      :key="city.name"
+                      :value="city.name"
                     >
-                      {{ type.type }}
+                      {{ city.name }}
                     </a-select-option>
                   </a-select>
                 </a-form-item>
@@ -513,14 +499,14 @@
                       },
                     ]"
                     placeholder="Chọn Quận/Huyện"
-                    @change="handleSelectChangeAdd"
+                    @change="handleSelectDistricts"
                   >
                     <a-select-option
-                      v-for="type in typeDocuments"
-                      :key="type.type"
-                      :value="type.type"
+                      v-for="district in districts"
+                      :key="district.name"
+                      :value="district.name"
                     >
-                      {{ type.type }}
+                      {{ district.name }}
                     </a-select-option>
                   </a-select>
                 </a-form-item>
@@ -541,11 +527,11 @@
                     @change="handleSelectChangeAdd"
                   >
                     <a-select-option
-                      v-for="type in typeDocuments"
-                      :key="type.type"
-                      :value="type.type"
+                      v-for="ward in wards"
+                      :key="ward.name"
+                      :value="ward.name"
                     >
-                      {{ type.type }}
+                      {{ ward.name }}
                     </a-select-option>
                   </a-select>
                 </a-form-item>
@@ -572,11 +558,13 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 import { IEmployeeResponse } from "~/src/enums/response/IEmployeeResponse";
 import { IEmployeeSearchResponse } from "~/src/enums/response/IEmployeeSearchResponse";
 import { IEmployeeIdResponse } from "~/src/enums/response/IEmployeeIdResponse";
-import { IDocumentFilterResponse } from "~/src/enums/response/IDocumentFilterResponse";
+import { IDisctrictsResponse } from "~/src/enums/response/IDisctrictsResponse";
 import { WrappedFormUtils } from "ant-design-vue/types/form/form";
+import { IPositionsResponse } from "~/src/enums/response/IPositionsResponse";
+import { IWardsResponse } from "~/src/enums/response/IWardsResponse";
+import { IFeedBacksResponse } from "~/src/enums/response/IFeedBacksResponse";
+import {IFeedBackIdResponse} from "~/src/enums/response/IFeedBackIdResponse";
 import moment from "moment";
-import { IReceiverResponse } from "~/src/enums/response/IReceiverResponse";
-import { IDataDocumentResponse } from "~/src/enums/response/IDataDocumentResponse";
 // import MenuItem from 'ant-design-vue/types/menu/menu-item'
 @Component({
   layout: "menu",
@@ -585,28 +573,34 @@ import { IDataDocumentResponse } from "~/src/enums/response/IDataDocumentRespons
     this.dataSource = await this.$axios.$get("Employee/GetEmployees");
   },
 })
-export default class overviewProfile extends Vue {
+export default class Employee extends Vue {
   private isDownloading: boolean = false;
   private isSubmit: boolean = false;
   private visibleAdd: boolean = false;
   private visibleFeedBack: boolean = false;
   private visible2: boolean = false;
-  private startValue: any = null;
-  private endValue: any = null;
-  private endOpen: any = false;
   private $message: any;
+  private cities: Array<String> = [];
+  private districts: Array<String> = [];
+  private warded: IWardsResponse = {
+    citied: "",
+    districted: "",
+  };
+  private wards: Array<String> = [];
+  private districted: IDisctrictsResponse = {
+    name: "",
+  };
   private employeeInfo: any;
   private formEdit!: WrappedFormUtils;
-  private formFilter!: WrappedFormUtils;
   private formAdd!: WrappedFormUtils;
-  private receivers: Array<String> = [];
-  private typeDocuments: Array<String> = [];
-  private studentNames: Array<String> = [];
-  private studentId: number = 0;
-  private fileData: File = {};
-  private fileList: any[];
+  private employeeId: number = 0;
+  private cityname: String = "";
+  private positioned: Array<IPositionsResponse> = [];
   private confirmLoading: boolean = false;
   private disabled: boolean = true;
+  private feedBackValue:IFeedBackIdResponse = {
+    id:0
+  }
   private delete: IEmployeeIdResponse = {
     id: 0,
   };
@@ -687,31 +681,31 @@ export default class overviewProfile extends Vue {
     },
     {
       title: "Tên Nhân Viên",
-      dataIndex: "employeename",
-      key: "employeename",
+      dataIndex: "employeeName",
+      key: "employeeName",
       align: "center",
       scopedSlots: { customRender: "employeenames" },
       sorter: (a: any, b: any) => a.name.length - b.name.length,
     },
     {
       title: "Tên Khách Hàng",
-      dataIndex: "customername",
-      key: "customername",
+      dataIndex: "customerName",
+      key: "customerName",
       align: "center",
       scopedSlots: { customRender: "customernames" },
       sorter: (a: any, b: any) => a.name.length - b.name.length,
     },
     {
       title: "Tiêu đề",
-      dataIndex: "tilte",
-      key: "tilte",
+      dataIndex: "title",
+      key: "title",
       align: "center",
       sorter: (a: any, b: any) => a.receivedDate.length - b.receivedDate.length,
     },
     {
       title: "Ngày Gửi",
-      dataIndex: "receivedDate",
-      key: "receivedDate",
+      dataIndex: "recievedDate",
+      key: "recievedDate",
       align: "center",
       sorter: (a: any, b: any) => a.studentName.length - b.studentName.length,
     },
@@ -723,31 +717,12 @@ export default class overviewProfile extends Vue {
       sorter: (a: any, b: any) => a.studentName.length - b.studentName.length,
     },
   ];
-  private dataFeedBack: Array<any> = [
-    {
-      id: "1",
-      tilte: "Đánh giá nhân viên",
-      employeename: "Phạm Minh Đức",
-      customername: "Nguyễn Hoàng Quân",
-      receivedDate: '09/11/2021',
-      content: "Thái độ làm việc chuyên nghiệp,thân thiện hòa đồng",
-    },
-    {
-      id: "2",
-      employeename: "Nguyễn Hoàng Quân",
-      tilte: "Đánh giá nhân viên",
-      customername: "Phạm Minh Đức",
-      receivedDate: '20/11/2021',
-      content: "nói chuyện vui vẻ,thân thiện hòa đồng",
-    },
-  ];
+  private dataFeedBack: Array<IFeedBacksResponse> = [];
   async created() {
-    this.formFilter = this.$form.createForm(this);
     this.formEdit = this.$form.createForm(this);
     this.formAdd = this.$form.createForm(this);
-    // this.receivers = await this.$axios.$get("/Document/Receiver");
-    // this.typeDocuments = await this.$axios.$get("/Document/Type");
-    // this.studentNames = await this.$axios.$get("/Document/StudentName");
+    this.cities = await this.$axios.$get("/Employee/GetCity");
+    this.positioned = await this.$axios.$get("/Employee/GetPositions");
   }
 
   async onSearch(values: string) {
@@ -762,20 +737,31 @@ export default class overviewProfile extends Vue {
         console.log(error);
       });
   }
-  showModalFeedBack() {
+  showModalFeedBack(key: number) {
     this.visibleFeedBack = true;
+    this.feedBackValue.id = key;
+    this.$axios
+      .$post("/Employee/GetFeedBackEmployee",this.feedBackValue)
+      .then((response) => {
+        this.dataFeedBack = response;
+      })
+      .catch((error) => {
+        this.visibleFeedBack = false;
+        this.isSubmit = false;
+        this.openNotificationWithEror(error);
+      });
   }
   showAdd() {
     this.isSubmit = false;
     this.visibleAdd = true;
     this.formAdd.resetFields();
-    this.fileList = [];
   }
   showEdit(key: number) {
     this.isSubmit = false;
     this.visible2 = true;
     this.formEdit.resetFields();
     this.employeeInfo = this.dataSource.find((x) => x.id == key);
+    this.employeeId = this.employeeInfo.id;
     this.formEdit.getFieldDecorator("username", { initialValue: "" });
     this.formEdit.getFieldDecorator("password", { initialValue: "" });
     this.formEdit.getFieldDecorator("name", { initialValue: "" });
@@ -817,28 +803,6 @@ export default class overviewProfile extends Vue {
       department: { value: this.employeeInfo.department },
     });
   }
-  showFilter() {
-    this.visibleFilter = true;
-    this.formFilter.resetFields();
-  }
-  //   handleFilter(e: any) {
-  //     e.preventDefault();
-  //     this.formFilter.validateFields(
-  //       (err: any, values: IDocumentFilterResponse) => {
-  //         if (!err) {
-  //           this.$axios
-  //             .$post("/Document/Filter", values)
-  //             .then((response) => {
-  //               this.dataSource = response;
-  //             })
-  //             .catch((error) => {
-  //               console.log(error);
-  //             });
-  //         }
-  //         this.visibleFilter = false;
-  //       }
-  //     );
-  //   }
   handleCancel(e: any) {
     console.log(e);
     this.visibleAdd = false;
@@ -854,74 +818,42 @@ export default class overviewProfile extends Vue {
       this.confirmLoading = false;
     }, 200);
   }
-  //   handleSubmitAdd(e: any) {
-  //     var a: any;
-  //     e.preventDefault();
-  //     this.formAdd.validateFields((err: any, values: IDataDocumentResponse) => {
-  //       if (!err) {
-  //         this.isSubmit = true;
-  //         const formData = new FormData();
-  //         formData.append("name", values.name);
-  //         formData.append("fileProfile", this.fileData);
-  //         formData.append("submitter", values.submitter);
-  //         formData.append("receiver", values.receiver);
-  //         var reDate = new Date(values.receivedDate).toUTCString();
-  //         formData.append("receivedDate", reDate);
-  //         formData.append("note", values.note);
-  //         formData.append("type", values.type);
-  //         formData.append("studentName", values.studentName);
-  //         var stdId = values.studentId + "";
-  //         formData.append("studentId", stdId);
-  //         this.$axios
-  //           .$post("/Document/AddDocument", formData, {
-  //             headers: {
-  //               "Content-Type": "multipart/form-data",
-  //             },
-  //           })
-  //           .then(async (response) => {
-  //             this.visibleAdd = false;
-  //             this.isSubmit = false;
-  //             this.openNotificationWithSuccess("Thêm thông tin hồ sơ thành công");
-  //             this.dataSource = await this.$axios.$get("/Document/getall");
-  //           })
-  //           .catch((error) => {
-  //             this.visibleAdd = false;
-  //             this.isSubmit = false;
-  //             this.openNotificationWithEror(error);
-  //           });
-  //       }
-  //     });
-  //   }
+  handleSubmitAdd(e: any) {
+    e.preventDefault();
+    this.formAdd.validateFields((err: any, values: IEmployeeResponse) => {
+      if (!err) {
+        this.isSubmit = true;
+        this.$axios
+          .$post("/Employee/CreateEmployee", values)
+          .then(async (response) => {
+            this.visibleAdd = false;
+            this.isSubmit = false;
+            this.openNotificationWithSuccess("Thêm nhân viên thành công");
+            this.dataSource = response;
+          })
+          .catch((error) => {
+            this.visibleAdd = false;
+            this.isSubmit = false;
+            this.openNotificationWithEror(error);
+          });
+      }
+    });
+  }
 
   handleSubmitEdit(e: any) {
     e.preventDefault();
-    this.formEdit.validateFields((err: any, values: IDataDocumentResponse) => {
+    this.formEdit.validateFields((err: any, values: IEmployeeResponse) => {
       if (!err) {
         this.isSubmit = true;
-        const formData = new FormData();
-        var valueId = values.id + "";
-        formData.append("id", valueId);
-        formData.append("name", values.name);
-        formData.append("fileProfile", this.fileData);
-        formData.append("submitter", values.submitter);
-        formData.append("receiver", values.receiver);
-        var reDate = new Date(values.receivedDate).toUTCString();
-        formData.append("receivedDate", reDate);
-        formData.append("note", values.note);
-        formData.append("type", values.type);
-        formData.append("studentName", values.studentName);
-        var stdId = values.studentId + "";
-        formData.append("studentId", stdId);
+        values.id = this.employeeId;
         this.$axios
-          .$post("/Document/Edit", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
+          .$post("/Employee/UpdateEmployee", values)
           .then((response) => {
             this.visible2 = false;
             this.isSubmit = false;
-            this.openNotificationWithSuccess("Cập nhập thông tin thành công");
+            this.openNotificationWithSuccess(
+              "Cập nhập thông tin nhân viên thành công"
+            );
             this.dataSource = response;
           })
           .catch((error) => {
@@ -932,10 +864,6 @@ export default class overviewProfile extends Vue {
       }
     });
   }
-  handleSelectChangeFilter(value: any) {
-    console.log(value);
-    this.formFilter.setFieldsValue({ value: value });
-  }
   handleSelectChangeEdit(value: any) {
     console.log(value);
     this.formEdit.setFieldsValue({ value: value });
@@ -944,29 +872,27 @@ export default class overviewProfile extends Vue {
     console.log(value);
     this.formAdd.setFieldsValue({ value: value });
   }
-  handleSelectChangeStudentName(value: any) {
-    console.log(value);
-    this.studentId = value;
-    this.formAdd.setFieldsValue({ value: value });
+  handleSelectCities(value: any) {
+    this.formEdit.setFieldsValue({ value: value });
+    this.cityname = value;
+    this.districted.name = value;
+    this.$axios
+      .$post("/Employee/GetDistricts", this.districted)
+      .then((response) => {
+        this.districts = response;
+      })
+      .catch((error) => {});
   }
-  normFile(e: any) {
-    let fileList = [...e.fileList];
-    // 1. Limit the number of uploaded files
-    //    Only to show two recent uploaded files, and old ones will be replaced by the new
-    fileList = fileList.slice(-1);
-
-    // 2. read from response and show file link
-    fileList = fileList.map((file) => {
-      if (file.response) {
-        // Component will show file.url as link
-        file.url = file.response.url;
-      }
-      return file;
-    });
-    this.fileList = fileList;
-    if (e.file.status === "done") {
-      this.fileData = e.file.originFileObj;
-    }
+  handleSelectDistricts(value: any) {
+    this.formEdit.setFieldsValue({ value: value });
+    this.warded.citied = this.cityname;
+    this.warded.districted = value;
+    this.$axios
+      .$post("/Employee/GetWards", this.warded)
+      .then((response) => {
+        this.wards = response;
+      })
+      .catch((error) => {});
   }
   onDelete(key: number) {
     this.delete.id = key;
@@ -978,29 +904,6 @@ export default class overviewProfile extends Vue {
       .catch((error) => {
         console.log(error);
       });
-  }
-
-  disabledStartDate(startValue: any) {
-    const endValue = this.endValue;
-    if (!startValue || !endValue) {
-      return false;
-    }
-    return startValue.valueOf() > endValue.valueOf();
-  }
-  disabledEndDate(endValue: any) {
-    const startValue = this.startValue;
-    if (!endValue || !startValue) {
-      return false;
-    }
-    return startValue.valueOf() >= endValue.valueOf();
-  }
-  handleStartOpenChange(open: any) {
-    if (!open) {
-      this.endOpen = true;
-    }
-  }
-  handleEndOpenChange(open: any) {
-    this.endOpen = open;
   }
   private openNotificationWithSuccess(description: string) {
     this.$notification["success"]({
