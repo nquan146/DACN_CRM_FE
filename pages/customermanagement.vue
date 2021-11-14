@@ -13,23 +13,78 @@
       :pagination="{ pageSize: 15 }"
       :loading="loading"
       bordered
-      @change="onChange"
     >
+      <span slot="serial" slot-scope="text, record, index">
+        {{ index + 1 }}
+      </span>
       <template slot="gender" slot-scope="text, record">
         <span v-if="record.gender === 1"> Nam </span>
         <span v-else> Nữ </span>
       </template>
       <span slot="action" slot-scope="text, record">
-        <a :href="'/customerinfor/' + record.id"> <a-icon type="eye" style="font-size: 20px" /> </a>
-        <a-divider type="vertical" />
-        <a-popconfirm
-          v-if="dataCustomers.length"
-          title="Chắc chắn muốn xóa?"
-          @confirm="() => onDeleteCustomer(record.id)"
-        >
-          <a href="#"><a-icon type="delete" style="font-size: 20px" /></a>
-        </a-popconfirm>
+        <div style="justify-content: center; display: flex; flex-wrap: wrap; align-items: center">
+          <a :href="'/customerinfor/' + record.id"> <a-icon type="eye" style="font-size: 20px" /> </a>
+          <a-divider type="vertical" />
+          <a-popconfirm
+            v-if="dataCustomers.length"
+            title="Chắc chắn muốn xóa?"
+            @confirm="() => onDeleteCustomer(record.id)"
+          >
+            <a href="#"><a-icon type="delete" style="font-size: 20px" /></a>
+          </a-popconfirm>
+        </div>
       </span>
+      <div
+        slot="filterDropdown"
+        slot-scope="{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }"
+        style="padding: 8px"
+      >
+        <a-input
+          v-ant-ref="c => (searchInput = c)"
+          :placeholder="`Search ${column.dataIndex}`"
+          :value="selectedKeys[0]"
+          style="width: 188px; margin-bottom: 8px; display: block;"
+          @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
+          @pressEnter="() => handleSearch(selectedKeys, confirm, column.dataIndex)"
+        />
+        <a-button
+          type="primary"
+          icon="search"
+          size="small"
+          style="width: 90px; margin-right: 8px"
+          @click="() => handleSearch(selectedKeys, confirm, column.dataIndex)"
+        >
+          Tìm kiếm
+        </a-button>
+        <a-button size="small" style="width: 90px" @click="() => handleReset(clearFilters)">
+          Đặt lại
+        </a-button>
+      </div>
+      <a-icon
+        slot="filterIcon"
+        slot-scope="filtered"
+        type="search"
+        :style="{ color: filtered ? '#108ee9' : undefined }"
+      />
+      <template slot="customRender" slot-scope="text, record, index, column">
+        <span v-if="searchText && searchedColumn === column.dataIndex">
+          <template
+            v-for="(fragment, i) in text
+              .toString()
+              .split(new RegExp(`(?<=${searchText})|(?=${searchText})`, 'i'))"
+          >
+            <mark
+              v-if="fragment.toLowerCase() === searchText.toLowerCase()"
+              :key="i"
+              class="highlight"
+            >{{ fragment }}</mark>
+            <template v-else>{{ fragment }}</template>
+          </template>
+        </span>
+        <template v-else>
+          {{ text }}
+        </template>
+      </template>
     </a-table>
   </section>
 </template>
@@ -47,21 +102,50 @@ import { Context } from '@nuxt/types'
     }
   }
 })
-export default class About extends Vue {
+export default class CustomerManagement extends Vue {
     $notification: any
     private loading:boolean = false
     private dataCustomers: Array<ICustomer>=[]
+    searchText:string = ''
+    searchInput:any = null
+    searchedColumn:string = ''
     private columns = [
+      {
+        title: 'STT',
+        scopedSlots: { customRender: 'serial' }
+      },
       {
         title: 'Tên khách hàng',
         dataIndex: 'name',
         sorter: (a:any, b:any) => a.name.length - b.name.length,
-        sortDirections: ['ascend']
+        sortDirections: ['ascend', 'descend'],
+        scopedSlots: {
+          filterDropdown: 'filterDropdown',
+          filterIcon: 'filterIcon',
+          customRender: 'customRender'
+        },
+        onFilter: (value:any, record:any) =>
+          record.name
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
       },
       {
         title: 'Giới tính',
         dataIndex: 'gender',
-        scopedSlots: { customRender: 'gender' }
+        scopedSlots: { customRender: 'gender' },
+        filters: [
+          {
+            text: 'Nam',
+            value: 1
+          },
+          {
+            text: 'Nữ',
+            value: 0
+          }
+        ],
+        filterMultiple: false,
+        onFilter: (value:any, record:any) => record.gender.toString().indexOf(value) === 0
       },
       {
         title: 'Tuổi',
@@ -69,7 +153,17 @@ export default class About extends Vue {
       },
       {
         title: 'Địa chỉ',
-        dataIndex: 'address'
+        dataIndex: 'address',
+        scopedSlots: {
+          filterDropdown: 'filterDropdown',
+          filterIcon: 'filterIcon',
+          customRender: 'customRender'
+        },
+        onFilter: (value:any, record:any) =>
+          record.address
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
       },
       {
         title: 'Nhóm khách hàng',
@@ -88,6 +182,17 @@ export default class About extends Vue {
           this.dataCustomers = this.dataCustomers.filter(item => item.id !== key)
           this.openNotification(response)
         })
+    }
+
+    handleSearch (selectedKeys:any, confirm:any, dataIndex:any) {
+      confirm()
+      this.searchText = selectedKeys[0]
+      this.searchedColumn = dataIndex
+    }
+
+    handleReset (clearFilters:any) {
+      clearFilters()
+      this.searchText = ''
     }
 
     openNotification (result: boolean): void {

@@ -5,6 +5,7 @@
       :trigger="null"
       collapsible
       :class="['sider', null]"
+      breakpoint="sm"
     >
       <div class="logo">
         <img class="logo-img" src="https://picsum.photos/100/100?random=1">
@@ -18,15 +19,29 @@
       >
         <a-menu-item key="index">
           <nuxt-link to="/">
-            <a-icon type="user" />
-            <span>Home</span>
+            <a-icon type="dashboard" />
+            <span>Trang chủ</span>
           </nuxt-link>
         </a-menu-item>
 
-        <a-menu-item key="about">
-          <nuxt-link to="/about">
-            <a-icon type="play-circle" />
-            <span>About</span>
+        <a-menu-item key="listcustomer">
+          <nuxt-link to="/customermanagement">
+            <a-icon type="team" />
+            <span>Khách hàng</span>
+          </nuxt-link>
+        </a-menu-item>
+
+        <a-menu-item key="listemployee">
+          <nuxt-link to="#">
+            <a-icon type="idcard" />
+            <span>Nhân viên</span>
+          </nuxt-link>
+        </a-menu-item>
+
+        <a-menu-item key="listservice">
+          <nuxt-link to="/servicemanagement">
+            <a-icon type="global" />
+            <span>Dịch vụ</span>
           </nuxt-link>
         </a-menu-item>
 
@@ -71,7 +86,7 @@
           :type="collapsed ? 'menu-unfold' : 'menu-fold'"
           @click="() => (collapsed = !collapsed)"
         />
-        <a class="user-wrapper" href="#" @click.prevent="logout">Logout</a>
+        <a class="user-wrapper" href="#" @click.prevent="logout">Đăng xuất</a>
       </a-layout-header>
 
       <a-layout-content
@@ -80,7 +95,7 @@
         <nuxt />
       </a-layout-content>
       <a-layout-footer style="text-align: center">
-        VJP©2021
+        Nhóm 10 ©2021
       </a-layout-footer>
     </a-layout>
   </a-layout>
@@ -112,6 +127,16 @@ export default class MenuLayout extends Vue {
 }
 </script>
 <style scoped>
+#components-layout-custom-trigger .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+#components-layout-custom-trigger .trigger:hover {
+  color: #1890ff;
+}
 .logo-img {
   width: 32px;
   height: 32px;

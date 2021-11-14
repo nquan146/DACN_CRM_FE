@@ -1,176 +1,200 @@
 <template>
-  <div>
+  <a-card class="card" title="Thông tin khách hàng" :bordered="false">
     <div class="buttonback">
       <a :href="'/customermanagement/'"><a-button> <a-icon type="left" />Trở lại danh sách </a-button></a>
     </div>
-    <a-card class="card" title="Thông tin khách hàng" :bordered="false">
-      <a-form :form="formCustomer" class="form" @submit="handleSubmit">
-        <a-form-item hidden>
-          <a-input v-decorator="['id']" />
-        </a-form-item>
-        <a-row :gutter="16">
-          <a-col :lg="10" :md="10" :sm="24">
-            <a-form-item label="Họ và tên">
-              <a-input
-                v-decorator="[
-                  'name',
-                  {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
-                ]"
-              />
-            </a-form-item>
-            <a-form-item label="Tuổi">
-              <a-input
-                v-decorator="[
-                  'age',
-                  {rules: []}
-                ]"
-              />
-            </a-form-item>
-            <a-form-item label="Căn cước công dân">
-              <a-input
-                v-decorator="[
-                  'identificationCardID',
-                  {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
-                ]"
-              />
-            </a-form-item>
-            <a-form-item
-              label="Email"
-            >
-              <a-input
-                v-decorator="[
-                  'email',
-                  {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
-                ]"
-                addon-before="https://"
-              />
-            </a-form-item>
-            <a-form-item
-              label="Giới tính"
-            >
-              <a-select v-decorator="[ 'gender', {rules: [{ required: true, message: 'Trường này là bắt buộc'}]} ]">
-                <a-select-option value="1">
-                  Nam
-                </a-select-option>
-                <a-select-option value="0">
-                  Nữ
-                </a-select-option>
-              </a-select>
-            </a-form-item>
-            <a-form-item
-              label="Số điện thoại"
-            >
-              <a-input
-                v-decorator="[
-                  'phoneNumber',
-                  {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
-                ]"
-              />
-            </a-form-item>
-            <a-form-item
-              label="Mục đích sử dụng"
-            >
-              <a-input
-                v-decorator="[
-                  'purpose',
-                  {rules: []}
-                ]"
-              />
-            </a-form-item>
-          </a-col>
-          <a-col :xl="{span: 10, offset: 3}" :lg="{span: 10}" :md="{span: 10}" :sm="24">
-            <a-form-item
-              label="Nhóm người dùng"
-            >
-              <a-select v-decorator="[ 'customerGroupId', {rules: [{ required: true, message: 'Trường này là bắt buộc'}]} ]">
-                <a-select-option value="1">
-                  Cá nhân
-                </a-select-option>
-                <a-select-option value="2">
-                  Doanh nghiệp
-                </a-select-option>
-              </a-select>
-            </a-form-item>
-            <a-form-item
-              label="Địa chỉ"
-            >
-              <a-input
-                v-decorator="[
-                  'address',
-                  {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
-                ]"
-              />
-            </a-form-item>
-            <a-form-item
-              label="Phường"
-            >
-              <a-input
-                v-decorator="[
-                  'ward',
-                  {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
-                ]"
-              />
-            </a-form-item>
-            <a-form-item
-              label="Quận"
-            >
-              <a-input
-                v-decorator="[
-                  'district',
-                  {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
-                ]"
-              />
-            </a-form-item>
-            <a-form-item
-              label="Thành phố"
-            >
-              <a-input
-                v-decorator="[
-                  'city',
-                  {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
-                ]"
-              />
-            </a-form-item>
-            <a-form-item
-              label="Mã số thuế"
-            >
-              <a-input
-                v-decorator="[
-                  'taxCode',
-                  {rules: []}
-                ]"
-              />
-            </a-form-item>
-          </a-col>
-        </a-row>
-        <div class="buttonfunc">
-          <a-button type="primary" html-type="submit" size="large">
-            Lưu
-          </a-button>
-        </div>
-      </a-form>
-    </a-card>
-  </div>
+    <a-tabs
+      :active-key="tabActive"
+      :tab-bar-style="{ textAlign: 'left', borderBottom: 'unset' }"
+      @change="changeTab"
+    >
+      <a-tab-pane key="tab1" :tab="'Thông tin'">
+        <a-form :form="formCustomer" class="form" @submit="handleSubmit">
+          <a-form-item hidden>
+            <a-input v-decorator="['id']" />
+          </a-form-item>
+          <a-row :gutter="16">
+            <a-col :lg="10" :md="10" :sm="24">
+              <a-form-item label="Họ và tên">
+                <a-input
+                  v-decorator="[
+                    'name',
+                    {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
+                  ]"
+                />
+              </a-form-item>
+              <a-form-item label="Tuổi">
+                <a-input
+                  v-decorator="[
+                    'age',
+                    {rules: []}
+                  ]"
+                />
+              </a-form-item>
+              <a-form-item label="Căn cước công dân">
+                <a-input
+                  v-decorator="[
+                    'identificationCardID',
+                    {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
+                  ]"
+                />
+              </a-form-item>
+              <a-form-item
+                label="Email"
+              >
+                <a-input
+                  v-decorator="[
+                    'email',
+                    {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
+                  ]"
+                  addon-before="https://"
+                />
+              </a-form-item>
+              <a-form-item
+                label="Giới tính"
+              >
+                <a-select v-decorator="[ 'gender', {rules: [{ required: true, message: 'Trường này là bắt buộc'}]} ]">
+                  <a-select-option value="1">
+                    Nam
+                  </a-select-option>
+                  <a-select-option value="0">
+                    Nữ
+                  </a-select-option>
+                </a-select>
+              </a-form-item>
+              <a-form-item
+                label="Số điện thoại"
+              >
+                <a-input
+                  v-decorator="[
+                    'phoneNumber',
+                    {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
+                  ]"
+                />
+              </a-form-item>
+              <a-form-item
+                label="Mục đích sử dụng"
+              >
+                <a-input
+                  v-decorator="[
+                    'purpose',
+                    {rules: []}
+                  ]"
+                />
+              </a-form-item>
+            </a-col>
+            <a-col :xl="{span: 10, offset: 3}" :lg="{span: 10}" :md="{span: 10}" :sm="24">
+              <a-form-item
+                label="Nhóm người dùng"
+              >
+                <a-select v-decorator="[ 'customerGroupId', {rules: [{ required: true, message: 'Trường này là bắt buộc'}]} ]">
+                  <a-select-option value="1">
+                    Cá nhân
+                  </a-select-option>
+                  <a-select-option value="2">
+                    Doanh nghiệp
+                  </a-select-option>
+                </a-select>
+              </a-form-item>
+              <a-form-item
+                label="Địa chỉ"
+              >
+                <a-input
+                  v-decorator="[
+                    'address',
+                    {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
+                  ]"
+                />
+              </a-form-item>
+              <a-form-item
+                label="Phường"
+              >
+                <a-input
+                  v-decorator="[
+                    'ward',
+                    {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
+                  ]"
+                />
+              </a-form-item>
+              <a-form-item
+                label="Quận"
+              >
+                <a-input
+                  v-decorator="[
+                    'district',
+                    {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
+                  ]"
+                />
+              </a-form-item>
+              <a-form-item
+                label="Thành phố"
+              >
+                <a-input
+                  v-decorator="[
+                    'city',
+                    {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
+                  ]"
+                />
+              </a-form-item>
+              <a-form-item
+                label="Mã số thuế"
+              >
+                <a-input
+                  v-decorator="[
+                    'taxCode',
+                    {rules: []}
+                  ]"
+                />
+              </a-form-item>
+            </a-col>
+          </a-row>
+          <div class="buttonfunc">
+            <a-button type="primary" html-type="submit" size="large">
+              Lưu
+            </a-button>
+          </div>
+        </a-form>
+      </a-tab-pane>
+      <a-tab-pane key="tab2" :tab="'Hợp đồng'">
+        <Contract :contract.sync="dataContract" />
+      </a-tab-pane>
+      <a-tab-pane key="tab3" :tab="'Lịch sử giao dịch'">
+        <Transaction :transaction.sync="dataTransaction" />
+      </a-tab-pane>
+    </a-tabs>
+  </a-card>
 </template>
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { ICustomer } from '@/src/models/response/customerResponse'
 import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
 import { Context } from '@nuxt/types'
+import Contract from '@/components/contract/contract.vue'
+import Transaction from '@/components/transtaction/transaction.vue'
 @Component({
   layout: 'menu',
-  name: 'customerManagement',
+  components: {
+    Contract,
+    Transaction
+  },
   async asyncData (context:Context) {
     const customer = await context.$axios.$get('/Customer/get-customer/' + context.route.params.id)
+    const dataContract = await context.$axios.$get('/Contract/get-all-contract/' + context.route.params.id)
+    const dataTransaction = await context.$axios.$get('/Transaction/get-all-transaction/' + context.route.params.id)
     return {
-      customer
+      customer,
+      dataContract,
+      dataTransaction
     }
   }
 })
 export default class Customer extends Vue {
     private formCustomer!: WrappedFormUtils
     customer!: ICustomer
+    dataContract:Array<any>=[]
+    dataTransaction:Array<any>=[]
     $notification: any
+    private tabActive: string = 'tab1'
     openNotification (result: boolean): void {
       this.$notification.config({
         duration: 1
@@ -241,6 +265,10 @@ export default class Customer extends Vue {
         }
       })
     }
+
+    private changeTab (key: string) {
+      this.tabActive = key
+    }
 }
 </script>
 
@@ -253,7 +281,6 @@ export default class Customer extends Vue {
   justify-content: left;
   align-items: right;
   text-align: center;
-  margin: 20px 18px 0 0;
 }
 .buttonfunc .ant-btn {
   margin-right: 15px;
@@ -263,5 +290,6 @@ export default class Customer extends Vue {
   justify-content: right;
   align-items: right;
   text-align: center;
+  margin: 0;
 }
 </style>
