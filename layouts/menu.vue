@@ -32,7 +32,7 @@
         </a-menu-item>
 
         <a-menu-item key="listemployee">
-          <nuxt-link to="#">
+          <nuxt-link to="/employee">
             <a-icon type="idcard" />
             <span>Nhân viên</span>
           </nuxt-link>
