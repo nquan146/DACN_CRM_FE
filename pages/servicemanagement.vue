@@ -119,6 +119,7 @@ import ServiceCompany from '@/components/service/servicecompany.vue'
 import ServiceFamily from '@/components/service/servicefamily.vue'
 import { Context } from '@nuxt/types'
 import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
+import { IService } from '~/src/models/response/serviceRespone'
 @Component({
   layout: 'menu',
   components: {
@@ -139,8 +140,8 @@ export default class Service extends Vue {
   private visible: boolean = false
   $notification: any
   private formService!: WrappedFormUtils
-  dataservicefamily: any
-  dataservicecompany: any
+  dataservicefamily: Array<IService> =[]
+  dataservicecompany: Array<IService> =[]
   created () {
     this.formService = this.$form.createForm(this)
   }
@@ -165,11 +166,14 @@ export default class Service extends Vue {
     this.formService.validateFields((err: any, values: any) => {
       if (!err) {
         if (values.id === undefined) {
-          this.$axios.$post('/Service/create-service', values).then((response) => {
+          this.$axios.$post('/Service/create-service', values).then(async (response) => {
             if (response === true) {
               this.openNotification(response)
-              this.dataservicefamily = this.$axios.$get('/Service/get-all-service-by-type/1')
-              this.dataservicecompany = this.$axios.$get('/Service/get-all-service-by-type/2')
+              if (values.type === 1) {
+                this.dataservicefamily = await this.$axios.$get('/Service/get-all-service-by-type/1')
+              } else {
+                this.dataservicecompany = await this.$axios.$get('/Service/get-all-service-by-type/2')
+              }
             } else {
               this.openNotification(response)
             }
