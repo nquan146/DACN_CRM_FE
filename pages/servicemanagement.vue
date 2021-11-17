@@ -16,7 +16,7 @@
           <ServiceFamily :servicefamily.sync="dataservicefamily" />
         </a-tab-pane>
         <a-tab-pane key="tab2" :tab="'Cho hộ doanh nghiệp'">
-          <ServiceCompany :servicecompany="dataservicecompany" />
+          <ServiceCompany :servicecompany.sync="dataservicecompany" />
         </a-tab-pane>
       </a-tabs>
     </section>

@@ -29,7 +29,7 @@
     </a-table>
     <a-modal
       v-model="visible"
-      title="Thông tin hợp đồng"
+      title="Thông tin dịch vụ"
       on-ok="closeModal"
     >
       <template slot="footer">

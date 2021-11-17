@@ -12,7 +12,7 @@
         :tab-bar-style="{ textAlign: 'center', borderBottom: 'unset' }"
         @change="changeTab"
       >
-        <a-tab-pane key="tab1" :tab="'Credentials'">
+        <a-tab-pane key="tab1" :tab="'Đăng nhập'">
           <a-alert
             v-if="isLoginError"
             type="error"
@@ -27,7 +27,7 @@
                 {rules: [{ required: true, message: 'username is required' }], validateTrigger: 'change'}]"
               size="large"
               type="text"
-              :placeholder="'Username'"
+              :placeholder="'Tên đăng nhập'"
             >
               <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input>
@@ -40,54 +40,13 @@
                 {rules: [{ required: true, message: 'Password is require' }], validateTrigger: 'blur'}
               ]"
               size="large"
-              :placeholder="'Password'"
+              :placeholder="'Mật khẩu'"
             >
               <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input-password>
           </a-form-item>
         </a-tab-pane>
-
-        <a-tab-pane key="tab2" :tab="'Mobile number'">
-          <a-form-item>
-            <a-input v-decorator="['mobile', {rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: 'Phone number is require'}], validateTrigger: 'change'}]" size="large" type="text" :placeholder="'Phone number'">
-              <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }" />
-            </a-input>
-          </a-form-item>
-
-          <a-row :gutter="16">
-            <a-col class="gutter-row" :span="16">
-              <a-form-item>
-                <a-input v-decorator="['captcha', {rules: [{ required: true, message: 'verification code is require' }], validateTrigger: 'blur'}]" size="large" type="text" :placeholder="'verification code'">
-                  <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }" />
-                </a-input>
-              </a-form-item>
-            </a-col>
-            <a-col class="gutter-row" :span="8">
-              <a-button
-                class="getCaptcha"
-                tabindex="-1"
-                :disabled="true"
-                @click.stop.prevent="getCaptcha"
-                v-text="'Get Code'"
-              />
-            </a-col>
-          </a-row>
-        </a-tab-pane>
       </a-tabs>
-
-      <a-form-item>
-        <a-checkbox v-decorator="['rememberMe', { valuePropName: 'checked' }]">
-          Remember me
-        </a-checkbox>
-        <router-link
-          :to="{ name: 'recover', params: { user: 'aaa'} }"
-          class="forge-password"
-          style="float: right;"
-        >
-          Forgot your password?
-        </router-link>
-      </a-form-item>
-
       <a-form-item style="margin-top:24px">
         <a-button
           size="large"
@@ -100,20 +59,6 @@
           Login
         </a-button>
       </a-form-item>
-
-      <div class="user-login-other">
-        <span>Sign in with</span>
-        <a>
-          <a-icon class="item-icon" type="facebook" theme="filled" />
-        </a>
-        <a>
-          <a-icon class="item-icon" type="google-circle" theme="filled" />
-        </a>
-        <!-- <nuxt-link class="register" :to="{ name: 'register' }">
-          Sign up
-        </nuxt-link> -->
-        <a href="#">Sign up</a>
-      </div>
     </a-form>
   </div>
 </template>

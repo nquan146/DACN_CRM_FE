@@ -45,6 +45,13 @@
           </nuxt-link>
         </a-menu-item>
 
+        <a-menu-item key="listcomplaint">
+          <nuxt-link to="/complaintmanagement">
+            <a-icon type="frown" />
+            <span>Khiếu nại</span>
+          </nuxt-link>
+        </a-menu-item>
+
         <a-sub-menu key="data">
           <span slot="title"><a-icon type="appstore" /><span>Data</span></span>
 

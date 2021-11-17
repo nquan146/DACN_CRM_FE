@@ -15,7 +15,7 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <div style="justify-content: center; display: flex; flex-wrap: wrap; align-items: center">
-          <a :href="'/customerinfor/' + record.id"> <a-icon type="eye" style="font-size: 20px" /> </a>
+          <a href="#" @click="showEditService(record.id)"> <a-icon type="eye" style="font-size: 20px" /> </a>
           <a-divider type="vertical" />
           <a-popconfirm
             v-if="dataservice.length"
@@ -29,7 +29,7 @@
     </a-table>
     <a-modal
       v-model="visible"
-      title="Thông tin hợp đồng"
+      title="Thông tin dịch vụ"
       on-ok="closeModal"
     >
       <template slot="footer">

@@ -98,35 +98,79 @@
                 ]"
               />
             </a-form-item>
-            <a-form-item
-              label="Phường"
-            >
-              <a-input
-                v-decorator="[
-                  'ward',
-                  {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
-                ]"
-              />
-            </a-form-item>
-            <a-form-item
-              label="Quận"
-            >
-              <a-input
-                v-decorator="[
-                  'district',
-                  {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
-                ]"
-              />
-            </a-form-item>
-            <a-form-item
-              label="Thành phố"
-            >
-              <a-input
+            <a-form-item label="Tỉnh/Thành">
+              <a-select
                 v-decorator="[
                   'city',
-                  {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
+                  {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Chọn Tỉnh/Thành',
+                      },
+                    ],
+                  },
                 ]"
-              />
+                placeholder="Chọn Tỉnh/Thành"
+                @change="handleSelectCities"
+              >
+                <a-select-option
+                  v-for="city in cities"
+                  :key="city.name"
+                  :value="city.name"
+                >
+                  {{ city.name }}
+                </a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item label="Quận/Huyện">
+              <a-select
+                v-decorator="[
+                  'district',
+                  {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Chọn Quận/Huyện',
+                      },
+                    ],
+                  },
+                ]"
+                placeholder="Chọn Quận/Huyện"
+                @change="handleSelectDistricts"
+              >
+                <a-select-option
+                  v-for="district in districts"
+                  :key="district.name"
+                  :value="district.name"
+                >
+                  {{ district.name }}
+                </a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item label="Phường/Xã">
+              <a-select
+                v-decorator="[
+                  'ward',
+                  {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Chọn Phường/Xã',
+                      },
+                    ],
+                  },
+                ]"
+                placeholder="Chọn Phường/Xã"
+              >
+                <a-select-option
+                  v-for="ward in wards"
+                  :key="ward.name"
+                  :value="ward.name"
+                >
+                  {{ ward.name }}
+                </a-select-option>
+              </a-select>
             </a-form-item>
             <a-form-item
               label="Mã số thuế"
@@ -153,6 +197,8 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { ICustomer } from '@/src/models/response/customerResponse'
 import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
+import { IWardsResponse } from '~/src/enums/response/IWardsResponse'
+import { IDisctrictsResponse } from '~/src/enums/response/IDisctrictsResponse'
 @Component({
   layout: 'menu',
   name: 'customerManagement'
@@ -160,6 +206,19 @@ import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
 export default class Customer extends Vue {
     private formCustomer!: WrappedFormUtils
     customer!: ICustomer
+    private cityname: String = ''
+    private cities: Array<String> = [];
+    private districts: Array<String> = [];
+    private warded: IWardsResponse = {
+      citied: '',
+      districted: ''
+    }
+
+    private wards: Array<String> = [];
+    private districted: IDisctrictsResponse = {
+      name: ''
+    }
+
     $notification: any
     openNotification (result: boolean): void {
       this.$notification.config({
@@ -176,8 +235,10 @@ export default class Customer extends Vue {
       }
     }
 
-    created () {
+    async created () {
       this.formCustomer = this.$form.createForm(this)
+      this.cities = await this.$axios.$get('/Employee/GetCity')
+      this.setFieldFrom()
     }
 
     setFieldFrom () {
@@ -211,6 +272,28 @@ export default class Customer extends Vue {
         }
       }
       )
+    }
+
+    handleSelectCities (value: any) {
+      this.cityname = value
+      this.districted.name = value
+      this.$axios
+        .$post('/Employee/GetDistricts', this.districted)
+        .then((response) => {
+          this.districts = response
+        })
+        .catch()
+    }
+
+    handleSelectDistricts (value: any) {
+      this.warded.citied = this.cityname
+      this.warded.districted = value
+      this.$axios
+        .$post('/Employee/GetWards', this.warded)
+        .then((response) => {
+          this.wards = response
+        })
+        .catch()
     }
 }
 </script>

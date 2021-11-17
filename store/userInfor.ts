@@ -1,5 +1,5 @@
 import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
-import { UserRole } from '~/src/enums/UserRole'
+import { UserRole } from '~/src/enums/userRole'
 
 export interface IUserInfor {
   id:number,
