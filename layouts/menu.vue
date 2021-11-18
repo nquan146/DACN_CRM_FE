@@ -51,6 +51,12 @@
             <span>Khiếu nại</span>
           </nuxt-link>
         </a-menu-item>
+        <a-menu-item key="listfeedback">
+          <nuxt-link to="/feedbackmanagement">
+            <a-icon type="smile" />
+            <span>FeedBack</span>
+          </nuxt-link>
+        </a-menu-item>
 
         <a-sub-menu key="data">
           <span slot="title"><a-icon type="appstore" /><span>Data</span></span>
