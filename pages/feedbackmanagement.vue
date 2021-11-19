@@ -1,5 +1,8 @@
 <template>
   <section class="TableList">
+    <a-divider orientation="left">
+      Danh sách phản hồi của khách hàng
+    </a-divider>
     <div class="header-tongquan">
       <a-input-search
         placeholder="Nhập thông tin phản hồi
@@ -8,72 +11,69 @@
         @search="onSearch"
       />
     </div>
-    <a-divider orientation="left">
-      Danh sách phản hồi của khách hàng
-    </a-divider>
     <div>
       <a-tabs default-active-key="1" @change="callback">
         <a-tab-pane key="1" tab="Sản Phẩm">
           <a-table
             :columns="columns"
             :data-source="dataFeedBack2"
-            :rowKey="(data) => data.id"
+            :row-key="(data) => data.id"
             bordered
           >
-          <span slot="customerName" slot-scope="customerName">
-           <a-tag color="geekblue" style="font-size: 14px">
-            {{ customerName }}
-          </a-tag>
-        </span>
-         <span slot="action" slot-scope="text, record">
-          <a-icon
-            type="mail"
-            @click="showEdit(record.id)"
-            style="font-size: 18px"
-          />
-           <a-divider type="vertical" />
-          <a-popconfirm
-            v-if="dataFeedBack2.length"
-            title="Bạn có chắc muốn xóa phản hồi này?"
-            @confirm="() => onDelete(record.id)"
-          >
-            <a-icon type="delete" style="font-size: 18px; cursor: pointer" />
-          </a-popconfirm>
-         </span>
+            <span slot="customerName" slot-scope="customerName">
+              <a-tag color="geekblue" style="font-size: 14px">
+                {{ customerName }}
+              </a-tag>
+            </span>
+            <span slot="action" slot-scope="text, record">
+              <a-icon
+                type="mail"
+                style="font-size: 18px"
+                @click="showEdit(record.id)"
+              />
+              <a-divider type="vertical" />
+              <a-popconfirm
+                v-if="dataFeedBack2.length"
+                title="Bạn có chắc muốn xóa phản hồi này?"
+                @confirm="() => onDelete(record.id)"
+              >
+                <a-icon type="delete" style="font-size: 18px; cursor: pointer" />
+              </a-popconfirm>
+            </span>
           </a-table>
         </a-tab-pane>
         <a-tab-pane key="2" tab="Nhân Viên">
           <a-table
             :columns="column"
             :data-source="dataFeedBack1"
-            :rowKey="(data) => data.id"
+            :row-key="(data) => data.id"
             bordered
           >
-           <span slot="customerName" slot-scope="customerName">
-           <a-tag color="geekblue" style="font-size: 14px">
-            {{ customerName }}
-          </a-tag>
-        </span>
-        <span slot="employeeName" slot-scope="employeeName">
-           <a-tag color="green" style="font-size: 14px">
-            {{ employeeName }}
-          </a-tag>
-        </span>
-         <span slot="action" slot-scope="text, record">
-          <a-icon
-            type="mail"
-            @click="showEdit(record.id)"
-            style="font-size: 18px"
-          />
-           <a-divider type="vertical" />
-          <a-popconfirm
-            v-if="dataFeedBack1.length"
-            title="Bạn có chắc muốn xóa phản hồi này?"
-            @confirm="() => onDelete(record.id)"
-          >
-            <a-icon type="delete" style="font-size: 18px; cursor: pointer" />
-          </a-popconfirm>
-         </span>
+            <span slot="customerName" slot-scope="customerName">
+              <a-tag color="geekblue" style="font-size: 14px">
+                {{ customerName }}
+              </a-tag>
+            </span>
+            <span slot="employeeName" slot-scope="employeeName">
+              <a-tag color="green" style="font-size: 14px">
+                {{ employeeName }}
+              </a-tag>
+            </span>
+            <span slot="action" slot-scope="text, record">
+              <a-icon
+                type="mail"
+                style="font-size: 18px"
+                @click="showEdit(record.id)"
+              />
+              <a-divider type="vertical" />
+              <a-popconfirm
+                v-if="dataFeedBack1.length"
+                title="Bạn có chắc muốn xóa phản hồi này?"
+                @confirm="() => onDelete(record.id)"
+              >
+                <a-icon type="delete" style="font-size: 18px; cursor: pointer" />
+              </a-popconfirm>
+            </span>
           </a-table>
         </a-tab-pane>
       </a-tabs>
@@ -171,14 +171,14 @@ import { Context } from '@nuxt/types'
 import { Vue, Component } from 'vue-property-decorator'
 import { IFeedBackResponse } from '@/src/enums/response/IFeedBackResponse'
 import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
-import {IdFeedBack} from "@/src/enums/response/IdFeedBack"
-import {SearchFeedBack} from "@/src/enums/response/SearchFeedBack"
+import { IdFeedBack } from '@/src/enums/response/IdFeedBack'
+import { SearchFeedBack } from '@/src/enums/response/SearchFeedBack'
 @Component({
   layout: 'menu',
   name: 'complaint',
   async asyncData (context:Context) {
-      const dataFeedBack1 = await context.$axios.$get('/FeedBacks/GetFeedBack1')
-      const dataFeedBack2 = await context.$axios.$get('/FeedBacks/GetFeedBack2')
+    const dataFeedBack1 = await context.$axios.$get('/FeedBacks/GetFeedBack1')
+    const dataFeedBack2 = await context.$axios.$get('/FeedBacks/GetFeedBack2')
     const dataEmployee = await context.$axios.$get('/Employee/GetEmployees')
     return {
       dataFeedBack1,
@@ -194,110 +194,114 @@ export default class Complaint extends Vue {
     private formComplaint!: WrappedFormUtils
     private tabkey:number = 1;
     private searchFeedBack:SearchFeedBack = {
-        value:''
+      value: ''
     }
+
     private deleteFeedBack: IdFeedBack = {
-        id : 0
+      id: 0
     }
+
     $notification: any
 
     private loading:boolean = false
      private column: Array<any> = [
-      {
-        title: 'STT',
-        key:'id',
-        align:'center',
-        dataIndex: 'id',
-      },
-      {
-        title: 'Khách hàng',
-        key:'customerName',
-        align:'center',
-        dataIndex: 'customerName',
-        scopedSlots: { customRender: "customerName" },
-      },
-      {
-        title: 'Nhân viên',
-         key:'employeeName',
-         align:'center',
-        dataIndex: 'employeeName',
-        scopedSlots: { customRender: "employeeName" },
-      },
-      {
-        title: 'Tiêu đề',
-         key:'title',
-         align:'center',
-        dataIndex: 'title'
-      },
-      {
-        title: 'Nội dung',
-         key:'content',
-         align:'center',
-        dataIndex: 'content'
-      },
-      {
-        title: 'Ngày nhận',
-         key:'recievedDate',
-         align:'center',
-        dataIndex: 'recievedDate'
-      },
        {
-      title: "Hành động",
-      key: "action",
-      scopedSlots: { customRender: "action" },
-      align: "center",
-    },
-    ];
+         title: 'STT',
+         key: 'id',
+         align: 'center',
+         dataIndex: 'id'
+       },
+       {
+         title: 'Khách hàng',
+         key: 'customerName',
+         align: 'center',
+         dataIndex: 'customerName',
+         scopedSlots: { customRender: 'customerName' }
+       },
+       {
+         title: 'Nhân viên',
+         key: 'employeeName',
+         align: 'center',
+         dataIndex: 'employeeName',
+         scopedSlots: { customRender: 'employeeName' }
+       },
+       {
+         title: 'Tiêu đề',
+         key: 'title',
+         align: 'center',
+         dataIndex: 'title'
+       },
+       {
+         title: 'Nội dung',
+         key: 'content',
+         align: 'center',
+         dataIndex: 'content'
+       },
+       {
+         title: 'Ngày nhận',
+         key: 'recievedDate',
+         align: 'center',
+         dataIndex: 'recievedDate'
+       },
+       {
+         title: 'Hành động',
+         key: 'action',
+         scopedSlots: { customRender: 'action' },
+         align: 'center'
+       }
+     ];
+
     private columns: Array<any> = [
       {
         title: 'STT',
-        key:'id',
-        align:'center',
-        dataIndex: 'id',
+        key: 'id',
+        align: 'center',
+        dataIndex: 'id'
       },
       {
         title: 'Khách hàng',
-        key:'customerName',
-        align:'center',
+        key: 'customerName',
+        align: 'center',
         dataIndex: 'customerName',
-        scopedSlots: { customRender: "customerName" },
+        scopedSlots: { customRender: 'customerName' }
       },
       {
         title: 'Tiêu đề',
-         key:'title',
-         align:'center',
+        key: 'title',
+        align: 'center',
         dataIndex: 'title'
       },
       {
         title: 'Nội dung',
-         key:'content',
-         align:'center',
+        key: 'content',
+        align: 'center',
         dataIndex: 'content'
       },
       {
         title: 'Ngày nhận',
-         key:'recievedDate',
-         align:'center',
+        key: 'recievedDate',
+        align: 'center',
         dataIndex: 'recievedDate'
       },
-       {
-      title: "Hành động",
-      key: "action",
-      scopedSlots: { customRender: "action" },
-      align: "center",
-    },
+      {
+        title: 'Hành động',
+        key: 'action',
+        scopedSlots: { customRender: 'action' },
+        align: 'center'
+      }
     ];
-     onDelete(key:number) {      
-        this.deleteFeedBack={
-        id:key
-        }
-        this.$axios.$post('/FeedBacks/removefeedback',this.deleteFeedBack).then((response)=>{
-            this.dataFeedBack2=this.dataFeedBack2.filter(item => item.id !== key)
-            this.dataFeedBack1=this.dataFeedBack1.filter(item => item.id !==key)
-            this.openNotification(response);
-         }).catch((error)=>{
-             this.openNotification(error);
-         }) 
+
+    onDelete (key:number) {
+      this.deleteFeedBack = {
+        id: key
+      }
+      this.$axios.$post('/FeedBacks/removefeedback', this.deleteFeedBack).then((response) => {
+        this.dataFeedBack2 = this.dataFeedBack2.filter(item => item.id !== key)
+        this.dataFeedBack1 = this.dataFeedBack1.filter(item => item.id !== key)
+        this.openNotification(response)
+      }).catch((error) => {
+        this.openNotification(error)
+      })
     }
 
     openNotification (result: boolean): void {
@@ -332,19 +336,19 @@ export default class Complaint extends Vue {
     handleCancel () {
       this.visible = false
     }
-  //  onDelete(key:number) {      
-  //       this.deletestudent={
-  //       id:key
-  //       }
-  //       this.$axios.$post('/Student/remove-student',this.deletestudent).then((response)=>{response = true
-  //           this.dataAll=this.dataAll.filter(item => item.studentId !== key)
-  //           this.dataDaDong=this.dataDaDong.filter(item => item.studentId !==key)
-  //           this.dataNoPhi=this.dataNoPhi.filter(item => item.studentId !==key)
-  //           this.openNotificationWithSuccess("Thao tác thành công");
-  //        }).catch((error)=>{
-  //            this.openNotificationWithEror(error);
-  //        }) 
-  //   }
+    //  onDelete(key:number) {
+    //       this.deletestudent={
+    //       id:key
+    //       }
+    //       this.$axios.$post('/Student/remove-student',this.deletestudent).then((response)=>{response = true
+    //           this.dataAll=this.dataAll.filter(item => item.studentId !== key)
+    //           this.dataDaDong=this.dataDaDong.filter(item => item.studentId !==key)
+    //           this.dataNoPhi=this.dataNoPhi.filter(item => item.studentId !==key)
+    //           this.openNotificationWithSuccess("Thao tác thành công");
+    //        }).catch((error)=>{
+    //            this.openNotificationWithEror(error);
+    //        })
+    //   }
     // changeStatus (key: number) {
     //   this.$axios.$post('/Complaint/change-status-complaint/' + key).then((response) => {
     //     if (response !== null) {
@@ -366,38 +370,38 @@ export default class Complaint extends Vue {
     //     employeeID: { value: this.dataSource.employeeID }
     //   })
     // }
-    callback(key:number) {
-      console.log(key);
-      this.tabkey = key;
+    callback (key:number) {
+      console.log(key)
+      this.tabkey = key
     }
+
     onSubmitComplaint (e: any) {
       e.preventDefault()
     }
-     async onSearch(values: string) {
-    this.searchFeedBack.value = values;
-    console.log(this.tabkey)
-    if(this.tabkey == 1){
-      this.$axios
-      .$post("/FeedBacks/searchfeedback2", this.searchFeedBack)
-      .then((response) => {
-        this.dataFeedBack2 = response;
-      })
-      .catch((error) => {
-         this.openNotification(error);
-      });
-    }
-    else{
-      this.$axios
-      .$post("/FeedBacks/searchfeedback1", this.searchFeedBack)
-      .then((response) => {
-        this.dataFeedBack1 = response;
-      })
-      .catch((error) => {
-         this.openNotification(error)
-      });
-    }
 
-  }
+    async onSearch (values: string) {
+      this.searchFeedBack.value = values
+      console.log(this.tabkey)
+      if (this.tabkey == 1) {
+        this.$axios
+          .$post('/FeedBacks/searchfeedback2', this.searchFeedBack)
+          .then((response) => {
+            this.dataFeedBack2 = response
+          })
+          .catch((error) => {
+            this.openNotification(error)
+          })
+      } else {
+        this.$axios
+          .$post('/FeedBacks/searchfeedback1', this.searchFeedBack)
+          .then((response) => {
+            this.dataFeedBack1 = response
+          })
+          .catch((error) => {
+            this.openNotification(error)
+          })
+      }
+    }
 }
 </script>
 

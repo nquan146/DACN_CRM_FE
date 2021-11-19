@@ -3,7 +3,7 @@
     <div>
       <Logo />
       <h1 class="title">
-        vjp-base-front-end-project
+        Trang thống kê
       </h1>
       <div class="links">
         <a

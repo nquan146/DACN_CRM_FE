@@ -1,6 +1,8 @@
 <template>
-  <div class="container">
-    <h1 class="header-text">Quản lý Nhân Viên</h1>
+  <div class="TableList">
+    <a-divider orientation="left">
+      Danh sách nhân viên
+    </a-divider>
     <div class="header-tongquan">
       <a-input-search
         placeholder="Nhập nhân viên"
@@ -9,8 +11,8 @@
       />
       <a-icon
         type="plus-square"
-        @click="showAdd()"
         style="font-size: 28px; margin-left: 10px"
+        @click="showAdd()"
       />
       <a-modal v-model="visibleAdd" title="Thêm Nhân Viên" on-ok="handleOk">
         <template slot="footer">
@@ -42,24 +44,24 @@
           >
             <a-form-item label="Tài khoản">
               <a-input
-                placeholder="Tài khoản"
                 v-decorator="[
                   'username',
                   {
                     rules: [{ required: true, message: 'Nhập Tên Tài Khoản' }],
                   },
                 ]"
+                placeholder="Tài khoản"
               />
             </a-form-item>
             <a-form-item label="Mật khẩu">
               <a-input-password
-                placeholder="Mật khẩu"
                 v-decorator="[
                   'password',
                   {
                     rules: [{ required: true, message: 'Nhập Mật Khẩu' }],
                   },
                 ]"
+                placeholder="Mật khẩu"
               />
             </a-form-item>
             <a-form-item
@@ -68,7 +70,6 @@
               :wrapper-col="{ span: 11 }"
             >
               <a-input
-                placeholder="Tên nhân viên"
                 v-decorator="[
                   'name',
                   {
@@ -85,6 +86,7 @@
                     ],
                   },
                 ]"
+                placeholder="Tên nhân viên"
               />
             </a-form-item>
             <a-form-item
@@ -93,7 +95,6 @@
               :wrapper-col="{ span: 11 }"
             >
               <a-input
-                placeholder="Số điện thoại"
                 v-decorator="[
                   'phone',
                   {
@@ -106,18 +107,19 @@
                     ],
                   },
                 ]"
+                placeholder="Số điện thoại"
               />
             </a-form-item>
             <a-form-item label="Email">
               <a-input
-                placeholder="abc@gmail.com"
-                type="email"
                 v-decorator="[
                   'email',
                   {
                     rules: [{ required: true, message: 'Nhập Email' }],
                   },
                 ]"
+                placeholder="abc@gmail.com"
+                type="email"
               />
             </a-form-item>
             <a-form-item label="Chức vụ">
@@ -147,7 +149,6 @@
             </a-form-item>
             <a-form-item label="Địa chỉ">
               <a-input
-                placeholder="Địa chỉ"
                 v-decorator="[
                   'department',
                   {
@@ -159,6 +160,7 @@
                     ],
                   },
                 ]"
+                placeholder="Địa chỉ"
               />
             </a-form-item>
             <a-form-item label="Tỉnh/Thành">
@@ -245,13 +247,13 @@
         :columns="columns"
         :data-source="dataSource"
         bordered
-        :rowKey="(data) => data.id"
+        :row-key="(data) => data.id"
       >
         <span slot="names" slot-scope="names, record">
           <a-tag
             color="geekblue"
-            @click="showModalFeedBack(record.id)"
             style="cursor: pointer"
+            @click="showModalFeedBack(record.id)"
           >
             {{ names }}
           </a-tag>
@@ -268,7 +270,7 @@
               :columns="columnsFeedBack"
               :data-source="dataFeedBack"
               bordered
-              :rowKey="(data) => data.id"
+              :row-key="(data) => data.id"
             >
               <span slot="employeenames" slot-scope="employeenames">
                 <a-tag color="geekblue">
@@ -289,8 +291,8 @@
               positions === 'Giám đốc'
                 ? 'volcano'
                 : positions == 'Chức khác'
-                ? 'geekblue'
-                : 'green'
+                  ? 'geekblue'
+                  : 'green'
             "
           >
             {{ positions }}
@@ -299,8 +301,8 @@
         <span slot="action" slot-scope="text, record">
           <a-icon
             type="eye"
-            @click="showEdit(record.id)"
             style="font-size: 18px"
+            @click="showEdit(record.id)"
           />
           <a-modal
             v-model="visible2"
@@ -337,8 +339,6 @@
               >
                 <a-form-item label="Tài khoản">
                   <a-input
-                    placeholder="Tài khoản"
-                    disabled="true"
                     v-decorator="[
                       'username',
                       {
@@ -347,6 +347,8 @@
                         ],
                       },
                     ]"
+                    placeholder="Tài khoản"
+                    disabled="true"
                   />
                 </a-form-item>
                 <a-form-item
@@ -356,20 +358,20 @@
                 >
                   <div style="display: flex">
                     <a-input-password
-                      placeholder="Mật khẩu"
-                      :disabled="disabled"
                       v-decorator="[
                         'password',
                         {
                           rules: [{ required: true, message: 'Nhập Mật Khẩu' }],
                         },
                       ]"
+                      placeholder="Mật khẩu"
+                      :disabled="disabled"
                     />
                     <a-button
                       type="primary"
-                      @click="toggle"
                       :wrapper-col="{ span: 1 }"
                       style="margin-left: 4px"
+                      @click="toggle"
                     >
                       Edit
                     </a-button>
@@ -381,9 +383,9 @@
                   :wrapper-col="{ span: 11 }"
                 >
                   <a-input
+                    v-decorator="['name']"
                     placeholder="Tên nhân viên"
                     disabled="true"
-                    v-decorator="['name']"
                   />
                 </a-form-item>
                 <a-form-item
@@ -392,7 +394,6 @@
                   :wrapper-col="{ span: 11 }"
                 >
                   <a-input
-                    placeholder="Số điện thoại"
                     v-decorator="[
                       'phone',
                       {
@@ -405,18 +406,19 @@
                         ],
                       },
                     ]"
+                    placeholder="Số điện thoại"
                   />
                 </a-form-item>
                 <a-form-item label="Email">
                   <a-input
-                    placeholder="abc@gmail.com"
-                    type="email"
                     v-decorator="[
                       'email',
                       {
                         rules: [{ required: true, message: 'Nhập Email' }],
                       },
                     ]"
+                    placeholder="abc@gmail.com"
+                    type="email"
                   />
                 </a-form-item>
                 <a-form-item label="Chức vụ">
@@ -446,7 +448,6 @@
                 </a-form-item>
                 <a-form-item label="Địa chỉ">
                   <a-input
-                    placeholder="Địa chỉ"
                     v-decorator="[
                       'department',
                       {
@@ -458,6 +459,7 @@
                         ],
                       },
                     ]"
+                    placeholder="Địa chỉ"
                   />
                 </a-form-item>
                 <a-form-item label="Tỉnh/Thành">
@@ -554,24 +556,24 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
-import { IEmployeeResponse } from "~/src/enums/response/IEmployeeResponse";
-import { IEmployeeSearchResponse } from "~/src/enums/response/IEmployeeSearchResponse";
-import { IEmployeeIdResponse } from "~/src/enums/response/IEmployeeIdResponse";
-import { IDisctrictsResponse } from "~/src/enums/response/IDisctrictsResponse";
-import { WrappedFormUtils } from "ant-design-vue/types/form/form";
-import { IPositionsResponse } from "~/src/enums/response/IPositionsResponse";
-import { IWardsResponse } from "~/src/enums/response/IWardsResponse";
-import { IFeedBacksResponse } from "~/src/enums/response/IFeedBacksResponse";
-import {IFeedBackIdResponse} from "~/src/enums/response/IFeedBackIdResponse";
-import moment from "moment";
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
+import moment from 'moment'
+import { IEmployeeResponse } from '~/src/enums/response/IEmployeeResponse'
+import { IEmployeeSearchResponse } from '~/src/enums/response/IEmployeeSearchResponse'
+import { IEmployeeIdResponse } from '~/src/enums/response/IEmployeeIdResponse'
+import { IDisctrictsResponse } from '~/src/enums/response/IDisctrictsResponse'
+import { IPositionsResponse } from '~/src/enums/response/IPositionsResponse'
+import { IWardsResponse } from '~/src/enums/response/IWardsResponse'
+import { IFeedBacksResponse } from '~/src/enums/response/IFeedBacksResponse'
+import { IFeedBackIdResponse } from '~/src/enums/response/IFeedBackIdResponse'
 // import MenuItem from 'ant-design-vue/types/menu/menu-item'
 @Component({
-  layout: "menu",
-  name: "employee",
-  async fetch() {
-    this.dataSource = await this.$axios.$get("Employee/GetEmployees");
-  },
+  layout: 'menu',
+  name: 'employee',
+  async fetch () {
+    this.dataSource = await this.$axios.$get('Employee/GetEmployees')
+  }
 })
 export default class Employee extends Vue {
   private isDownloading: boolean = false;
@@ -583,350 +585,385 @@ export default class Employee extends Vue {
   private cities: Array<String> = [];
   private districts: Array<String> = [];
   private warded: IWardsResponse = {
-    citied: "",
-    districted: "",
+    citied: '',
+    districted: ''
   };
+
   private wards: Array<String> = [];
   private districted: IDisctrictsResponse = {
-    name: "",
+    name: ''
   };
+
   private employeeInfo: any;
   private formEdit!: WrappedFormUtils;
   private formAdd!: WrappedFormUtils;
   private employeeId: number = 0;
-  private cityname: String = "";
+  private cityname: String = '';
   private positioned: Array<IPositionsResponse> = [];
   private confirmLoading: boolean = false;
   private disabled: boolean = true;
   private feedBackValue:IFeedBackIdResponse = {
-    id:0
+    id: 0
   }
+
   private delete: IEmployeeIdResponse = {
-    id: 0,
+    id: 0
   };
+
   private dataSource: Array<IEmployeeResponse> = [];
-  data() {
+  data () {
     return {
       labelCol: { span: 10 },
       wrapperCol: { span: 14 },
-      formLayout: "horizontal",
+      formLayout: 'horizontal',
 
       headers: {
-        authorization: "authorization-text",
-      },
-    };
+        authorization: 'authorization-text'
+      }
+    }
   }
+
   private search: IEmployeeSearchResponse = {
-    value: "",
+    value: ''
   };
+
   private columns: Array<any> = [
     {
-      title: "STT",
-      dataIndex: "id",
-      key: "id",
-      align: "center",
-      sorter: (a: any, b: any) => a.id.length - b.id.length,
+      title: 'STT',
+      dataIndex: 'id',
+      key: 'id',
+      align: 'center',
+      sorter: (a: any, b: any) => a.id.length - b.id.length
     },
     {
-      title: "Họ và tên",
-      dataIndex: "name",
-      key: "name",
-      align: "center",
-      scopedSlots: { customRender: "names" },
-      sorter: (a: any, b: any) => a.name.length - b.name.length,
+      title: 'Họ và tên',
+      dataIndex: 'name',
+      key: 'name',
+      align: 'center',
+      scopedSlots: { customRender: 'names' },
+      sorter: (a: any, b: any) => a.name.length - b.name.length
     },
     {
-      title: "Số điện thoại",
-      dataIndex: "phone",
-      key: "phone",
-      align: "center",
-      sorter: (a: any, b: any) => a.receivedDate.length - b.receivedDate.length,
+      title: 'Số điện thoại',
+      dataIndex: 'phone',
+      key: 'phone',
+      align: 'center',
+      sorter: (a: any, b: any) => a.receivedDate.length - b.receivedDate.length
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      align: "center",
-      sorter: (a: any, b: any) => a.studentName.length - b.studentName.length,
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+      align: 'center',
+      sorter: (a: any, b: any) => a.studentName.length - b.studentName.length
     },
     {
-      title: "Chức vụ",
-      dataIndex: "position",
-      key: "position",
-      align: "center",
-      scopedSlots: { customRender: "positions" },
-      sorter: (a: any, b: any) => a.receiver.length - b.receiver.length,
+      title: 'Chức vụ',
+      dataIndex: 'position',
+      key: 'position',
+      align: 'center',
+      scopedSlots: { customRender: 'positions' },
+      sorter: (a: any, b: any) => a.receiver.length - b.receiver.length
     },
     {
-      title: "Địa chỉ",
-      key: "address",
-      dataIndex: "address",
-      align: "center",
-      sorter: (a: any, b: any) => a.type.length - b.type.length,
+      title: 'Địa chỉ',
+      key: 'address',
+      dataIndex: 'address',
+      align: 'center',
+      sorter: (a: any, b: any) => a.type.length - b.type.length
     },
     {
-      title: "Hành động",
-      key: "action",
-      scopedSlots: { customRender: "action" },
-      align: "center",
-    },
+      title: 'Hành động',
+      key: 'action',
+      scopedSlots: { customRender: 'action' },
+      align: 'center'
+    }
   ];
+
   private columnsFeedBack: Array<any> = [
     {
-      title: "STT",
-      dataIndex: "id",
-      key: "id",
-      align: "center",
-      sorter: (a: any, b: any) => a.id.length - b.id.length,
+      title: 'STT',
+      dataIndex: 'id',
+      key: 'id',
+      align: 'center',
+      sorter: (a: any, b: any) => a.id.length - b.id.length
     },
     {
-      title: "Tên Nhân Viên",
-      dataIndex: "employeeName",
-      key: "employeeName",
-      align: "center",
-      scopedSlots: { customRender: "employeenames" },
-      sorter: (a: any, b: any) => a.name.length - b.name.length,
+      title: 'Tên Nhân Viên',
+      dataIndex: 'employeeName',
+      key: 'employeeName',
+      align: 'center',
+      scopedSlots: { customRender: 'employeenames' },
+      sorter: (a: any, b: any) => a.name.length - b.name.length
     },
     {
-      title: "Tên Khách Hàng",
-      dataIndex: "customerName",
-      key: "customerName",
-      align: "center",
-      scopedSlots: { customRender: "customernames" },
-      sorter: (a: any, b: any) => a.name.length - b.name.length,
+      title: 'Tên Khách Hàng',
+      dataIndex: 'customerName',
+      key: 'customerName',
+      align: 'center',
+      scopedSlots: { customRender: 'customernames' },
+      sorter: (a: any, b: any) => a.name.length - b.name.length
     },
     {
-      title: "Tiêu đề",
-      dataIndex: "title",
-      key: "title",
-      align: "center",
-      sorter: (a: any, b: any) => a.receivedDate.length - b.receivedDate.length,
+      title: 'Tiêu đề',
+      dataIndex: 'title',
+      key: 'title',
+      align: 'center',
+      sorter: (a: any, b: any) => a.receivedDate.length - b.receivedDate.length
     },
     {
-      title: "Ngày Gửi",
-      dataIndex: "recievedDate",
-      key: "recievedDate",
-      align: "center",
-      sorter: (a: any, b: any) => a.studentName.length - b.studentName.length,
+      title: 'Ngày Gửi',
+      dataIndex: 'recievedDate',
+      key: 'recievedDate',
+      align: 'center',
+      sorter: (a: any, b: any) => a.studentName.length - b.studentName.length
     },
     {
-      title: "Nội Dung",
-      dataIndex: "content",
-      key: "content",
-      align: "center",
-      sorter: (a: any, b: any) => a.studentName.length - b.studentName.length,
-    },
+      title: 'Nội Dung',
+      dataIndex: 'content',
+      key: 'content',
+      align: 'center',
+      sorter: (a: any, b: any) => a.studentName.length - b.studentName.length
+    }
   ];
+
   private dataFeedBack: Array<IFeedBacksResponse> = [];
-  async created() {
-    this.formEdit = this.$form.createForm(this);
-    this.formAdd = this.$form.createForm(this);
-    this.cities = await this.$axios.$get("/Employee/GetCity");
-    this.positioned = await this.$axios.$get("/Employee/GetPositions");
+  async created () {
+    this.formEdit = this.$form.createForm(this)
+    this.formAdd = this.$form.createForm(this)
+    this.cities = await this.$axios.$get('/Employee/GetCity')
+    this.positioned = await this.$axios.$get('/Employee/GetPositions')
   }
 
-  async onSearch(values: string) {
-    this.search.value = values;
-    this.dataSource = [];
+  async onSearch (values: string) {
+    this.search.value = values
+    this.dataSource = []
     this.$axios
-      .$post("Employee/SearchEmployee", this.search)
+      .$post('Employee/SearchEmployee', this.search)
       .then((response) => {
-        this.dataSource = response;
+        this.dataSource = response
       })
       .catch((error) => {
-        console.log(error);
-      });
+        console.log(error)
+      })
   }
-  showModalFeedBack(key: number) {
-    this.visibleFeedBack = true;
-    this.feedBackValue.id = key;
+
+  showModalFeedBack (key: number) {
+    this.visibleFeedBack = true
+    this.feedBackValue.id = key
     this.$axios
-      .$post("/Employee/GetFeedBackEmployee",this.feedBackValue)
+      .$post('/Employee/GetFeedBackEmployee', this.feedBackValue)
       .then((response) => {
-        this.dataFeedBack = response;
+        this.dataFeedBack = response
       })
       .catch((error) => {
-        this.visibleFeedBack = false;
-        this.isSubmit = false;
-        this.openNotificationWithEror(error);
-      });
+        this.visibleFeedBack = false
+        this.isSubmit = false
+        this.openNotificationWithEror(error)
+      })
   }
-  showAdd() {
-    this.isSubmit = false;
-    this.visibleAdd = true;
-    this.formAdd.resetFields();
+
+  showAdd () {
+    this.isSubmit = false
+    this.visibleAdd = true
+    this.formAdd.resetFields()
   }
-  showEdit(key: number) {
-    this.isSubmit = false;
-    this.visible2 = true;
-    this.formEdit.resetFields();
-    this.employeeInfo = this.dataSource.find((x) => x.id == key);
-    this.employeeId = this.employeeInfo.id;
-    this.formEdit.getFieldDecorator("username", { initialValue: "" });
-    this.formEdit.getFieldDecorator("password", { initialValue: "" });
-    this.formEdit.getFieldDecorator("name", { initialValue: "" });
-    this.formEdit.getFieldDecorator("phone", { initialValue: "" });
-    this.formEdit.getFieldDecorator("email", { initialValue: "" });
-    this.formEdit.getFieldDecorator("position", { initialValue: "" });
-    this.formEdit.getFieldDecorator("city", { initialValue: "" });
-    this.formEdit.getFieldDecorator("district", { initialValue: "" });
-    this.formEdit.getFieldDecorator("ward", { initialValue: "" });
-    this.formEdit.getFieldDecorator("department", { initialValue: "" });
+
+  showEdit (key: number) {
+    this.isSubmit = false
+    this.visible2 = true
+    this.formEdit.resetFields()
+    this.employeeInfo = this.dataSource.find(x => x.id == key)
+    this.employeeId = this.employeeInfo.id
+    this.formEdit.getFieldDecorator('username', { initialValue: '' })
+    this.formEdit.getFieldDecorator('password', { initialValue: '' })
+    this.formEdit.getFieldDecorator('name', { initialValue: '' })
+    this.formEdit.getFieldDecorator('phone', { initialValue: '' })
+    this.formEdit.getFieldDecorator('email', { initialValue: '' })
+    this.formEdit.getFieldDecorator('position', { initialValue: '' })
+    this.formEdit.getFieldDecorator('city', { initialValue: '' })
+    this.formEdit.getFieldDecorator('district', { initialValue: '' })
+    this.formEdit.getFieldDecorator('ward', { initialValue: '' })
+    this.formEdit.getFieldDecorator('department', { initialValue: '' })
     this.formEdit.setFields({
-      username: { value: this.employeeInfo.username },
-    });
+      username: { value: this.employeeInfo.username }
+    })
     this.formEdit.setFields({
-      password: { value: this.employeeInfo.password },
-    });
+      password: { value: this.employeeInfo.password }
+    })
     this.formEdit.setFields({
-      name: { value: this.employeeInfo.name },
-    });
+      name: { value: this.employeeInfo.name }
+    })
     this.formEdit.setFields({
-      phone: { value: this.employeeInfo.phone },
-    });
+      phone: { value: this.employeeInfo.phone }
+    })
     this.formEdit.setFields({
-      email: { value: this.employeeInfo.email },
-    });
+      email: { value: this.employeeInfo.email }
+    })
     this.formEdit.setFields({
-      position: { value: this.employeeInfo.position },
-    });
+      position: { value: this.employeeInfo.position }
+    })
     this.formEdit.setFields({
-      city: { value: this.employeeInfo.city },
-    });
+      city: { value: this.employeeInfo.city }
+    })
     this.formEdit.setFields({
-      district: { value: this.employeeInfo.district },
-    });
+      district: { value: this.employeeInfo.district }
+    })
     this.formEdit.setFields({
-      ward: { value: this.employeeInfo.ward },
-    });
+      ward: { value: this.employeeInfo.ward }
+    })
     this.formEdit.setFields({
-      department: { value: this.employeeInfo.department },
-    });
+      department: { value: this.employeeInfo.department }
+    })
   }
-  handleCancel(e: any) {
-    console.log(e);
-    this.visibleAdd = false;
-    this.visible2 = false;
-    this.visibleFeedBack = false;
+
+  handleCancel (e: any) {
+    console.log(e)
+    this.visibleAdd = false
+    this.visible2 = false
+    this.visibleFeedBack = false
   }
-  handleOk(e: any) {
-    this.confirmLoading = true;
+
+  handleOk (e: any) {
+    this.confirmLoading = true
     setTimeout(() => {
-      this.visibleFeedBack = false;
-      this.visibleAdd = false;
-      this.visible2 = false;
-      this.confirmLoading = false;
-    }, 200);
+      this.visibleFeedBack = false
+      this.visibleAdd = false
+      this.visible2 = false
+      this.confirmLoading = false
+    }, 200)
   }
-  handleSubmitAdd(e: any) {
-    e.preventDefault();
+
+  handleSubmitAdd (e: any) {
+    e.preventDefault()
     this.formAdd.validateFields((err: any, values: IEmployeeResponse) => {
       if (!err) {
-        this.isSubmit = true;
+        this.isSubmit = true
         this.$axios
-          .$post("/Employee/CreateEmployee", values)
+          .$post('/Employee/CreateEmployee', values)
           .then(async (response) => {
-            this.visibleAdd = false;
-            this.isSubmit = false;
-            this.openNotificationWithSuccess("Thêm nhân viên thành công");
-            this.dataSource = response;
+            this.visibleAdd = false
+            this.isSubmit = false
+            this.openNotificationWithSuccess('Thêm nhân viên thành công')
+            this.dataSource = response
           })
           .catch((error) => {
-            this.visibleAdd = false;
-            this.isSubmit = false;
-            this.openNotificationWithEror(error);
-          });
+            this.visibleAdd = false
+            this.isSubmit = false
+            this.openNotificationWithEror(error)
+          })
       }
-    });
+    })
   }
 
-  handleSubmitEdit(e: any) {
-    e.preventDefault();
+  handleSubmitEdit (e: any) {
+    e.preventDefault()
     this.formEdit.validateFields((err: any, values: IEmployeeResponse) => {
       if (!err) {
-        this.isSubmit = true;
-        values.id = this.employeeId;
+        this.isSubmit = true
+        values.id = this.employeeId
         this.$axios
-          .$post("/Employee/UpdateEmployee", values)
+          .$post('/Employee/UpdateEmployee', values)
           .then((response) => {
-            this.visible2 = false;
-            this.isSubmit = false;
+            this.visible2 = false
+            this.isSubmit = false
             this.openNotificationWithSuccess(
-              "Cập nhập thông tin nhân viên thành công"
-            );
-            this.dataSource = response;
+              'Cập nhập thông tin nhân viên thành công'
+            )
+            this.dataSource = response
           })
           .catch((error) => {
-            this.visible2 = false;
-            this.isSubmit = false;
-            this.openNotificationWithEror(error);
-          });
+            this.visible2 = false
+            this.isSubmit = false
+            this.openNotificationWithEror(error)
+          })
       }
-    });
+    })
   }
-  handleSelectChangeEdit(value: any) {
-    console.log(value);
-    this.formEdit.setFieldsValue({ value: value });
+
+  handleSelectChangeEdit (value: any) {
+    console.log(value)
+    this.formEdit.setFieldsValue({ value })
   }
-  handleSelectChangeAdd(value: any) {
-    console.log(value);
-    this.formAdd.setFieldsValue({ value: value });
+
+  handleSelectChangeAdd (value: any) {
+    console.log(value)
+    this.formAdd.setFieldsValue({ value })
   }
-  handleSelectCities(value: any) {
-    this.formEdit.setFieldsValue({ value: value });
-    this.cityname = value;
-    this.districted.name = value;
+
+  handleSelectCities (value: any) {
+    this.formEdit.setFieldsValue({ value })
+    this.cityname = value
+    this.districted.name = value
     this.$axios
-      .$post("/Employee/GetDistricts", this.districted)
+      .$post('/Employee/GetDistricts', this.districted)
       .then((response) => {
-        this.districts = response;
+        this.districts = response
       })
-      .catch((error) => {});
+      .catch((error) => {})
   }
-  handleSelectDistricts(value: any) {
-    this.formEdit.setFieldsValue({ value: value });
-    this.warded.citied = this.cityname;
-    this.warded.districted = value;
+
+  handleSelectDistricts (value: any) {
+    this.formEdit.setFieldsValue({ value })
+    this.warded.citied = this.cityname
+    this.warded.districted = value
     this.$axios
-      .$post("/Employee/GetWards", this.warded)
+      .$post('/Employee/GetWards', this.warded)
       .then((response) => {
-        this.wards = response;
+        this.wards = response
       })
-      .catch((error) => {});
+      .catch((error) => {})
   }
-  onDelete(key: number) {
-    this.delete.id = key;
+
+  onDelete (key: number) {
+    this.delete.id = key
     this.$axios
-      .$post("Employee/DeleteEmployee", this.delete)
+      .$post('Employee/DeleteEmployee', this.delete)
       .then((response) => {
-        this.dataSource = response.filter((item: any) => item.id !== key);
+        this.dataSource = response.filter((item: any) => item.id !== key)
       })
       .catch((error) => {
-        console.log(error);
-      });
+        console.log(error)
+      })
   }
-  private openNotificationWithSuccess(description: string) {
-    this.$notification["success"]({
-      message: "Thao tác thành công",
-      description: description,
-    });
+
+  private openNotificationWithSuccess (description: string) {
+    this.$notification.success({
+      message: 'Thao tác thành công',
+      description
+    })
   }
-  private openNotificationWithEror(description: string) {
-    this.$notification["error"]({
-      message: "Có lỗi gì đó đã xãy ra",
-      description: description,
-    });
+
+  private openNotificationWithEror (description: string) {
+    this.$notification.error({
+      message: 'Có lỗi gì đó đã xãy ra',
+      description
+    })
   }
-  toggle() {
-    this.disabled = !this.disabled;
+
+  toggle () {
+    this.disabled = !this.disabled
   }
 }
 </script>
-<style scoped>
+<style scoped lang="less">
+.TableList {
+  background: #fff;
+  padding: 30px;
+  .button-view {
+    margin-bottom: 30px;
+    button {
+      margin-right: 20px;
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+}
 .header-tongquan {
   display: flex;
   justify-content: flex-end;
-  margin: 25px 5px;
+  margin-bottom: 10px;
   align-items: center;
 }
 .header-text {

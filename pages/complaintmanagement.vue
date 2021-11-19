@@ -1,5 +1,8 @@
 <template>
   <section class="TableList">
+    <a-divider orientation="left">
+      Danh sách khiếu nại của khách hàng
+    </a-divider>
     <div class="header-tongquan">
       <a-input-search
         placeholder="Nhập thông tin khiếu nại"
@@ -7,9 +10,6 @@
         @search="onSearch"
       />
     </div>
-    <a-divider orientation="left">
-      Danh sách khiếu nại của khách hàng
-    </a-divider>
     <div>
       <a-tabs default-active-key="1" @change="callback">
         <a-tab-pane key="1" tab="Đang Phê Duyệt">
@@ -172,8 +172,8 @@ import {IdComplain} from "@/src/enums/response/IdComplain"
   layout: 'menu',
   name: 'complaint',
   async asyncData (context:Context) {
-    const dataComplaint = await context.$axios.$get('/Complain/getallcomplainstatus2')
-    const dataComplaint1 = await context.$axios.$get('/Complain/getallcomplainstatus1')
+    const dataComplaint = await context.$axios.$get('/Complaint/getallcomplainstatus2')
+    const dataComplaint1 = await context.$axios.$get('/Complaint/getallcomplainstatus1')
     const dataEmployee = await context.$axios.$get('/Employee/GetEmployees')
     return {
       dataComplaint,
