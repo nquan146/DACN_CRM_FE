@@ -59,35 +59,19 @@
         </a-menu-item>
 
         <a-sub-menu key="data">
-          <span slot="title"><a-icon type="appstore" /><span>Data</span></span>
+          <span slot="title"><a-icon type="appstore" /><span>Người dùng</span></span>
 
-          <a-menu-item key="data-user">
-            <nuxt-link to="/data/user">
-              <a-icon type="user" /> User
+          <a-menu-item key="group-user">
+            <nuxt-link to="/groupuser">
+              <a-icon type="user" />Nhóm người dùng
             </nuxt-link>
           </a-menu-item>
 
           <a-menu-item key="data-admin">
             <nuxt-link to="/data/admin">
-              <a-icon type="user" /> Admin
+              <a-icon type="user" />Danh sách
             </nuxt-link>
           </a-menu-item>
-
-          <a-sub-menu key="data-web">
-            <span slot="title"><a-icon type="appstore" /><span>Web</span></span>
-
-            <a-menu-item key="data-web-youtube">
-              <nuxt-link to="/data/web/youtube">
-                <a-icon type="user" /> Youtube
-              </nuxt-link>
-            </a-menu-item>
-
-            <a-menu-item key="data-web-google">
-              <nuxt-link to="/data/web/google">
-                <a-icon type="user" /> google
-              </nuxt-link>
-            </a-menu-item>
-          </a-sub-menu>
         </a-sub-menu>
       </a-menu>
     </a-layout-sider>
