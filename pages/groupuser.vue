@@ -15,7 +15,7 @@
             {{ item.name }}
             <a-popconfirm
               title="Chắc chắn muốn xóa?"
-              @confirm="() => onDeleteCustomer(item.id)"
+              @confirm="() => onDeleteGroup(item.id)"
             >
               <a-icon type="delete" style="font-size: 20px; float:right; margin-top:10px;" />
             </a-popconfirm>
@@ -238,6 +238,16 @@ export default class GroupUser extends Vue {
         }
       }
       )
+    }
+
+    onDeleteGroup (key:any) {
+      this.$axios.$delete('/UserPermission/delete-permission/' + key)
+        .then((response) => {
+          if (response === true) {
+            this.dataGroup = this.dataGroup.filter(item => item.id !== key)
+          }
+          this.openNotification(response)
+        })
     }
 }
 </script>

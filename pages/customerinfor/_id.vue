@@ -68,7 +68,8 @@
                 <a-input
                   v-decorator="[
                     'phoneNumber',
-                    {rules: [{ required: true, message: 'Trường này là bắt buộc', whitespace: true}]}
+                    {rules: [{ required: true, pattern: /^[\+]?[(]?[0-9]{10}$/,
+                               message: 'Hãy nhập số điện thoại'}]}
                   ]"
                 />
               </a-form-item>

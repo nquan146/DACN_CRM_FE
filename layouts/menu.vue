@@ -47,7 +47,7 @@
 
         <a-menu-item key="listcomplaint">
           <nuxt-link to="/complaintmanagement">
-            <a-icon type="frown" />
+            <a-icon type="dislike" />
             <span>Khiếu nại</span>
           </nuxt-link>
         </a-menu-item>
@@ -59,7 +59,7 @@
         </a-menu-item>
 
         <a-sub-menu key="data">
-          <span slot="title"><a-icon type="appstore" /><span>Người dùng</span></span>
+          <span slot="title"><a-icon type="user" /><span>Người dùng</span></span>
 
           <a-menu-item key="group-user">
             <nuxt-link to="/groupuser">

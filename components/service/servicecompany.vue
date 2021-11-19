@@ -20,7 +20,7 @@
           <a-popconfirm
             v-if="dataservice.length"
             title="Chắc chắn muốn xóa?"
-            @confirm="() => onDeleteCustomer(record.id)"
+            @confirm="() => onDeleteService(record.id)"
           >
             <a href="#"><a-icon type="delete" style="font-size: 20px" /></a>
           </a-popconfirm>
@@ -189,6 +189,16 @@ export default class ServiceFamily extends Vue {
         }
         this.closeModal()
       })
+    }
+
+    onDeleteService (key :any) {
+      this.$axios.$delete('/Service/delete-service/' + key)
+        .then((response) => {
+          if (response === true) {
+            this.dataservice = this.dataservice.filter(item => item.id !== key)
+          }
+          this.openNotification(response)
+        })
     }
 
     showModal () {

@@ -16,59 +16,59 @@
           <a-table
             :columns="columns"
             :data-source="dataComplaint"
-            :rowKey="(data) => data.id"
+            :row-key="(data) => data.id"
             bordered
           >
-           <span slot="statusName" slot-scope="statusName,record">
+            <span slot="statusName" slot-scope="statusName,record">
               <a-popconfirm
-            v-if="dataComplaint.length"
-            title="Bạn có chắc muốn phê duyệt khiếu nại này?"
-            @confirm="() => onStatus(record.id)"
-          >
-           <a-tag color="volcano" style="font-size: 14px; cursor: pointer">
-            {{ statusName }}
-          </a-tag>
-          </a-popconfirm>
-          
-        </span>
-         <span slot="action" slot-scope="text, record">
-          <a-icon
-            type="mail"
-            @click="showEdit(record.id)"
-            style="font-size: 18px"
-          />
-           <a-divider type="vertical" />
-          <a-popconfirm
-            v-if="dataComplaint.length"
-            title="Bạn có chắc muốn xóa khiếu nại này?"
-            @confirm="() => onDelete(record.id)"
-          >
-            <a-icon type="delete" style="font-size: 18px; cursor: pointer" />
-          </a-popconfirm>
-         </span>
+                v-if="dataComplaint.length"
+                title="Bạn có chắc muốn phê duyệt khiếu nại này?"
+                @confirm="() => onStatus(record.id)"
+              >
+                <a-tag color="volcano" style="font-size: 14px; cursor: pointer">
+                  {{ statusName }}
+                </a-tag>
+              </a-popconfirm>
+
+            </span>
+            <span slot="action" slot-scope="text, record">
+              <a-icon
+                type="mail"
+                style="font-size: 18px"
+                @click="showEdit(record.id)"
+              />
+              <a-divider type="vertical" />
+              <a-popconfirm
+                v-if="dataComplaint.length"
+                title="Bạn có chắc muốn xóa khiếu nại này?"
+                @confirm="() => onDelete(record.id)"
+              >
+                <a-icon type="delete" style="font-size: 18px; cursor: pointer" />
+              </a-popconfirm>
+            </span>
           </a-table>
         </a-tab-pane>
         <a-tab-pane key="2" tab="Đã Duyệt">
           <a-table
             :columns="columns"
             :data-source="dataComplaint1"
-            :rowKey="(data) => data.id"
+            :row-key="(data) => data.id"
             bordered
           >
-           <span slot="statusName" slot-scope="statusName">
-           <a-tag color="green" style="font-size: 14px">
-            {{ statusName }}
-          </a-tag>
-        </span>
-         <span slot="action" slot-scope="text, record">
-          <a-popconfirm
-            v-if="dataComplaint1.length"
-            title="Bạn có chắc muốn xóa khiếu nại này?"
-            @confirm="() => onDelete(record.id)"
-          >
-            <a-icon type="delete" style="font-size: 18px; cursor: pointer" />
-          </a-popconfirm>
-         </span>
+            <span slot="statusName" slot-scope="statusName">
+              <a-tag color="green" style="font-size: 14px">
+                {{ statusName }}
+              </a-tag>
+            </span>
+            <span slot="action" slot-scope="text, record">
+              <a-popconfirm
+                v-if="dataComplaint1.length"
+                title="Bạn có chắc muốn xóa khiếu nại này?"
+                @confirm="() => onDelete(record.id)"
+              >
+                <a-icon type="delete" style="font-size: 18px; cursor: pointer" />
+              </a-popconfirm>
+            </span>
           </a-table>
         </a-tab-pane>
       </a-tabs>
@@ -166,8 +166,8 @@ import { Context } from '@nuxt/types'
 import { Vue, Component } from 'vue-property-decorator'
 import { IComplaintResonse } from '@/src/enums/response/IComplaintResonse'
 import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
-import {SearchComplain} from "@/src/enums/response/SearchComplain"
-import {IdComplain} from "@/src/enums/response/IdComplain"
+import { SearchComplain } from '@/src/enums/response/SearchComplain'
+import { IdComplain } from '@/src/enums/response/IdComplain'
 @Component({
   layout: 'menu',
   name: 'complaint',
@@ -190,55 +190,58 @@ export default class Complaint extends Vue {
     private complain: IComplaintResonse;
     private tabkey:number = 1;
     statusComplain:IdComplain = {
-      id:0
+      id: 0
     }
+
     private deleteComplain:IdComplain ={
       id: 0
     }
+
     private searchComplain:SearchComplain = {
       name: ''
     }
+
     $notification: any
 
     private loading:boolean = false
     private columns: Array<any> = [
       {
         title: 'STT',
-        key:'id',
-        align:'center',
-        dataIndex: 'id',
+        key: 'id',
+        align: 'center',
+        dataIndex: 'id'
       },
       {
         title: 'Khách hàng',
-        key:'customerName',
-        align:'center',
+        key: 'customerName',
+        align: 'center',
         dataIndex: 'customerName'
       },
       {
         title: 'Khiếu nại',
-         key:'complainName',
-         align:'center',
+        key: 'complainName',
+        align: 'center',
         dataIndex: 'complainName'
       },
       {
         title: 'Ngày nhận',
-         key:'receivedDate',
-         align:'center',
+        key: 'receivedDate',
+        align: 'center',
         dataIndex: 'receivedDate'
       },
       {
         title: 'Trạng thái',
-         key:'statusName',
-         align:'center',
+        key: 'statusName',
+        align: 'center',
         dataIndex: 'statusName',
         scopedSlots: { customRender: 'statusName' }
       },
-       {
-      title: "Hành động",
-      key: "action",
-      scopedSlots: { customRender: "action" },
-      align: "center",
-    },
+      {
+        title: 'Hành động',
+        key: 'action',
+        scopedSlots: { customRender: 'action' },
+        align: 'center'
+      }
     ];
 
     openNotification (result: boolean): void {
@@ -273,27 +276,29 @@ export default class Complaint extends Vue {
     handleCancel () {
       this.visible = false
     }
-   onDelete(key:number) {      
-        this.deleteComplain={
-        id:key
-        }
-        this.$axios.$post('/Complain/deletecomplain',this.deleteComplain).then((response)=>{
-            this.dataComplaint=this.dataComplaint.filter(item => item.id !== key)
-            this.dataComplaint1=this.dataComplaint1.filter(item => item.id !==key)
-            this.openNotification(response);
-         }).catch((error)=>{
-             this.openNotification(error);
-         }) 
+
+    onDelete (key:number) {
+      this.deleteComplain = {
+        id: key
+      }
+      this.$axios.$post('/Complain/deletecomplain', this.deleteComplain).then((response) => {
+        this.dataComplaint = this.dataComplaint.filter(item => item.id !== key)
+        this.dataComplaint1 = this.dataComplaint1.filter(item => item.id !== key)
+        this.openNotification(response)
+      }).catch((error) => {
+        this.openNotification(error)
+      })
     }
-     onStatus(key:number) {      
-        this.statusComplain.id = key
-        this.$axios.$post('/Complain/updatestatus',this.statusComplain).then(async (response)=>{
-            this.dataComplaint=await this.$axios.$get('/Complain/getallcomplainstatus2')
-            this.dataComplaint1=await this.$axios.$get('/Complain/getallcomplainstatus1')
-            this.openNotification(response);
-         }).catch((error)=>{
-             this.openNotification(error);
-         }) 
+
+    onStatus (key:number) {
+      this.statusComplain.id = key
+      this.$axios.$post('/Complain/updatestatus', this.statusComplain).then(async (response) => {
+        this.dataComplaint = await this.$axios.$get('/Complain/getallcomplainstatus2')
+        this.dataComplaint1 = await this.$axios.$get('/Complain/getallcomplainstatus1')
+        this.openNotification(response)
+      }).catch((error) => {
+        this.openNotification(error)
+      })
     }
     // changeStatus (key: number) {
     //   this.$axios.$post('/Complaint/change-status-complaint/' + key).then((response) => {
@@ -316,38 +321,38 @@ export default class Complaint extends Vue {
     //     employeeID: { value: this.dataSource.employeeID }
     //   })
     // }
-    callback(key:number) {
-      console.log(key);
-      this.tabkey = key;
+    callback (key:number) {
+      console.log(key)
+      this.tabkey = key
     }
+
     onSubmitComplaint (e: any) {
       e.preventDefault()
     }
-      async onSearch(values: string) {
-    this.searchComplain.name = values;
-    console.log(this.tabkey)
-    if(this.tabkey == 1){
-      this.$axios
-      .$post("/Complain/searchcomplainstatus2", this.searchComplain)
-      .then((response) => {
-        this.dataComplaint = response;
-      })
-      .catch((error) => {
-         this.openNotification(error);
-      });
-    }
-    else{
-      this.$axios
-      .$post("/Complain/searchcomplainstatus1", this.searchComplain)
-      .then((response) => {
-        this.dataComplaint1 = response;
-      })
-      .catch((error) => {
-         this.openNotification(error)
-      });
-    }
 
-  }
+    async onSearch (values: string) {
+      this.searchComplain.name = values
+      console.log(this.tabkey)
+      if (this.tabkey == 1) {
+        this.$axios
+          .$post('/Complain/searchcomplainstatus2', this.searchComplain)
+          .then((response) => {
+            this.dataComplaint = response
+          })
+          .catch((error) => {
+            this.openNotification(error)
+          })
+      } else {
+        this.$axios
+          .$post('/Complain/searchcomplainstatus1', this.searchComplain)
+          .then((response) => {
+            this.dataComplaint1 = response
+          })
+          .catch((error) => {
+            this.openNotification(error)
+          })
+      }
+    }
 }
 </script>
 
