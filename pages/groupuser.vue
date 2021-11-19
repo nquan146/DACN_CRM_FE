@@ -51,7 +51,9 @@
       </div>
     </div>
     <div class="buttonback">
-      <a-button type="primary">Lưu</a-button>
+      <a-button type="primary" @click="submitAction">
+        Lưu
+      </a-button>
     </div>
   </div>
 </template>
@@ -70,10 +72,10 @@ import { Vue, Component } from 'vue-property-decorator'
   }
 })
 export default class GroupUser extends Vue {
-    indeterminate:boolean= true
     private visible:string = 'none'
     private loading:boolean = false
     dataAction:Array<any> =[]
+    $notification: any
     private columnsPermission: Array<any> = [
       {
         title: 'Tên nhóm',
@@ -133,38 +135,60 @@ export default class GroupUser extends Vue {
 
     private active!:boolean
     changeActiveAdd (id: number) {
-      this.active = this.dataSourceAction.find(item => item.id === id).active_Add
+      this.active = this.dataAction.find(item => item.id === id).active_Add
       if (this.active === true) {
-        this.dataSourceAction.find(item => item.id === id).active_Add = false
+        this.dataAction.find(item => item.id === id).active_Add = false
       } else {
-        this.dataSourceAction.find(item => item.id === id).active_Add = true
+        this.dataAction.find(item => item.id === id).active_Add = true
       }
     }
 
     changeActiveView (id: number) {
-      this.active = this.dataSourceAction.find(item => item.id === id).active_View
+      this.active = this.dataAction.find(item => item.id === id).active_View
       if (this.active === true) {
-        this.dataSourceAction.find(item => item.id === id).active_View = false
+        this.dataAction.find(item => item.id === id).active_View = false
       } else {
-        this.dataSourceAction.find(item => item.id === id).active_View = true
+        this.dataAction.find(item => item.id === id).active_View = true
       }
     }
 
     changeActiveEdit (id: number) {
-      this.active = this.dataSourceAction.find(item => item.id === id).active_Edit
+      this.active = this.dataAction.find(item => item.id === id).active_Edit
       if (this.active === true) {
-        this.dataSourceAction.find(item => item.id === id).active_Edit = false
+        this.dataAction.find(item => item.id === id).active_Edit = false
       } else {
-        this.dataSourceAction.find(item => item.id === id).active_Edit = true
+        this.dataAction.find(item => item.id === id).active_Edit = true
       }
     }
 
     changeActiveDelete (id: number) {
-      this.active = this.dataSourceAction.find(item => item.id === id).active_Delete
+      this.active = this.dataAction.find(item => item.id === id).active_Delete
       if (this.active === true) {
-        this.dataSourceAction.find(item => item.id === id).active_Delete = false
+        this.dataAction.find(item => item.id === id).active_Delete = false
       } else {
-        this.dataSourceAction.find(item => item.id === id).active_Delete = true
+        this.dataAction.find(item => item.id === id).active_Delete = true
+      }
+    }
+
+    submitAction () {
+      this.$axios.$post('/UserPermission/update-action-permission', this.dataAction)
+        .then((response) => {
+          this.openNotification(response)
+        })
+    }
+
+    openNotification (result: boolean): void {
+      this.$notification.config({
+        duration: 1
+      })
+      if (result === true) {
+        this.$notification.success({
+          message: 'Lưu thành công'
+        })
+      } else {
+        this.$notification.error({
+          message: 'Lưu không thành công'
+        })
       }
     }
 }
