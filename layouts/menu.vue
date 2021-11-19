@@ -67,8 +67,8 @@
             </nuxt-link>
           </a-menu-item>
 
-          <a-menu-item key="data-admin">
-            <nuxt-link to="/data/admin">
+          <a-menu-item key="table-user">
+            <nuxt-link to="/usermanagement">
               <a-icon type="user" />Danh sách
             </nuxt-link>
           </a-menu-item>
