@@ -21,6 +21,27 @@
             </a-popconfirm>
           </a-menu-item>
         </a-menu>
+        <a-form :form="formGroup" :layout="'inline'" @submit="handleSubmit">
+          <a-form-item style="width:70%; margin-top:15px;">
+            <a-input
+              v-decorator="[
+                'name',
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: 'Hãy nhập tên nhóm',
+                    },
+                  ],
+                },
+              ]"
+              placeholder="Thêm nhóm mới"
+            />
+          </a-form-item>
+          <a-button html-type="submit" style="margin-top:20px;">
+            <a-icon type="plus" />
+          </a-button>
+        </a-form>
       </div>
       <div class="account-settings-info-right">
         <a-divider orientation="left">
@@ -59,6 +80,7 @@
 </template>
 <script lang="ts">
 import { Context } from '@nuxt/types'
+import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
 import { Vue, Component } from 'vue-property-decorator'
 @Component({
   layout: 'menu',
@@ -72,9 +94,16 @@ import { Vue, Component } from 'vue-property-decorator'
   }
 })
 export default class GroupUser extends Vue {
+    private formGroup!: WrappedFormUtils
     private visible:string = 'none'
     private loading:boolean = false
     dataAction:Array<any> =[]
+    dataGroup:Array<any> =[]
+
+    created () {
+      this.formGroup = this.$form.createForm(this)
+    }
+
     $notification: any
     private columnsPermission: Array<any> = [
       {
@@ -191,6 +220,25 @@ export default class GroupUser extends Vue {
         })
       }
     }
+
+    handleSubmit (e: any) {
+      e.preventDefault()
+      this.formGroup.validateFields((err: any, values: any) => {
+        if (!err) {
+          this.$axios.$post('/UserPermission/add-action-permission', values).then(async (response) => {
+            if (response !== null) {
+              this.dataGroup = await this.$axios.$get('/UserPermission/get-permission')
+              this.dataAction = response
+              this.openNotification(true)
+            } else {
+              this.openNotification(false)
+            }
+          }).catch(() => this.openNotification(false))
+          this.formGroup.resetFields()
+        }
+      }
+      )
+    }
 }
 </script>
 
@@ -253,7 +301,7 @@ export default class GroupUser extends Vue {
   }
   .buttonback{
   display: flex;
-  justify-content: left;
+  justify-content: right;
   align-items: right;
   text-align: center;
   margin-bottom: 10px;
