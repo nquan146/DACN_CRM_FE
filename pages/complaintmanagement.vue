@@ -230,6 +230,12 @@ export default class Complaint extends Vue {
         dataIndex: 'receivedDate'
       },
       {
+        title: 'Mô tả',
+        key: 'statusName',
+        align: 'center',
+        dataIndex: 'description'
+      },
+      {
         title: 'Trạng thái',
         key: 'statusName',
         align: 'center',
@@ -281,7 +287,7 @@ export default class Complaint extends Vue {
       this.deleteComplain = {
         id: key
       }
-      this.$axios.$post('/Complain/deletecomplain', this.deleteComplain).then((response) => {
+      this.$axios.$post('/Complaint/deletecomplain', this.deleteComplain).then((response) => {
         this.dataComplaint = this.dataComplaint.filter(item => item.id !== key)
         this.dataComplaint1 = this.dataComplaint1.filter(item => item.id !== key)
         this.openNotification(response)
@@ -292,9 +298,9 @@ export default class Complaint extends Vue {
 
     onStatus (key:number) {
       this.statusComplain.id = key
-      this.$axios.$post('/Complain/updatestatus', this.statusComplain).then(async (response) => {
-        this.dataComplaint = await this.$axios.$get('/Complain/getallcomplainstatus2')
-        this.dataComplaint1 = await this.$axios.$get('/Complain/getallcomplainstatus1')
+      this.$axios.$post('/Complaint/updatestatus', this.statusComplain).then(async (response) => {
+        this.dataComplaint = await this.$axios.$get('/Complaint/getallcomplainstatus2')
+        this.dataComplaint1 = await this.$axios.$get('/Complaint/getallcomplainstatus1')
         this.openNotification(response)
       }).catch((error) => {
         this.openNotification(error)
@@ -335,7 +341,7 @@ export default class Complaint extends Vue {
       console.log(this.tabkey)
       if (this.tabkey == 1) {
         this.$axios
-          .$post('/Complain/searchcomplainstatus2', this.searchComplain)
+          .$post('/Complaint/searchcomplainstatus2', this.searchComplain)
           .then((response) => {
             this.dataComplaint = response
           })
@@ -344,7 +350,7 @@ export default class Complaint extends Vue {
           })
       } else {
         this.$axios
-          .$post('/Complain/searchcomplainstatus1', this.searchComplain)
+          .$post('/Complaint/searchcomplainstatus1', this.searchComplain)
           .then((response) => {
             this.dataComplaint1 = response
           })
