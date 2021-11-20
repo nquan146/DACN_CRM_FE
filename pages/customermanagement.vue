@@ -3,6 +3,9 @@
     <a-divider orientation="left">
       Danh sách khách hàng
     </a-divider>
+    <a-button type="primary" @click="showModalAlert">
+      Đến hạn đóng tiền
+    </a-button>
     <div class="buttonback">
       <a :href="'/addcustomer/'"><a-button> <a-icon type="plus" />Thêm khách hàng </a-button></a>
     </div>
@@ -86,6 +89,20 @@
         </template>
       </template>
     </a-table>
+    <a-modal v-model="visibleAlert" title="Những khách hàng đến hạn đóng tiền" :width="1000" :footer="null">
+      <a-table
+        :columns="columns2"
+        :row-key="(record) => record.contractID"
+        :data-source="dataExpire"
+        :pagination="{ pageSize: 5 }"
+        :loading="loading"
+        bordered
+      >
+        <span slot="serial" slot-scope="text, record, index">
+          {{ index + 1 }}
+        </span>
+      </a-table>
+    </a-modal>
   </section>
 </template>
 <script lang="ts">
@@ -97,8 +114,10 @@ import { Context } from '@nuxt/types'
   name: 'customerManagement',
   async asyncData (context:Context) {
     const dataCustomers = await context.$axios.$get('/Customer/get-all-customer')
+    const dataExpire = await context.$axios.$get('/Customer/get-customer-expires')
     return {
-      dataCustomers
+      dataCustomers,
+      dataExpire
     }
   }
 })
@@ -109,6 +128,12 @@ export default class CustomerManagement extends Vue {
     searchText:string = ''
     searchInput:any = null
     searchedColumn:string = ''
+    private visibleAlert: boolean = false
+
+    showModalAlert () {
+      this.visibleAlert = true
+    }
+
     private columns = [
       {
         title: 'STT',
@@ -175,6 +200,34 @@ export default class CustomerManagement extends Vue {
         key: 'action'
       }
     ]
+
+    private columns2: Array<any> = [
+      {
+        title: 'STT',
+        scopedSlots: { customRender: 'serial' }
+      },
+      {
+        title: 'Tên khách hàng',
+        dataIndex: 'name'
+      },
+      {
+        title: 'Số điện thoại',
+        dataIndex: 'phoneNumber'
+      },
+      {
+        title: 'Mã hợp đồng',
+        dataIndex: 'contractID',
+        scopedSlots: { customRender: 'speed' }
+      },
+      {
+        title: 'Ngày đóng tiền gần nhất',
+        dataIndex: 'paymentDate'
+      },
+      {
+        title: 'Số ngày trễ',
+        dataIndex: 'expirationDay'
+      }
+    ];
 
     onDeleteCustomer (key:any) {
       this.$axios.$delete('/Customer/delete-customer/' + key)
