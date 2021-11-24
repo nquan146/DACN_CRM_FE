@@ -187,7 +187,6 @@ export default class Complaint extends Vue {
     private dataComplaint: Array<IComplaintResonse> =[]
     private dataComplaint1: Array<IComplaintResonse> =[]
     private formComplaint!: WrappedFormUtils
-    private complain: IComplaintResonse;
     private tabkey:number = 1;
     statusComplain:IdComplain = {
       id:0

@@ -175,7 +175,7 @@ import {IdFeedBack} from "@/src/enums/response/IdFeedBack"
 import {SearchFeedBack} from "@/src/enums/response/SearchFeedBack"
 @Component({
   layout: 'menu',
-  name: 'complaint',
+  name: 'feedback',
   async asyncData (context:Context) {
       const dataFeedBack1 = await context.$axios.$get('/FeedBacks/GetFeedBack1')
       const dataFeedBack2 = await context.$axios.$get('/FeedBacks/GetFeedBack2')
@@ -187,7 +187,7 @@ import {SearchFeedBack} from "@/src/enums/response/SearchFeedBack"
     }
   }
 })
-export default class Complaint extends Vue {
+export default class Feedback extends Vue {
     private visible: boolean = false
     private dataFeedBack2: Array<IFeedBackResponse> =[]
     private dataFeedBack1: Array<IFeedBackResponse> =[]
