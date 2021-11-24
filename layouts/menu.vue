@@ -24,41 +24,41 @@
           </nuxt-link>
         </a-menu-item>
 
-        <a-menu-item key="listcustomer">
+        <a-menu-item v-if="$auth.user.active_View_Customer" key="listcustomer">
           <nuxt-link to="/customermanagement">
             <a-icon type="team" />
             <span>Khách hàng</span>
           </nuxt-link>
         </a-menu-item>
 
-        <a-menu-item key="listemployee">
+        <a-menu-item v-if="$auth.user.active_View_Employee" key="listemployee">
           <nuxt-link to="/employee">
             <a-icon type="idcard" />
             <span>Nhân viên</span>
           </nuxt-link>
         </a-menu-item>
 
-        <a-menu-item key="listservice">
+        <a-menu-item v-if="$auth.user.active_View_Service" key="listservice">
           <nuxt-link to="/servicemanagement">
             <a-icon type="global" />
             <span>Dịch vụ</span>
           </nuxt-link>
         </a-menu-item>
 
-        <a-menu-item key="listcomplaint">
+        <a-menu-item v-if="$auth.user.active_View_Complaint" key="listcomplaint">
           <nuxt-link to="/complaintmanagement">
             <a-icon type="dislike" />
             <span>Khiếu nại</span>
           </nuxt-link>
         </a-menu-item>
-        <a-menu-item key="listfeedback">
+        <a-menu-item v-if="$auth.user.active_View_FeedBack" key="listfeedback">
           <nuxt-link to="/feedbackmanagement">
             <a-icon type="smile" />
             <span>FeedBack</span>
           </nuxt-link>
         </a-menu-item>
 
-        <a-sub-menu key="data">
+        <a-sub-menu v-if="$auth.user.active_View_User" key="data">
           <span slot="title"><a-icon type="user" /><span>Người dùng</span></span>
 
           <a-menu-item key="group-user">
@@ -99,7 +99,7 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-@Component({})
+@Component({ middleware: 'auth-admin' })
 export default class MenuLayout extends Vue {
   private collapsed: boolean = false;
   private selectedKeys: string[] = [];

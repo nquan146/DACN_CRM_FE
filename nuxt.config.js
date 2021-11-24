@@ -55,7 +55,7 @@ export default {
     baseURL: 'https://localhost:44348' // Used as fallback if no runtime config is provided
   },
 
-  /* auth: {
+  auth: {
     redirect: {
       login: '/login',
       logout: '/login',
@@ -79,7 +79,7 @@ export default {
   },
   router: {
     middleware: ['auth']
-  }, */
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
