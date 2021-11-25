@@ -208,9 +208,9 @@ export default class Contract extends Vue {
     this.formContract.getFieldDecorator('promotion', { initialValue: '0' })
     this.formContract.setFields({
       id: { value: this.dataSource.id },
-      IDService: { value: this.dataSource.nameService },
+      IDService: { value: this.dataSource.idService },
       IDMethod: { value: this.dataSource.idMethod + '' },
-      signday: { value: moment(this.dataSource.signday, 'DD/MM/YYYY') },
+      signday: { value: moment(this.dataSource.signday, 'DD/MM/yyyy') },
       prepaymentTerm: { value: this.dataSource.prepaymentTerm },
       promotion: { value: this.dataSource.promotion }
     })
@@ -229,6 +229,15 @@ export default class Contract extends Vue {
               this.openNotification(false)
             }
           })
+        } else {
+          this.$axios.$put('/Contract/update-contract/' + values.id, values).then(async (response) => {
+            if (response !== null) {
+              this.openNotification(true)
+              this.dataContract = await this.$axios.$get('/Contract/get-all-contract/' + this.$route.params.id)
+            } else {
+              this.openNotification(false)
+            }
+          })
         }
       }
       this.closeModal()
@@ -236,9 +245,11 @@ export default class Contract extends Vue {
   }
 
   onDeleteContract (key:any) {
-    this.$axios.$delete('/Contract/dalete-contract/' + key)
+    this.$axios.$delete('/Contract/delete-contract/' + key)
       .then((response) => {
-        this.dataContract = this.dataContract.filter(item => item.id !== key)
+        if (response === true) {
+          this.dataContract = this.dataContract.filter(item => item.id !== key)
+        }
         this.openNotification(response)
       })
   }
@@ -255,7 +266,7 @@ export default class Contract extends Vue {
     },
     {
       title: 'Dịch vụ',
-      dataIndex: 'nameService'
+      dataIndex: 'idService'
     },
     {
       title: 'Ngày ký',

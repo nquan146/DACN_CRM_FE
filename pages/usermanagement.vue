@@ -4,7 +4,7 @@
       <a-divider orientation="left">
         Danh sách người dùng
       </a-divider>
-      <div class="buttonback">
+      <div class="buttonback" hidden>
         <a @click="showModal()"><a-button> <a-icon type="plus" />Thêm người dùng </a-button></a>
       </div>
       <a-table
@@ -18,6 +18,14 @@
         <span slot="serial" slot-scope="text, record, index">
           {{ index + 1 }}
         </span>
+        <template slot="group" slot-scope="text, record">
+          <a-tag
+            color="geekblue"
+            style="font-size: 14px"
+          >
+            {{ record.groupName }}
+          </a-tag>
+        </template>
         <template slot="active" slot-scope="text, record">
           <a-popconfirm
             v-if="datauser.length"
@@ -36,6 +44,14 @@
           <div style="justify-content: center; display: flex; flex-wrap: wrap; align-items: center">
             <a href="#" @click="showEditUser(record.id)"> <a-icon type="eye" style="font-size: 20px" /> </a>
           </div>
+          <a-divider type="vertical" />
+          <a-popconfirm
+            v-if="datauser.length"
+            title="Chắc chắn muốn xóa?"
+            @confirm="() => onDeleteUser(record.id)"
+          >
+            <a href="#"><a-icon type="delete" style="font-size: 20px" /></a>
+          </a-popconfirm>
         </span>
       </a-table>
     </section>
@@ -68,7 +84,7 @@
         >
           <a-input
             v-decorator="[
-              'name',
+              'userName',
               {
                 rules: [{ required: true, message: 'Trường này không được trống' }],
               },
@@ -102,7 +118,7 @@
             v-decorator="[
               'email',
               {
-                rules: [{ required: true, message: 'Trường này không được trống' }],
+                rules: [{}],
               },
             ]"
           />
@@ -153,7 +169,8 @@ export default class UserManagement extends Vue {
     },
     {
       title: 'Nhóm',
-      dataIndex: 'group'
+      dataIndex: 'groupName',
+      scopedSlots: { customRender: 'group' }
     },
     {
       title: 'Được hoạt động',
@@ -196,12 +213,12 @@ export default class UserManagement extends Vue {
     this.showModal()
     this.dataSource = this.datauser.find(x => x.id === key)
     this.formUser.getFieldDecorator('id', { initialValue: undefined })
-    this.formUser.getFieldDecorator('name', { initialValue: '' })
+    this.formUser.getFieldDecorator('userName', { initialValue: '' })
     this.formUser.getFieldDecorator('email', { initialValue: '' })
     this.formUser.getFieldDecorator('group', { initialValue: '' })
     this.formUser.setFields({
       id: { value: this.dataSource.id },
-      name: { value: this.dataSource.userName },
+      userName: { value: this.dataSource.userName },
       email: { value: this.dataSource.email },
       group: { value: this.dataSource.group }
     })
@@ -209,6 +226,28 @@ export default class UserManagement extends Vue {
 
   onSubmitUser (e: any) {
     e.preventDefault()
+    this.formUser.validateFields((err: any, values: any) => {
+      if (!err) {
+        this.$axios.$put('/Users/update-user/' + values.id, values).then(async (response) => {
+          if (response === true) {
+            this.datauser = await this.$axios.$get('/Users')
+          }
+          this.openNotification(response)
+        })
+      }
+      this.closeModal()
+    })
+  }
+
+  onDeleteUser (key:any) {
+    this.$axios.$delete('/Users/delete-user/' + key)
+      .then((response) => {
+        if (response === true) {
+          this.datauser = this.datauser.filter(item => item.id !== key)
+        }
+
+        this.openNotification(response)
+      })
   }
 
   private active!:boolean

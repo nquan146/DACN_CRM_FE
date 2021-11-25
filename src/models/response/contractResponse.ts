@@ -1,5 +1,5 @@
 export interface IContract{
     id:number,
-    nameService:string,
+    idService:string,
     signday:string
 }

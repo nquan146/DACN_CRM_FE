@@ -36,7 +36,7 @@
     </a-table>
     <a-modal
       v-model="visible"
-      title="Thông tin hợp đồng"
+      title="Thông tin giao dịch"
       on-ok="handleCancel"
     >
       <template slot="footer">
@@ -60,43 +60,29 @@
             <a-input v-decorator="['id']" />
           </a-form-item>
           <a-form-item
-            label="Tên dịch vụ"
+            label="Mã hợp đồng"
           >
             <a-select
               v-decorator="[
-                'IDService',
+                'contractID',
                 {
                   rules: [{ required: true, message: 'Trường này không được trống' }],
                 },
               ]"
-            />
-          </a-form-item>
-          <a-form-item
-            label="Phương thức thanh toán"
-          >
-            <a-select
-              v-decorator="[
-                'IDMethod',
-                {
-                  rules: [{ required: true , message: 'Trường này không được trống'}],
-                },
-              ]"
             >
-              <a-select-option value="1">
-                Tại địa chỉ thông báo cước
-              </a-select-option>
-              <a-select-option value="2">
-                Tại điểm giao dịch viễn thông
-              </a-select-option>
-              <a-select-option value="3">
-                Qua ngân hàng
+              <a-select-option
+                v-for="item in dataContract"
+                :key="item.id"
+                :value="item.id"
+              >
+                {{ item.id }}
               </a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item label="Ngày ký">
+          <a-form-item label="Ngày giao dịch">
             <a-date-picker
               v-decorator="[
-                'signday',
+                'paymentDate',
                 {
                   rules: [{ required: true, message: 'Trường này không được trống' }],
                 },
@@ -105,10 +91,21 @@
               placeholder=""
             />
           </a-form-item>
-          <a-form-item label="Thời hạn trả trước">
+          <a-form-item label="Số tiền">
             <a-input
               v-decorator="[
-                'prepaymentTerm',
+                'price',
+                {
+                  rules: [{ required: true, message: 'Trường này không được trống' }
+                  ],
+                },
+              ]"
+            />
+          </a-form-item>
+          <a-form-item label="Số tháng đóng">
+            <a-input
+              v-decorator="[
+                'month',
                 {
                   rules: [{ required: true, message: 'Trường này không được trống' }
                   ],
@@ -136,14 +133,20 @@
 import { Vue, Component, PropSync } from 'vue-property-decorator'
 import { ITransaction } from '@/src/models/response/transactionResponse'
 import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
+import moment from 'moment'
+import { IContract } from '~/src/models/response/contractResponse'
 @Component({
   name: 'transaction'
 })
 export default class Transaction extends Vue {
+     @PropSync('contract', { type: Array })
+     private dataContract!: Array<IContract>
+
     @PropSync('transaction', { type: Array })
     private datatransaction!: Array<ITransaction>
 
     private dataSource: any
+    $notification: any
     private loading:boolean = false
     private visible: boolean = false
     private formTransaction!: WrappedFormUtils
@@ -162,7 +165,7 @@ export default class Transaction extends Vue {
         dataIndex: 'price'
       },
       {
-        title: 'Ngày đóng',
+        title: 'Ngày giao dịch',
         dataIndex: 'paymentDate'
       },
       {
@@ -180,8 +183,57 @@ export default class Transaction extends Vue {
       this.formTransaction = this.$form.createForm(this)
     }
 
+    openNotification (result: boolean): void {
+      this.$notification.config({
+        duration: 1
+      })
+      if (result === true) {
+        this.$notification.success({
+          message: 'Thao tác thành công'
+        })
+      } else {
+        this.$notification.error({
+          message: 'Thao tác không thành công'
+        })
+      }
+    }
+
+    showModal () {
+      this.formTransaction.resetFields()
+      this.visible = true
+    }
+
+    closeModal () {
+      this.formTransaction.resetFields()
+      this.visible = false
+    }
+
     onSubmitTrans (e: any) {
       e.preventDefault()
+      this.formTransaction.validateFields((err: any, values: any) => {
+        if (!err) {
+          if (values.id === undefined) {
+            this.$axios.$post('/Transaction/create-transaction/' + this.$route.params.id, values).then(async (response) => {
+              if (response !== null) {
+                this.openNotification(true)
+                this.datatransaction = await this.$axios.$get('/Transaction/get-all-transaction/' + this.$route.params.id)
+              } else {
+                this.openNotification(false)
+              }
+            })
+          } else {
+            this.$axios.$put('/Transaction/update-transaction/' + values.id, values).then(async (response) => {
+              if (response !== null) {
+                this.openNotification(true)
+                this.datatransaction = await this.$axios.$get('/Transaction/get-all-transaction/' + this.$route.params.id)
+              } else {
+                this.openNotification(false)
+              }
+            })
+          }
+          this.closeModal()
+        }
+      })
     }
 
     handleCancel () {
@@ -189,11 +241,30 @@ export default class Transaction extends Vue {
     }
 
     showEditTrans (key: number) {
-
+      this.showModal()
+      this.dataSource = this.datatransaction.find(x => x.id === key)
+      this.formTransaction.getFieldDecorator('id', { initialValue: undefined })
+      this.formTransaction.getFieldDecorator('contractID', { initialValue: undefined })
+      this.formTransaction.getFieldDecorator('paymentDate', { initialValue: '' })
+      this.formTransaction.getFieldDecorator('price', { initialValue: null })
+      this.formTransaction.getFieldDecorator('month', { initialValue: '0' })
+      this.formTransaction.getFieldDecorator('promotion', { initialValue: '0' })
+      this.formTransaction.setFields({
+        id: { value: this.dataSource.id },
+        contractID: { value: this.dataSource.contractID },
+        paymentDate: { value: moment(this.dataSource.paymentDate, 'DD/MM/YYYY') },
+        price: { value: this.dataSource.price },
+        month: { value: this.dataSource.month },
+        promotion: { value: this.dataSource.promotion }
+      })
     }
 
     onDeleteTrans (key: number) {
-
+      this.$axios.$delete('/Transaction/delete-transaction/' + key)
+        .then((response) => {
+          this.datatransaction = this.datatransaction.filter(item => item.id !== key)
+          this.openNotification(response)
+        })
     }
 }
 

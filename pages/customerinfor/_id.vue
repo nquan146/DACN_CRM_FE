@@ -160,7 +160,7 @@
         <Contract :contract.sync="dataContract" />
       </a-tab-pane>
       <a-tab-pane key="tab3" :tab="'Lịch sử giao dịch'">
-        <Transaction :transaction.sync="dataTransaction" />
+        <Transaction :transaction.sync="dataTransaction" :contract.sync="dataContract" />
       </a-tab-pane>
     </a-tabs>
   </a-card>
