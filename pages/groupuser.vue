@@ -14,6 +14,7 @@
           <a-menu-item v-for="item in dataGroup" :key="item.id" @click="showTablePermission(item.id)">
             {{ item.name }}
             <a-popconfirm
+              v-if="item.id !== 1"
               title="Chắc chắn muốn xóa?"
               @confirm="() => onDeleteGroup(item.id)"
             >
@@ -57,16 +58,20 @@
           :style="'display:' + visible "
         >
           <span slot="checkactionview" slot-scope="text, record" @change="changeActiveView(record.id)">
-            <a-checkbox :checked="record.active_View" />
+            <a-checkbox v-if="record.permissionID !== 1" :checked="record.active_View" />
+            <a-checkbox v-else :checked="record.active_View" disabled />
           </span>
           <span slot="checkactionedit" slot-scope="text, record" @change="changeActiveEdit(record.id)">
-            <a-checkbox :checked="record.active_Edit" />
+            <a-checkbox v-if="record.permissionID !== 1" :checked="record.active_Edit" />
+            <a-checkbox v-else :checked="record.active_Edit" disabled />
           </span>
           <span slot="checkactionadd" slot-scope="text, record" @change="changeActiveAdd(record.id)">
-            <a-checkbox :checked="record.active_Add" />
+            <a-checkbox v-if="record.permissionID !== 1" :checked="record.active_Add" />
+            <a-checkbox v-else :checked="record.active_Add" disabled />
           </span>
           <span slot="checkactiondelete" slot-scope="text, record" @change="changeActiveDelete(record.id)">
-            <a-checkbox :checked="record.active_Delete" />
+            <a-checkbox v-if="record.permissionID !== 1" :checked="record.active_Delete" />
+            <a-checkbox v-else :checked="record.active_Delete" disabled />
           </span>
         </a-table>
       </div>
@@ -212,11 +217,11 @@ export default class GroupUser extends Vue {
       })
       if (result === true) {
         this.$notification.success({
-          message: 'Lưu thành công'
+          message: 'Thao tác thành công'
         })
       } else {
         this.$notification.error({
-          message: 'Lưu không thành công'
+          message: 'Thao tác không thành công'
         })
       }
     }
