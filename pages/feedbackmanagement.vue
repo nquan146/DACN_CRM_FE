@@ -29,7 +29,7 @@
               <a-icon
                 type="mail"
                 style="font-size: 18px"
-                @click="showEdit(record.id)"
+                @click="sendEmail(record.customerEmail)"
               />
               <a-divider type="vertical" />
               <a-popconfirm
@@ -63,7 +63,7 @@
               <a-icon
                 type="mail"
                 style="font-size: 18px"
-                @click="showEdit(record.id)"
+                @click="sendEmail(record.customerEmail)"
               />
               <a-divider type="vertical" />
               <a-popconfirm
@@ -173,6 +173,7 @@ import { IFeedBackResponse } from '@/src/enums/response/IFeedBackResponse'
 import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
 import { IdFeedBack } from '@/src/enums/response/IdFeedBack'
 import { SearchFeedBack } from '@/src/enums/response/SearchFeedBack'
+import { IEmail } from '@/src/models/request/emailRequest'
 @Component({
   layout: 'menu',
   name: 'complaint',
@@ -193,6 +194,7 @@ export default class Complaint extends Vue {
     private dataFeedBack1: Array<IFeedBackResponse> =[]
     private formComplaint!: WrappedFormUtils
     private tabkey:number = 1;
+    private email!:IEmail
     private searchFeedBack:SearchFeedBack = {
       value: ''
     }
@@ -401,6 +403,22 @@ export default class Complaint extends Vue {
             this.openNotification(error)
           })
       }
+    }
+
+    sendEmail (email:string) {
+      this.email = { email }
+      this.$axios.$post('/Mail/send-mail', this.email)
+        .then((response) => {
+          if (response === true) {
+            this.$notification.success({
+              message: 'Gửi thành công'
+            })
+          } else {
+            this.$notification.error({
+              message: 'Gửi không thành công'
+            })
+          }
+        })
     }
 }
 </script>

@@ -5,6 +5,7 @@ export interface IFeedBackResponse{
     recievedDate: String,
     employeeName: String,
     customerName: String,
+    customerEmail: String,
     employeeId: number,
     customerId: number,
     typeId: number,
