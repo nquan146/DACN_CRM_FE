@@ -5,25 +5,27 @@
       <h1 class="title">
         Trang thống kê
       </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
     </div>
+    <a-row :gutter="24">
+      <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
+        <chart-card :loading="loading" :title="sdsd" total="￥126,560">
+          <a-tooltip :title="dsd" slot="action">
+            <a-icon type="info-circle-o" />
+          </a-tooltip>
+          <div>
+            <trend flag="up" style="margin-right: 16px;">
+              <span slot="term"></span>
+              12%
+            </trend>
+            <trend flag="down">
+              <span slot="term"></span>
+              11%
+            </trend>
+          </div>
+          <template slot="footer"><span>￥ 234.56</span></template>
+        </chart-card>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
