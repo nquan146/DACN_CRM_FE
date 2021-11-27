@@ -12,8 +12,8 @@
       />
       <a-icon
         type="plus-square"
-        @click="showAdd()"
         style="font-size: 28px; margin-left: 10px"
+        @click="showAdd()"
       />
       <a-modal v-model="visibleAdd" title="Thêm Khiếu Nại" on-ok="handleOk">
         <template slot="footer">
@@ -45,7 +45,6 @@
           >
             <a-form-item label="Tiêu Đề">
               <a-input
-                placeholder="Tên Tiêu Đề"
                 v-decorator="[
                   'title',
                   {
@@ -57,6 +56,7 @@
                     ],
                   },
                 ]"
+                placeholder="Tên Tiêu Đề"
               />
             </a-form-item>
             <a-form-item
@@ -65,10 +65,6 @@
               :wrapper-col="{ span: 11 }"
             >
               <a-date-picker
-                type="date"
-                placeholder="Chọn ngày"
-                style="width: 100%"
-                format="MM-DD-YYYY"
                 v-decorator="[
                   'recievedDate',
                   {
@@ -80,6 +76,10 @@
                     ],
                   },
                 ]"
+                type="date"
+                placeholder="Chọn ngày"
+                style="width: 100%"
+                format="MM-DD-YYYY"
               />
             </a-form-item>
             <a-form-item
@@ -151,8 +151,8 @@
             >
               <div style="display: flex">
                 <a-select
-                  :disabled="disabled"
                   v-decorator="['employeeName']"
+                  :disabled="disabled"
                   placeholder="Chọn Nhân Viên"
                   @change="handleSelectChangeAddEmployeeSelect"
                 >
@@ -172,14 +172,14 @@
               :wrapper-col="{ span: 11 }"
             >
               <a-input
-                placeholder="Nội Dung"
-                type="textarea"
                 v-decorator="[
                   'content',
                   {
                     rules: [{ required: true, message: 'Nhập Nội Dung' }],
                   },
                 ]"
+                placeholder="Nội Dung"
+                type="textarea"
               />
             </a-form-item>
           </a-form>
@@ -203,14 +203,14 @@
             <span slot="action" slot-scope="text, record">
               <a-icon
                 type="mail"
-                @click="showEdit(record.id)"
                 style="font-size: 18px"
+                @click="sendEmail(record.customerEmail)"
               />
               <a-divider type="vertical" />
               <a-icon
                 type="eye"
-                @click="showEdit(record.id)"
                 style="font-size: 18px"
+                @click="showEdit(record.id)"
               />
               <a-modal
                 v-model="visible2"
@@ -247,7 +247,6 @@
                   >
                     <a-form-item label="Tiêu Đề">
                       <a-input
-                        placeholder="Tên Tiêu Đề"
                         v-decorator="[
                           'title',
                           {
@@ -259,6 +258,7 @@
                             ],
                           },
                         ]"
+                        placeholder="Tên Tiêu Đề"
                       />
                     </a-form-item>
                     <a-form-item
@@ -267,10 +267,6 @@
                       :wrapper-col="{ span: 11 }"
                     >
                       <a-date-picker
-                        type="date"
-                        placeholder="Chọn ngày"
-                        style="width: 100%"
-                        format="MM-DD-YYYY"
                         v-decorator="[
                           'recievedDate',
                           {
@@ -282,6 +278,10 @@
                             ],
                           },
                         ]"
+                        type="date"
+                        placeholder="Chọn ngày"
+                        style="width: 100%"
+                        format="MM-DD-YYYY"
                       />
                     </a-form-item>
                     <a-form-item
@@ -353,8 +353,8 @@
                     >
                       <div style="display: flex">
                         <a-select
-                          :disabled="disabled1"
                           v-decorator="['employeeName']"
+                          :disabled="disabled1"
                           placeholder="Chọn Nhân Viên"
                           @change="handleSelectChangeEditEmployeeSelect"
                         >
@@ -374,8 +374,6 @@
                       :wrapper-col="{ span: 11 }"
                     >
                       <a-input
-                        placeholder="Nội Dung"
-                        type="textarea"
                         v-decorator="[
                           'content',
                           {
@@ -384,6 +382,8 @@
                             ],
                           },
                         ]"
+                        placeholder="Nội Dung"
+                        type="textarea"
                       />
                     </a-form-item>
                   </a-form>
@@ -423,14 +423,14 @@
             <span slot="action" slot-scope="text, record">
               <a-icon
                 type="mail"
-                @click="showEdit(record.id)"
                 style="font-size: 18px"
+                @click="sendEmail(record.customerEmail)"
               />
               <a-divider type="vertical" />
               <a-icon
                 type="eye"
-                @click="showEdit1(record.id)"
                 style="font-size: 18px"
+                @click="showEdit1(record.id)"
               />
               <a-modal
                 v-model="visible3"
@@ -467,7 +467,6 @@
                   >
                     <a-form-item label="Tiêu Đề">
                       <a-input
-                        placeholder="Tên Tiêu Đề"
                         v-decorator="[
                           'title',
                           {
@@ -479,6 +478,7 @@
                             ],
                           },
                         ]"
+                        placeholder="Tên Tiêu Đề"
                       />
                     </a-form-item>
                     <a-form-item
@@ -487,10 +487,6 @@
                       :wrapper-col="{ span: 11 }"
                     >
                       <a-date-picker
-                        type="date"
-                        placeholder="Chọn ngày"
-                        style="width: 100%"
-                        format="MM-DD-YYYY"
                         v-decorator="[
                           'recievedDate',
                           {
@@ -502,6 +498,10 @@
                             ],
                           },
                         ]"
+                        type="date"
+                        placeholder="Chọn ngày"
+                        style="width: 100%"
+                        format="MM-DD-YYYY"
                       />
                     </a-form-item>
                     <a-form-item
@@ -573,8 +573,8 @@
                     >
                       <div style="display: flex">
                         <a-select
-                          :disabled="disabled2"
                           v-decorator="['employeeName']"
+                          :disabled="disabled2"
                           placeholder="Chọn Nhân Viên"
                           @change="handleSelectChangeEdit1EmployeeSelect"
                         >
@@ -594,8 +594,6 @@
                       :wrapper-col="{ span: 11 }"
                     >
                       <a-input
-                        placeholder="Nội Dung"
-                        type="textarea"
                         v-decorator="[
                           'content',
                           {
@@ -604,6 +602,8 @@
                             ],
                           },
                         ]"
+                        placeholder="Nội Dung"
+                        type="textarea"
                       />
                     </a-form-item>
                   </a-form>
@@ -715,34 +715,35 @@
 </template>
 
 <script lang="ts">
-import { Context } from "@nuxt/types";
-import { Vue, Component } from "vue-property-decorator";
-import { IFeedBackResponse } from "@/src/enums/response/IFeedBackResponse";
-import { WrappedFormUtils } from "ant-design-vue/types/form/form";
-import { IdFeedBack } from "@/src/enums/response/IdFeedBack";
-import { SearchFeedBack } from "@/src/enums/response/SearchFeedBack";
-import { CustomerSelectResponse } from "~/src/enums/response/CustomerSelectResponse";
-import { EmployeeSelectReponse } from "~/src/enums/response/EmployeeSelectReponse";
-import { ITypeFeedSelectResponse } from "~/src/enums/response/ITypeFeedSelectResponse";
+import { Context } from '@nuxt/types'
+import { Vue, Component } from 'vue-property-decorator'
+import { IFeedBackResponse } from '@/src/enums/response/IFeedBackResponse'
+import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
+import { IdFeedBack } from '@/src/enums/response/IdFeedBack'
+import { SearchFeedBack } from '@/src/enums/response/SearchFeedBack'
+import { CustomerSelectResponse } from '~/src/enums/response/CustomerSelectResponse'
+import { EmployeeSelectReponse } from '~/src/enums/response/EmployeeSelectReponse'
+import { ITypeFeedSelectResponse } from '~/src/enums/response/ITypeFeedSelectResponse'
+import { IEmail } from '~/src/models/request/emailRequest'
 @Component({
-  layout: "menu",
-  name: "feedback",
-  async asyncData(context: Context) {
-    const dataFeedBack1 = await context.$axios.$get("/FeedBacks/GetFeedBack1");
-    const dataFeedBack2 = await context.$axios.$get("/FeedBacks/GetFeedBack2");
-    const dataEmployee = await context.$axios.$get("/FeedBacks/getallemployee");
-    const datatypefeed = await context.$axios.$get("/FeedBacks/getalltypeFeed");
+  layout: 'menu',
+  name: 'feedback',
+  async asyncData (context: Context) {
+    const dataFeedBack1 = await context.$axios.$get('/FeedBacks/GetFeedBack1')
+    const dataFeedBack2 = await context.$axios.$get('/FeedBacks/GetFeedBack2')
+    const dataEmployee = await context.$axios.$get('/FeedBacks/getallemployee')
+    const datatypefeed = await context.$axios.$get('/FeedBacks/getalltypeFeed')
     const datacustomer = await context.$axios.$get(
-      "/Complaint/getallcustomercomplaint"
-    );
+      '/Complaint/getallcustomercomplaint'
+    )
     return {
       dataFeedBack1,
       dataFeedBack2,
       dataEmployee,
       datacustomer,
-      datatypefeed,
-    };
-  },
+      datatypefeed
+    }
+  }
 })
 export default class Feedback extends Vue {
   private visible: boolean = false;
@@ -761,9 +762,9 @@ export default class Feedback extends Vue {
   private typeId: number = 0;
   private confirmLoading: boolean = false;
   private employeeID: number = 0;
-  private employeename: String = "";
-  private customername: String = "";
-  private typefeedname: String = "";
+  private employeename: String = '';
+  private customername: String = '';
+  private typefeedname: String = '';
   private feedbackInfo: any;
   private dataemployee: Array<EmployeeSelectReponse> = [];
   private datacustomer: Array<CustomerSelectResponse> = [];
@@ -773,412 +774,436 @@ export default class Feedback extends Vue {
   private disabled1: boolean = true;
   private customerId: number = 0;
   private searchFeedBack: SearchFeedBack = {
-    value: "",
+    value: ''
   };
+
+  private email!:IEmail
+
   private deleteFeedBack: IdFeedBack = {
-    id: 0,
+    id: 0
   };
+
   $notification: any;
 
   private loading: boolean = false;
   private column: Array<any> = [
     {
-      title: "STT",
-      key: "id",
-      align: "center",
-      dataIndex: "id",
+      title: 'STT',
+      key: 'id',
+      align: 'center',
+      dataIndex: 'id'
     },
     {
-      title: "Khách hàng",
-      key: "customerName",
-      align: "center",
-      dataIndex: "customerName",
-      scopedSlots: { customRender: "customerName" },
+      title: 'Khách hàng',
+      key: 'customerName',
+      align: 'center',
+      dataIndex: 'customerName',
+      scopedSlots: { customRender: 'customerName' }
     },
     {
-      title: "Nhân viên",
-      key: "employeeName",
-      align: "center",
-      dataIndex: "employeeName",
-      scopedSlots: { customRender: "employeeName" },
+      title: 'Nhân viên',
+      key: 'employeeName',
+      align: 'center',
+      dataIndex: 'employeeName',
+      scopedSlots: { customRender: 'employeeName' }
     },
     {
-      title: "Tiêu đề",
-      key: "title",
-      align: "center",
-      dataIndex: "title",
+      title: 'Tiêu đề',
+      key: 'title',
+      align: 'center',
+      dataIndex: 'title'
     },
     {
-      title: "Nội dung",
-      key: "content",
-      align: "center",
-      dataIndex: "content",
+      title: 'Nội dung',
+      key: 'content',
+      align: 'center',
+      dataIndex: 'content'
     },
     {
-      title: "Ngày nhận",
-      key: "recievedDate",
-      align: "center",
-      dataIndex: "recievedDate",
+      title: 'Ngày nhận',
+      key: 'recievedDate',
+      align: 'center',
+      dataIndex: 'recievedDate'
     },
     {
-      title: "Hành động",
-      key: "action",
-      scopedSlots: { customRender: "action" },
-      align: "center",
-    },
+      title: 'Hành động',
+      key: 'action',
+      scopedSlots: { customRender: 'action' },
+      align: 'center'
+    }
   ];
+
   private columns: Array<any> = [
     {
-      title: "STT",
-      key: "id",
-      align: "center",
-      dataIndex: "id",
+      title: 'STT',
+      key: 'id',
+      align: 'center',
+      dataIndex: 'id'
     },
     {
-      title: "Khách hàng",
-      key: "customerName",
-      align: "center",
-      dataIndex: "customerName",
-      scopedSlots: { customRender: "customerName" },
+      title: 'Khách hàng',
+      key: 'customerName',
+      align: 'center',
+      dataIndex: 'customerName',
+      scopedSlots: { customRender: 'customerName' }
     },
     {
-      title: "Tiêu đề",
-      key: "title",
-      align: "center",
-      dataIndex: "title",
+      title: 'Tiêu đề',
+      key: 'title',
+      align: 'center',
+      dataIndex: 'title'
     },
     {
-      title: "Nội dung",
-      key: "content",
-      align: "center",
-      dataIndex: "content",
+      title: 'Nội dung',
+      key: 'content',
+      align: 'center',
+      dataIndex: 'content'
     },
     {
-      title: "Ngày nhận",
-      key: "recievedDate",
-      align: "center",
-      dataIndex: "recievedDate",
+      title: 'Ngày nhận',
+      key: 'recievedDate',
+      align: 'center',
+      dataIndex: 'recievedDate'
     },
     {
-      title: "Hành động",
-      key: "action",
-      scopedSlots: { customRender: "action" },
-      align: "center",
-    },
+      title: 'Hành động',
+      key: 'action',
+      scopedSlots: { customRender: 'action' },
+      align: 'center'
+    }
   ];
-  onDelete(key: number) {
+
+  onDelete (key: number) {
     this.deleteFeedBack = {
-      id: key,
-    };
+      id: key
+    }
     this.$axios
-      .$post("/FeedBacks/removefeedback", this.deleteFeedBack)
+      .$post('/FeedBacks/removefeedback', this.deleteFeedBack)
       .then((response) => {
         this.dataFeedBack2 = this.dataFeedBack2.filter(
-          (item) => item.id !== key
-        );
+          item => item.id !== key
+        )
         this.dataFeedBack1 = this.dataFeedBack1.filter(
-          (item) => item.id !== key
-        );
-        this.openNotification(response);
+          item => item.id !== key
+        )
+        this.openNotification(response)
       })
       .catch((error) => {
-        this.openNotification(error);
-      });
+        this.openNotification(error)
+      })
   }
-  showAdd() {
-    this.isSubmit = false;
-    this.visibleAdd = true;
-    this.formAdd.resetFields();
+
+  showAdd () {
+    this.isSubmit = false
+    this.visibleAdd = true
+    this.formAdd.resetFields()
   }
-  handleSubmitAdd(e: any) {
-    e.preventDefault();
+
+  handleSubmitAdd (e: any) {
+    e.preventDefault()
     this.formAdd.validateFields((err: any, values: IFeedBackResponse) => {
       if (!err) {
-        this.isSubmit = true;
-        values.customerId = this.customerId;
-        values.typeId = this.typeId;
-        values.employeeId = this.employeeID;
-        values.customerName = this.customername;
-        values.typeName = this.typefeedname;
+        this.isSubmit = true
+        values.customerId = this.customerId
+        values.typeId = this.typeId
+        values.employeeId = this.employeeID
+        values.customerName = this.customername
+        values.typeName = this.typefeedname
         values.employeeName = this.employeename
         this.$axios
-          .$post("/FeedBacks/create", values)
+          .$post('/FeedBacks/create', values)
           .then(async (response) => {
-            this.visibleAdd = false;
-            this.isSubmit = false;
-            this.openNotification(true);
+            this.visibleAdd = false
+            this.isSubmit = false
+            this.openNotification(true)
             this.dataFeedBack1 = await this.$axios.$get(
-              "/FeedBacks/GetFeedBack1"
-            );
+              '/FeedBacks/GetFeedBack1'
+            )
             this.dataFeedBack2 = await this.$axios.$get(
-              "/FeedBacks/GetFeedBack2"
-            );
+              '/FeedBacks/GetFeedBack2'
+            )
           })
           .catch((error) => {
-            this.visibleAdd = false;
-            this.isSubmit = false;
-            this.openNotification(error);
-          });
+            this.visibleAdd = false
+            this.isSubmit = false
+            this.openNotification(error)
+          })
       }
-    });
+    })
   }
-  handleSelectChangeAddTypeSelect(value: any) {
-    console.log(value);
-    this.typeId = value;
+
+  handleSelectChangeAddTypeSelect (value: any) {
+    console.log(value)
+    this.typeId = value
     if (this.typeId == 1) {
-      this.disabled = !this.disabled;
+      this.disabled = !this.disabled
     } else {
-      this.disabled = true;
+      this.disabled = true
     }
-    var a = this.datatypefeed.find((x) => x.id == value);
-    this.typefeedname = a.name;
-    this.formAdd.setFieldsValue({ value: value });
+    const a = this.datatypefeed.find(x => x.id == value)
+    this.typefeedname = a.name
+    this.formAdd.setFieldsValue({ value })
   }
-  handleSelectChangeAddCustomerSelect(value: any) {
-    console.log(value);
-    this.customerId = value;
-    var a = this.datacustomer.find((x) => x.id == value);
-    this.customername = a.name;
-    this.formAdd.setFieldsValue({ value: value });
+
+  handleSelectChangeAddCustomerSelect (value: any) {
+    console.log(value)
+    this.customerId = value
+    const a = this.datacustomer.find(x => x.id == value)
+    this.customername = a.name
+    this.formAdd.setFieldsValue({ value })
   }
-  handleSelectChangeAddEmployeeSelect(value: any) {
-    console.log(value);
-    this.employeeID = value;
-    this.formAdd.setFieldsValue({ value: value });
+
+  handleSelectChangeAddEmployeeSelect (value: any) {
+    console.log(value)
+    this.employeeID = value
+    this.formAdd.setFieldsValue({ value })
   }
-  handleSelectChangeEdit1TypeSelect(value: any) {
-    console.log(value);
-    this.typeId = value;
+
+  handleSelectChangeEdit1TypeSelect (value: any) {
+    console.log(value)
+    this.typeId = value
     if (this.typeId == 1) {
-      this.disabled2 = !this.disabled2;
+      this.disabled2 = !this.disabled2
     } else {
-      this.disabled2 = true;
+      this.disabled2 = true
     }
-    var a = this.datatypefeed.find((x) => x.id == value);
-    this.typefeedname = a.name;
-    this.formEdit1.setFieldsValue({ value: value });
+    const a = this.datatypefeed.find(x => x.id == value)
+    this.typefeedname = a.name
+    this.formEdit1.setFieldsValue({ value })
   }
-  handleSelectChangeEdit1CustomerSelect(value: any) {
-    console.log(value);
-    this.customerId = value;
-    var a = this.datacustomer.find((x) => x.id == value);
-    this.customername = a.name;
-    this.formEdit1.setFieldsValue({ value: value });
+
+  handleSelectChangeEdit1CustomerSelect (value: any) {
+    console.log(value)
+    this.customerId = value
+    const a = this.datacustomer.find(x => x.id == value)
+    this.customername = a.name
+    this.formEdit1.setFieldsValue({ value })
   }
-  handleSelectChangeEdit1EmployeeSelect(value: any) {
-    console.log(value);
-    this.employeeID = value;
-    this.formEdit1.setFieldsValue({ value: value });
+
+  handleSelectChangeEdit1EmployeeSelect (value: any) {
+    console.log(value)
+    this.employeeID = value
+    this.formEdit1.setFieldsValue({ value })
   }
-  showEdit(key: number) {
-    this.isSubmit = false;
-    this.visible2 = true;
-    this.formEdit.resetFields();
-    this.feedbackInfo = this.dataFeedBack2.find((x) => x.id == key);
-    this.customerId = this.feedbackInfo.customerId;
-    this.customername = this.feedbackInfo.customerName;
-    this.employeename = this.feedbackInfo.employeeName;
-    this.typefeedname = this.feedbackInfo.typefeedname;
-    this.typeId = this.feedbackInfo.typeId;
-    this.feedbackId = key;
-    this.employeeID = this.feedbackInfo.employeeId;
-    this.formEdit.getFieldDecorator("title", { initialValue: "" });
-    this.formEdit.getFieldDecorator("recievedDate", { initialValue: "" });
-    this.formEdit.getFieldDecorator("customerName", { initialValue: "" });
-    this.formEdit.getFieldDecorator("typeName", { initialValue: "" });
-    this.formEdit.getFieldDecorator("employeeName", { initialValue: "" });
-    this.formEdit.getFieldDecorator("content", { initialValue: "" });
+
+  showEdit (key: number) {
+    this.isSubmit = false
+    this.visible2 = true
+    this.formEdit.resetFields()
+    this.feedbackInfo = this.dataFeedBack2.find(x => x.id == key)
+    this.customerId = this.feedbackInfo.customerId
+    this.customername = this.feedbackInfo.customerName
+    this.employeename = this.feedbackInfo.employeeName
+    this.typefeedname = this.feedbackInfo.typefeedname
+    this.typeId = this.feedbackInfo.typeId
+    this.feedbackId = key
+    this.employeeID = this.feedbackInfo.employeeId
+    this.formEdit.getFieldDecorator('title', { initialValue: '' })
+    this.formEdit.getFieldDecorator('recievedDate', { initialValue: '' })
+    this.formEdit.getFieldDecorator('customerName', { initialValue: '' })
+    this.formEdit.getFieldDecorator('typeName', { initialValue: '' })
+    this.formEdit.getFieldDecorator('employeeName', { initialValue: '' })
+    this.formEdit.getFieldDecorator('content', { initialValue: '' })
     this.formEdit.setFields({
-      title: { value: this.feedbackInfo.title },
-    });
+      title: { value: this.feedbackInfo.title }
+    })
     this.formEdit.setFields({
-      recievedDate: { value: this.feedbackInfo.recievedDate },
-    });
+      recievedDate: { value: this.feedbackInfo.recievedDate }
+    })
     this.formEdit.setFields({
-      customerName: { value: this.feedbackInfo.customerName },
-    });
+      customerName: { value: this.feedbackInfo.customerName }
+    })
     this.formEdit.setFields({
-      typeName: { value: this.feedbackInfo.typeName },
-    });
+      typeName: { value: this.feedbackInfo.typeName }
+    })
     this.formEdit.setFields({
-      employeeName: { value: this.feedbackInfo.employeeName },
-    });
+      employeeName: { value: this.feedbackInfo.employeeName }
+    })
     this.formEdit.setFields({
-      content: { value: this.feedbackInfo.content },
-    });
+      content: { value: this.feedbackInfo.content }
+    })
   }
-  showEdit1(key: number) {
-    this.isSubmit = false;
-    this.disabled2 = false;
-    this.visible3 = true;
-    this.formEdit1.resetFields();
-    this.feedbackInfo = this.dataFeedBack1.find((x) => x.id == key);
-    this.customerId = this.feedbackInfo.customerId;
-    this.customername = this.feedbackInfo.customerName;
-    this.typefeedname = this.feedbackInfo.typefeedname;
-    this.employeeID = this.feedbackInfo.employeeId;
-    this.employeename = this.feedbackInfo.employeeName;
-    this.feedbackId = key;
-    this.typeId = this.feedbackInfo.typeId;
-    this.formEdit1.getFieldDecorator("title", { initialValue: "" });
-    this.formEdit1.getFieldDecorator("recievedDate", { initialValue: "" });
-    this.formEdit1.getFieldDecorator("customerName", { initialValue: "" });
-    this.formEdit1.getFieldDecorator("typeName", { initialValue: "" });
-    this.formEdit1.getFieldDecorator("employeeName", { initialValue: "" });
-    this.formEdit1.getFieldDecorator("content", { initialValue: "" });
+
+  showEdit1 (key: number) {
+    this.isSubmit = false
+    this.disabled2 = false
+    this.visible3 = true
+    this.formEdit1.resetFields()
+    this.feedbackInfo = this.dataFeedBack1.find(x => x.id == key)
+    this.customerId = this.feedbackInfo.customerId
+    this.customername = this.feedbackInfo.customerName
+    this.typefeedname = this.feedbackInfo.typefeedname
+    this.employeeID = this.feedbackInfo.employeeId
+    this.employeename = this.feedbackInfo.employeeName
+    this.feedbackId = key
+    this.typeId = this.feedbackInfo.typeId
+    this.formEdit1.getFieldDecorator('title', { initialValue: '' })
+    this.formEdit1.getFieldDecorator('recievedDate', { initialValue: '' })
+    this.formEdit1.getFieldDecorator('customerName', { initialValue: '' })
+    this.formEdit1.getFieldDecorator('typeName', { initialValue: '' })
+    this.formEdit1.getFieldDecorator('employeeName', { initialValue: '' })
+    this.formEdit1.getFieldDecorator('content', { initialValue: '' })
     this.formEdit1.setFields({
-      title: { value: this.feedbackInfo.title },
-    });
+      title: { value: this.feedbackInfo.title }
+    })
     this.formEdit1.setFields({
-      recievedDate: { value: this.feedbackInfo.recievedDate },
-    });
+      recievedDate: { value: this.feedbackInfo.recievedDate }
+    })
     this.formEdit1.setFields({
-      customerName: { value: this.feedbackInfo.customerName },
-    });
+      customerName: { value: this.feedbackInfo.customerName }
+    })
     this.formEdit1.setFields({
-      typeName: { value: this.feedbackInfo.typeName },
-    });
+      typeName: { value: this.feedbackInfo.typeName }
+    })
     this.formEdit1.setFields({
-      employeeName: { value: this.feedbackInfo.employeeName },
-    });
+      employeeName: { value: this.feedbackInfo.employeeName }
+    })
     this.formEdit1.setFields({
-      content: { value: this.feedbackInfo.content },
-    });
+      content: { value: this.feedbackInfo.content }
+    })
   }
-  handleSubmitEdit(e: any) {
-    e.preventDefault();
+
+  handleSubmitEdit (e: any) {
+    e.preventDefault()
     this.formEdit.validateFields((err: any, values: IFeedBackResponse) => {
       if (!err) {
-        this.isSubmit = true;
-        this.disabled = true;
-        values.customerId = this.customerId;
-        values.employeeId = this.employeeID;
-        values.id = this.feedbackId;
-        values.customerName = this.customername;
-        values.typeId = this.typeId;
-        values.typeName = this.typefeedname;
-        values.employeeName = this.employeename;
+        this.isSubmit = true
+        this.disabled = true
+        values.customerId = this.customerId
+        values.employeeId = this.employeeID
+        values.id = this.feedbackId
+        values.customerName = this.customername
+        values.typeId = this.typeId
+        values.typeName = this.typefeedname
+        values.employeeName = this.employeename
         this.$axios
-          .$post("/FeedBacks/UpdateFeedBack", values)
+          .$post('/FeedBacks/UpdateFeedBack', values)
           .then(async (response) => {
-            this.visible2 = false;
-            this.isSubmit = false;
+            this.visible2 = false
+            this.isSubmit = false
             this.dataFeedBack1 = await this.$axios.$get(
-              "/FeedBacks/GetFeedBack1"
-            );
+              '/FeedBacks/GetFeedBack1'
+            )
             this.dataFeedBack2 = await this.$axios.$get(
-              "/FeedBacks/GetFeedBack2"
-            );
-            this.openNotification(true);
+              '/FeedBacks/GetFeedBack2'
+            )
+            this.openNotification(true)
           })
           .catch((error) => {
-            this.visible2 = false;
-            this.isSubmit = false;
-            this.openNotification(error);
-          });
+            this.visible2 = false
+            this.isSubmit = false
+            this.openNotification(error)
+          })
       }
-    });
+    })
   }
-  handleSubmitEdit1(e: any) {
-    e.preventDefault();
+
+  handleSubmitEdit1 (e: any) {
+    e.preventDefault()
     this.formEdit1.validateFields((err: any, values: IFeedBackResponse) => {
       if (!err) {
-        this.isSubmit = true;
-        values.customerId = this.customerId;
-        values.employeeId = this.employeeID;
-        values.id = this.feedbackId;
-        values.customerName = this.customername;
-        values.typeId = this.typeId;
-        values.typeName = this.typefeedname;
-        values.employeeName = this.employeename;
+        this.isSubmit = true
+        values.customerId = this.customerId
+        values.employeeId = this.employeeID
+        values.id = this.feedbackId
+        values.customerName = this.customername
+        values.typeId = this.typeId
+        values.typeName = this.typefeedname
+        values.employeeName = this.employeename
         this.$axios
-          .$post("/FeedBacks/UpdateFeedBack", values)
+          .$post('/FeedBacks/UpdateFeedBack', values)
           .then(async (response) => {
-            this.visible3 = false;
-            this.isSubmit = false;
+            this.visible3 = false
+            this.isSubmit = false
             this.dataFeedBack1 = await this.$axios.$get(
-              "/FeedBacks/GetFeedBack1"
-            );
+              '/FeedBacks/GetFeedBack1'
+            )
             this.dataFeedBack2 = await this.$axios.$get(
-              "/FeedBacks/GetFeedBack2"
-            );
-            this.openNotification(true);
+              '/FeedBacks/GetFeedBack2'
+            )
+            this.openNotification(true)
           })
           .catch((error) => {
-            this.visible3 = false;
-            this.isSubmit = false;
-            this.openNotification(error);
-          });
+            this.visible3 = false
+            this.isSubmit = false
+            this.openNotification(error)
+          })
       }
-    });
-  }
-  handleSelectChangeEditTypeSelect(value: any) {
-    console.log(value);
-    this.typeId = value;
-    if (this.typeId == 1) {
-      this.disabled1 = !this.disabled1;
-    } else {
-      this.disabled1 = true;
-    }
-    var a = this.datatypefeed.find((x) => x.id == value);
-    this.typefeedname = a.name;
-    this.formEdit.setFieldsValue({ value: value });
-  }
-  handleSelectChangeEditCustomerSelect(value: any) {
-    console.log(value);
-    this.customerId = value;
-    var a = this.datacustomer.find((x) => x.id == value);
-    this.customername = a.name;
-    this.formEdit.setFieldsValue({ value: value });
-  }
-  handleSelectChangeEditEmployeeSelect(value: any) {
-    console.log(value);
-    this.employeeID = value;
-    this.formEdit.setFieldsValue({ value: value });
+    })
   }
 
-  openNotification(result: boolean): void {
+  handleSelectChangeEditTypeSelect (value: any) {
+    console.log(value)
+    this.typeId = value
+    if (this.typeId == 1) {
+      this.disabled1 = !this.disabled1
+    } else {
+      this.disabled1 = true
+    }
+    const a = this.datatypefeed.find(x => x.id == value)
+    this.typefeedname = a.name
+    this.formEdit.setFieldsValue({ value })
+  }
+
+  handleSelectChangeEditCustomerSelect (value: any) {
+    console.log(value)
+    this.customerId = value
+    const a = this.datacustomer.find(x => x.id == value)
+    this.customername = a.name
+    this.formEdit.setFieldsValue({ value })
+  }
+
+  handleSelectChangeEditEmployeeSelect (value: any) {
+    console.log(value)
+    this.employeeID = value
+    this.formEdit.setFieldsValue({ value })
+  }
+
+  openNotification (result: boolean): void {
     this.$notification.config({
-      duration: 1,
-    });
+      duration: 1
+    })
     if (result === true) {
       this.$notification.success({
-        message: "Thao tác thành công",
-      });
+        message: 'Thao tác thành công'
+      })
     } else {
       this.$notification.error({
-        message: "Thao tác không thành công",
-      });
+        message: 'Thao tác không thành công'
+      })
     }
   }
-  created() {
-    this.formEdit = this.$form.createForm(this);
-    this.formAdd = this.$form.createForm(this);
-    this.formEdit1 = this.$form.createForm(this);
+
+  created () {
+    this.formEdit = this.$form.createForm(this)
+    this.formAdd = this.$form.createForm(this)
+    this.formEdit1 = this.$form.createForm(this)
   }
 
-  showModal() {
-    this.formComplaint.resetFields();
-    this.visible = true;
+  showModal () {
+    this.formComplaint.resetFields()
+    this.visible = true
   }
 
-  closeModal() {
-    this.formComplaint.resetFields();
-    this.visible = false;
+  closeModal () {
+    this.formComplaint.resetFields()
+    this.visible = false
   }
-  handleOk(e: any) {
-    this.confirmLoading = true;
+
+  handleOk (e: any) {
+    this.confirmLoading = true
     setTimeout(() => {
-      this.visibleAdd = false;
-      this.visible2 = false;
-      this.confirmLoading = false;
-    }, 200);
+      this.visibleAdd = false
+      this.visible2 = false
+      this.confirmLoading = false
+    }, 200)
   }
-  handleCancel() {
-    this.visible = false;
-    this.visible2 = false;
-    this.visible3 = false;
-    this.visibleAdd = false;
+
+  handleCancel () {
+    this.visible = false
+    this.visible2 = false
+    this.visible3 = false
+    this.visibleAdd = false
   }
   //  onDelete(key:number) {
   //       this.deletestudent={
@@ -1214,35 +1239,53 @@ export default class Feedback extends Vue {
   //     employeeID: { value: this.dataSource.employeeID }
   //   })
   // }
-  callback(key: number) {
-    console.log(key);
-    this.tabkey = key;
+  callback (key: number) {
+    console.log(key)
+    this.tabkey = key
   }
-  onSubmitComplaint(e: any) {
-    e.preventDefault();
+
+  onSubmitComplaint (e: any) {
+    e.preventDefault()
   }
-  async onSearch(values: string) {
-    this.searchFeedBack.value = values;
-    console.log(this.tabkey);
+
+  async onSearch (values: string) {
+    this.searchFeedBack.value = values
+    console.log(this.tabkey)
     if (this.tabkey == 1) {
       this.$axios
-        .$post("/FeedBacks/searchfeedback2", this.searchFeedBack)
+        .$post('/FeedBacks/searchfeedback2', this.searchFeedBack)
         .then((response) => {
-          this.dataFeedBack2 = response;
+          this.dataFeedBack2 = response
         })
         .catch((error) => {
-          this.openNotification(error);
-        });
+          this.openNotification(error)
+        })
     } else {
       this.$axios
-        .$post("/FeedBacks/searchfeedback1", this.searchFeedBack)
+        .$post('/FeedBacks/searchfeedback1', this.searchFeedBack)
         .then((response) => {
-          this.dataFeedBack1 = response;
+          this.dataFeedBack1 = response
         })
         .catch((error) => {
-          this.openNotification(error);
-        });
+          this.openNotification(error)
+        })
     }
+  }
+
+  sendEmail (email:string) {
+    this.email = { email }
+    this.$axios.$post('/Mail/send-mail', this.email)
+      .then((response) => {
+        if (response === true) {
+          this.$notification.success({
+            message: 'Gửi thành công'
+          })
+        } else {
+          this.$notification.error({
+            message: 'Gửi không thành công'
+          })
+        }
+      })
   }
 }
 </script>

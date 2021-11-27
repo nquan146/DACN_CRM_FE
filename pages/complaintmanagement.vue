@@ -160,7 +160,7 @@
               </a-popconfirm>
             </span>
             <span slot="action" slot-scope="text, record">
-              <a-icon type="mail" style="font-size: 18px" />
+              <a-icon type="mail" style="font-size: 18px" @click="sendEmail(record.customerEmail)" />
               <a-divider type="vertical" />
               <a-icon
                 type="eye"
@@ -613,6 +613,7 @@ import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
 import { SearchComplain } from '@/src/enums/response/SearchComplain'
 import { IdComplain } from '@/src/enums/response/IdComplain'
 import { CustomerSelectResponse } from '~/src/enums/response/CustomerSelectResponse'
+import { IEmail } from '~/src/models/request/emailRequest'
 @Component({
   layout: 'menu',
   name: 'complaint',
@@ -653,6 +654,7 @@ export default class Complaint extends Vue {
   private customerId: number = 0;
   private confirmLoading: boolean = false;
   private tabkey: number = 1;
+  private email!:IEmail
   statusComplain: IdComplain = {
     id: 0
   };
@@ -938,6 +940,22 @@ export default class Complaint extends Vue {
       })
       .catch((error) => {
         this.openNotification(error)
+      })
+  }
+
+  sendEmail (email:string) {
+    this.email = { email }
+    this.$axios.$post('/Mail/send-mail', this.email)
+      .then((response) => {
+        if (response === true) {
+          this.$notification.success({
+            message: 'Gửi thành công'
+          })
+        } else {
+          this.$notification.error({
+            message: 'Gửi không thành công'
+          })
+        }
       })
   }
   // changeStatus (key: number) {
