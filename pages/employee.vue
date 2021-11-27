@@ -548,7 +548,6 @@
           >
             <a-icon type="delete" style="font-size: 18px; cursor: pointer" />
           </a-popconfirm>
-          <a-divider type="vertical" />
         </span>
       </a-table>
     </div>

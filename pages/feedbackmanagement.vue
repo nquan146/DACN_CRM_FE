@@ -188,7 +188,7 @@
     </div>
     <div>
       <a-tabs default-active-key="1" @change="callback">
-        <a-tab-pane key="1" tab="Sản Phẩm">
+        <a-tab-pane key="1" tab="Dịch vụ">
           <a-table
             :columns="columns"
             :data-source="dataFeedBack2"
@@ -733,7 +733,7 @@ import { ITypeFeedSelectResponse } from "~/src/enums/response/ITypeFeedSelectRes
     const dataEmployee = await context.$axios.$get("/FeedBacks/getallemployee");
     const datatypefeed = await context.$axios.$get("/FeedBacks/getalltypeFeed");
     const datacustomer = await context.$axios.$get(
-      "/Complain/getallcustomercomplaint"
+      "/Complaint/getallcustomercomplaint"
     );
     return {
       dataFeedBack1,
@@ -769,7 +769,7 @@ export default class Feedback extends Vue {
   private datacustomer: Array<CustomerSelectResponse> = [];
   private datatypefeed: Array<ITypeFeedSelectResponse> = [];
   private disabled: boolean = true;
-  private disabled2: boolean = true;
+  private disabled2: boolean = false;
   private disabled1: boolean = true;
   private customerId: number = 0;
   private searchFeedBack: SearchFeedBack = {
@@ -900,6 +900,7 @@ export default class Feedback extends Vue {
         values.employeeId = this.employeeID;
         values.customerName = this.customername;
         values.typeName = this.typefeedname;
+        values.employeeName = this.employeename
         this.$axios
           .$post("/FeedBacks/create", values)
           .then(async (response) => {

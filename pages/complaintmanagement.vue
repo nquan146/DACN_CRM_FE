@@ -11,8 +11,8 @@
       />
       <a-icon
         type="plus-square"
-        @click="showAdd()"
         style="font-size: 28px; margin-left: 10px"
+        @click="showAdd()"
       />
       <a-modal v-model="visibleAdd" title="Thêm Khiếu Nại" on-ok="handleOk">
         <template slot="footer">
@@ -44,7 +44,6 @@
           >
             <a-form-item label="Tên khiếu nại">
               <a-input
-                placeholder="Tên khiếu nại"
                 v-decorator="[
                   'complainName',
                   {
@@ -56,6 +55,7 @@
                     ],
                   },
                 ]"
+                placeholder="Tên khiếu nại"
               />
             </a-form-item>
             <a-form-item
@@ -64,29 +64,29 @@
               :wrapper-col="{ span: 12 }"
             >
               <div style="display: flex">
-                       <a-select
-                          v-decorator="[
-                            'customerName',
-                            {
-                              rules: [
-                                {
-                                  required: true,
-                                  message: 'Chọn Khách Hàng',
-                                },
-                              ],
-                            },
-                          ]"
-                          placeholder="Chọn Khách Hàng"
-                          @change="handleSelectChangeAddCustomerSelect"
-                        >
-                          <a-select-option
-                            v-for="customer in datacustomer"
-                            :key="customer.id"
-                            :value="customer.id"
-                          >
-                            {{ customer.name }}
-                          </a-select-option>
-                        </a-select>
+                <a-select
+                  v-decorator="[
+                    'customerName',
+                    {
+                      rules: [
+                        {
+                          required: true,
+                          message: 'Chọn Khách Hàng',
+                        },
+                      ],
+                    },
+                  ]"
+                  placeholder="Chọn Khách Hàng"
+                  @change="handleSelectChangeAddCustomerSelect"
+                >
+                  <a-select-option
+                    v-for="customer in datacustomer"
+                    :key="customer.id"
+                    :value="customer.id"
+                  >
+                    {{ customer.name }}
+                  </a-select-option>
+                </a-select>
               </div>
             </a-form-item>
             <a-form-item
@@ -95,10 +95,6 @@
               :wrapper-col="{ span: 11 }"
             >
               <a-date-picker
-                type="date"
-                placeholder="Chọn ngày"
-                style="width: 100%"
-                format="YYYY-MM-DD"
                 v-decorator="[
                   'receivedDate',
                   {
@@ -110,6 +106,10 @@
                     ],
                   },
                 ]"
+                type="date"
+                placeholder="Chọn ngày"
+                style="width: 100%"
+                format="YYYY-MM-DD"
               />
             </a-form-item>
             <a-form-item
@@ -118,14 +118,14 @@
               :wrapper-col="{ span: 11 }"
             >
               <a-input
-                placeholder="Nội Dung"
-                type="textarea"
                 v-decorator="[
                   'description',
                   {
                     rules: [{ required: true, message: 'Nhập Nội Dung' }],
                   },
                 ]"
+                placeholder="Nội Dung"
+                type="textarea"
               />
             </a-form-item>
             <a-form-item label="Trạng Thái">
@@ -164,8 +164,8 @@
               <a-divider type="vertical" />
               <a-icon
                 type="eye"
-                @click="showEdit(record.id)"
                 style="font-size: 18px"
+                @click="showEdit(record.id)"
               />
               <a-modal
                 v-model="visible2"
@@ -202,7 +202,6 @@
                   >
                     <a-form-item label="Tên khiếu nại">
                       <a-input
-                        placeholder="Tên khiếu nại"
                         v-decorator="[
                           'complainName',
                           {
@@ -214,6 +213,7 @@
                             ],
                           },
                         ]"
+                        placeholder="Tên khiếu nại"
                       />
                     </a-form-item>
                     <a-form-item
@@ -222,7 +222,7 @@
                       :wrapper-col="{ span: 12 }"
                     >
                       <div style="display: flex">
-                       <a-select
+                        <a-select
                           v-decorator="[
                             'customerName',
                             {
@@ -253,10 +253,6 @@
                       :wrapper-col="{ span: 11 }"
                     >
                       <a-date-picker
-                        type="date"
-                        placeholder="Chọn ngày"
-                        style="width: 100%"
-                        format="MM-DD-YYYY"
                         v-decorator="[
                           'receivedDate',
                           {
@@ -268,6 +264,10 @@
                             ],
                           },
                         ]"
+                        type="date"
+                        placeholder="Chọn ngày"
+                        style="width: 100%"
+                        format="MM-DD-YYYY"
                       />
                     </a-form-item>
                     <a-form-item
@@ -276,8 +276,6 @@
                       :wrapper-col="{ span: 11 }"
                     >
                       <a-input
-                        placeholder="Nội Dung"
-                        type="textarea"
                         v-decorator="[
                           'description',
                           {
@@ -286,32 +284,34 @@
                             ],
                           },
                         ]"
+                        placeholder="Nội Dung"
+                        type="textarea"
                       />
                     </a-form-item>
                     <a-form-item label="Trạng Thái">
-                       <a-select
-                          v-decorator="[
-                            'statusName',
-                            {
-                              rules: [
-                                {
-                                  required: true,
-                                  message: 'Chọn Trạng Thái',
-                                },
-                              ],
-                            },
-                          ]"
-                          placeholder="Chọn Trạng Thái"
-                          @change="handleSelectChangeEditStatusSelect"
+                      <a-select
+                        v-decorator="[
+                          'statusName',
+                          {
+                            rules: [
+                              {
+                                required: true,
+                                message: 'Chọn Trạng Thái',
+                              },
+                            ],
+                          },
+                        ]"
+                        placeholder="Chọn Trạng Thái"
+                        @change="handleSelectChangeEditStatusSelect"
+                      >
+                        <a-select-option
+                          v-for="datastatuss in datastatus"
+                          :key="datastatuss.name"
+                          :value="datastatuss.name"
                         >
-                          <a-select-option
-                            v-for="datastatuss in datastatus"
-                            :key="datastatuss.name"
-                            :value="datastatuss.name"
-                          >
-                            {{ datastatuss.name }}
-                          </a-select-option>
-                       </a-select>
+                          {{ datastatuss.name }}
+                        </a-select-option>
+                      </a-select>
                     </a-form-item>
                   </a-form>
                 </div>
@@ -345,8 +345,8 @@
             <span slot="action" slot-scope="text, record">
               <a-icon
                 type="eye"
-                @click="showEdit1(record.id)"
                 style="font-size: 18px"
+                @click="showEdit1(record.id)"
               />
               <a-modal
                 v-model="visible3"
@@ -383,7 +383,6 @@
                   >
                     <a-form-item label="Tên khiếu nại">
                       <a-input
-                        placeholder="Tên khiếu nại"
                         v-decorator="[
                           'complainName',
                           {
@@ -395,6 +394,7 @@
                             ],
                           },
                         ]"
+                        placeholder="Tên khiếu nại"
                       />
                     </a-form-item>
                     <a-form-item
@@ -434,10 +434,6 @@
                       :wrapper-col="{ span: 11 }"
                     >
                       <a-date-picker
-                        type="date"
-                        placeholder="Chọn ngày"
-                        style="width: 100%"
-                        format="MM-DD-YYYY"
                         v-decorator="[
                           'receivedDate',
                           {
@@ -449,6 +445,10 @@
                             ],
                           },
                         ]"
+                        type="date"
+                        placeholder="Chọn ngày"
+                        style="width: 100%"
+                        format="MM-DD-YYYY"
                       />
                     </a-form-item>
                     <a-form-item
@@ -457,8 +457,6 @@
                       :wrapper-col="{ span: 11 }"
                     >
                       <a-input
-                        placeholder="Nội Dung"
-                        type="textarea"
                         v-decorator="[
                           'description',
                           {
@@ -467,32 +465,34 @@
                             ],
                           },
                         ]"
+                        placeholder="Nội Dung"
+                        type="textarea"
                       />
                     </a-form-item>
                     <a-form-item label="Trạng Thái">
-                       <a-select
-                          v-decorator="[
-                            'statusName',
-                            {
-                              rules: [
-                                {
-                                  required: true,
-                                  message: 'Chọn Trạng Thái',
-                                },
-                              ],
-                            },
-                          ]"
-                          placeholder="Chọn Trạng Thái"
-                          @change="handleSelectChangeEditStatus1Select"
+                      <a-select
+                        v-decorator="[
+                          'statusName',
+                          {
+                            rules: [
+                              {
+                                required: true,
+                                message: 'Chọn Trạng Thái',
+                              },
+                            ],
+                          },
+                        ]"
+                        placeholder="Chọn Trạng Thái"
+                        @change="handleSelectChangeEditStatus1Select"
+                      >
+                        <a-select-option
+                          v-for="datastatuss in datastatus"
+                          :key="datastatuss.name"
+                          :value="datastatuss.name"
                         >
-                          <a-select-option
-                            v-for="datastatuss in datastatus"
-                            :key="datastatuss.name"
-                            :value="datastatuss.name"
-                          >
-                            {{ datastatuss.name }}
-                          </a-select-option>
-                       </a-select>
+                          {{ datastatuss.name }}
+                        </a-select-option>
+                      </a-select>
                     </a-form-item>
                   </a-form>
                 </div>
@@ -606,32 +606,32 @@
 
 <script lang="ts">
 
-import { Context } from "@nuxt/types";
-import { Vue, Component } from "vue-property-decorator";
-import { IComplaintResonse } from "@/src/enums/response/IComplaintResonse";
-import { WrappedFormUtils } from "ant-design-vue/types/form/form";
-import { SearchComplain } from "@/src/enums/response/SearchComplain";
-import { IdComplain } from "@/src/enums/response/IdComplain";
-import { CustomerSelectResponse } from "~/src/enums/response/CustomerSelectResponse";
+import { Context } from '@nuxt/types'
+import { Vue, Component } from 'vue-property-decorator'
+import { IComplaintResonse } from '@/src/enums/response/IComplaintResonse'
+import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
+import { SearchComplain } from '@/src/enums/response/SearchComplain'
+import { IdComplain } from '@/src/enums/response/IdComplain'
+import { CustomerSelectResponse } from '~/src/enums/response/CustomerSelectResponse'
 @Component({
-  layout: "menu",
-  name: "complaint",
-  async asyncData(context: Context) {
+  layout: 'menu',
+  name: 'complaint',
+  async asyncData (context: Context) {
     const dataComplaint = await context.$axios.$get(
-      "/Complain/getallcomplainstatus2"
-    );
+      '/Complaint/getallcomplainstatus2'
+    )
     const dataComplaint1 = await context.$axios.$get(
-      "/Complain/getallcomplainstatus1"
-    );
-    const datacustomer = await context.$axios.$get("/Complain/getallcustomercomplaint");
-    const datastatus = await context.$axios.$get("/Complain/getallstatuscomplaint");
+      '/Complaint/getallcomplainstatus1'
+    )
+    const datacustomer = await context.$axios.$get('/Complaint/getallcustomercomplaint')
+    const datastatus = await context.$axios.$get('/Complaint/getallstatuscomplaint')
     return {
       dataComplaint,
       dataComplaint1,
       datastatus,
       datacustomer
-    };
-  },
+    }
+  }
 })
 export default class Complaint extends Vue {
   private visible: boolean = false;
@@ -654,276 +654,291 @@ export default class Complaint extends Vue {
   private confirmLoading: boolean = false;
   private tabkey: number = 1;
   statusComplain: IdComplain = {
-    id: 0,
+    id: 0
   };
+
   private deleteComplain: IdComplain = {
-    id: 0,
+    id: 0
   };
+
   private searchComplain: SearchComplain = {
-    name: "",
+    name: ''
   };
+
   $notification: any;
 
   private loading: boolean = false;
   private columns: Array<any> = [
     {
-      title: "STT",
-      key: "id",
-      align: "center",
-      dataIndex: "id",
+      title: 'STT',
+      key: 'id',
+      align: 'center',
+      dataIndex: 'id'
     },
     {
-      title: "Khách hàng",
-      key: "customerName",
-      align: "center",
-      dataIndex: "customerName",
+      title: 'Khách hàng',
+      key: 'customerName',
+      align: 'center',
+      dataIndex: 'customerName'
     },
     {
-      title: "Khiếu nại",
-      key: "complainName",
-      align: "center",
-      dataIndex: "complainName",
+      title: 'Khiếu nại',
+      key: 'complainName',
+      align: 'center',
+      dataIndex: 'complainName'
     },
     {
-      title: "Ngày nhận",
-      key: "receivedDate",
-      align: "center",
-      dataIndex: "receivedDate",
+      title: 'Ngày nhận',
+      key: 'receivedDate',
+      align: 'center',
+      dataIndex: 'receivedDate'
     },
     {
-      title: "Trạng thái",
-      key: "statusName",
-      align: "center",
-      dataIndex: "statusName",
-      scopedSlots: { customRender: "statusName" },
+      title: 'Trạng thái',
+      key: 'statusName',
+      align: 'center',
+      dataIndex: 'statusName',
+      scopedSlots: { customRender: 'statusName' }
     },
     {
-      title: "Hành động",
-      key: "action",
-      scopedSlots: { customRender: "action" },
-      align: "center",
-    },
+      title: 'Hành động',
+      key: 'action',
+      scopedSlots: { customRender: 'action' },
+      align: 'center'
+    }
   ];
-  openNotification(result: boolean): void {
+
+  openNotification (result: boolean): void {
     this.$notification.config({
-      duration: 1,
-    });
+      duration: 1
+    })
     if (result === true) {
       this.$notification.success({
-        message: "Thao tác thành công",
-      });
+        message: 'Thao tác thành công'
+      })
     } else {
       this.$notification.error({
-        message: "Thao tác không thành công",
-      });
+        message: 'Thao tác không thành công'
+      })
     }
   }
 
-  async created() {
-    this.formEdit = this.$form.createForm(this);
-    this.formAdd = this.$form.createForm(this);
-    this.formComplaint = this.$form.createForm(this);
-    this.formEdit1 = this.$form.createForm(this);
+  async created () {
+    this.formEdit = this.$form.createForm(this)
+    this.formAdd = this.$form.createForm(this)
+    this.formComplaint = this.$form.createForm(this)
+    this.formEdit1 = this.$form.createForm(this)
   }
-  showAdd() {
-    this.isSubmit = false;
-    this.visibleAdd = true;
-    this.formAdd.resetFields();
+
+  showAdd () {
+    this.isSubmit = false
+    this.visibleAdd = true
+    this.formAdd.resetFields()
   }
-  showEdit(key: number) {
-    this.isSubmit = false;
-    this.visible2 = true;
-    this.formEdit.resetFields();
-    this.complainInfo = this.dataComplaint.find((x) => x.id == key);
-    this.complainId = this.complainInfo.complainId;
-    this.customerComplainId = this.complainInfo.id;
-    this.customerId = this.complainInfo.customerId;
-    this.formEdit.getFieldDecorator("complainName", { initialValue: "" });
-    this.formEdit.getFieldDecorator("customerName", { initialValue: "" });
-    this.formEdit.getFieldDecorator("description", { initialValue: "" });
-    this.formEdit.getFieldDecorator("receivedDate", { initialValue: "" });
-    this.formEdit.getFieldDecorator("statusName", { initialValue: "" });
+
+  showEdit (key: number) {
+    this.isSubmit = false
+    this.visible2 = true
+    this.formEdit.resetFields()
+    this.complainInfo = this.dataComplaint.find(x => x.id == key)
+    this.complainId = this.complainInfo.complainId
+    this.customerComplainId = this.complainInfo.id
+    this.customerId = this.complainInfo.customerId
+    this.formEdit.getFieldDecorator('complainName', { initialValue: '' })
+    this.formEdit.getFieldDecorator('customerName', { initialValue: '' })
+    this.formEdit.getFieldDecorator('description', { initialValue: '' })
+    this.formEdit.getFieldDecorator('receivedDate', { initialValue: '' })
+    this.formEdit.getFieldDecorator('statusName', { initialValue: '' })
     this.formEdit.setFields({
-      name: { value: this.complainInfo.name },
-    });
+      name: { value: this.complainInfo.name }
+    })
     this.formEdit.setFields({
-      complainName: { value: this.complainInfo.complainName },
-    });
+      complainName: { value: this.complainInfo.complainName }
+    })
     this.formEdit.setFields({
-      customerName: { value: this.complainInfo.customerName },
-    });
+      customerName: { value: this.complainInfo.customerName }
+    })
     this.formEdit.setFields({
-      description: { value: this.complainInfo.description },
-    });
+      description: { value: this.complainInfo.description }
+    })
     this.formEdit.setFields({
-      receivedDate: { value: this.complainInfo.receivedDate },
-    });
+      receivedDate: { value: this.complainInfo.receivedDate }
+    })
     this.formEdit.setFields({
-      statusName: { value: this.complainInfo.statusName },
-    });
+      statusName: { value: this.complainInfo.statusName }
+    })
   }
-  showEdit1(key: number) {
-    this.isSubmit = false;
-    this.visible3 = true;
-    this.formEdit1.resetFields();
-    this.complainInfo = this.dataComplaint1.find((x) => x.id == key);
-    this.complainId = this.complainInfo.complainId;
-    this.customerComplainId = this.complainInfo.id;
-    this.customerId = this.complainInfo.customerId;
-    this.formEdit1.getFieldDecorator("complainName", { initialValue: "" });
-    this.formEdit1.getFieldDecorator("customerName", { initialValue: "" });
-    this.formEdit1.getFieldDecorator("description", { initialValue: "" });
-    this.formEdit1.getFieldDecorator("receivedDate", { initialValue: "" });
-    this.formEdit1.getFieldDecorator("statusName", { initialValue: "" });
+
+  showEdit1 (key: number) {
+    this.isSubmit = false
+    this.visible3 = true
+    this.formEdit1.resetFields()
+    this.complainInfo = this.dataComplaint1.find(x => x.id == key)
+    this.complainId = this.complainInfo.complainId
+    this.customerComplainId = this.complainInfo.id
+    this.customerId = this.complainInfo.customerId
+    this.formEdit1.getFieldDecorator('complainName', { initialValue: '' })
+    this.formEdit1.getFieldDecorator('customerName', { initialValue: '' })
+    this.formEdit1.getFieldDecorator('description', { initialValue: '' })
+    this.formEdit1.getFieldDecorator('receivedDate', { initialValue: '' })
+    this.formEdit1.getFieldDecorator('statusName', { initialValue: '' })
     this.formEdit1.setFields({
-      name: { value: this.complainInfo.name },
-    });
+      name: { value: this.complainInfo.name }
+    })
     this.formEdit1.setFields({
-      complainName: { value: this.complainInfo.complainName },
-    });
+      complainName: { value: this.complainInfo.complainName }
+    })
     this.formEdit1.setFields({
-      customerName: { value: this.complainInfo.customerName },
-    });
+      customerName: { value: this.complainInfo.customerName }
+    })
     this.formEdit1.setFields({
-      description: { value: this.complainInfo.description },
-    });
+      description: { value: this.complainInfo.description }
+    })
     this.formEdit1.setFields({
-      receivedDate: { value: this.complainInfo.receivedDate },
-    });
+      receivedDate: { value: this.complainInfo.receivedDate }
+    })
     this.formEdit1.setFields({
-      statusName: { value: this.complainInfo.statusName },
-    });
+      statusName: { value: this.complainInfo.statusName }
+    })
   }
-  handleOk(e: any) {
-    this.confirmLoading = true;
+
+  handleOk (e: any) {
+    this.confirmLoading = true
     setTimeout(() => {
-      this.visibleAdd = false;
-      this.visible2 = false;
-      this.confirmLoading = false;
-    }, 200);
+      this.visibleAdd = false
+      this.visible2 = false
+      this.confirmLoading = false
+    }, 200)
   }
-  showModal() {
-    this.formComplaint.resetFields();
-    this.visible = true;
+
+  showModal () {
+    this.formComplaint.resetFields()
+    this.visible = true
   }
-  handleSubmitAdd(e: any) {
-    e.preventDefault();
+
+  handleSubmitAdd (e: any) {
+    e.preventDefault()
     this.formAdd.validateFields((err: any, values: IComplaintResonse) => {
       if (!err) {
-        this.isSubmit = true;
-        values.customerId = this.customerId;
+        this.isSubmit = true
+        values.customerId = this.customerId
         this.$axios
-          .$post("/Complain/createcomplain", values)
+          .$post('/Complain/createcomplain', values)
           .then(async (response) => {
-            this.visibleAdd = false;
-            this.isSubmit = false;
-            this.openNotification(true);
-            this.dataComplaint = response;
+            this.visibleAdd = false
+            this.isSubmit = false
+            this.openNotification(true)
+            this.dataComplaint = response
           })
           .catch((error) => {
-            this.visibleAdd = false;
-            this.isSubmit = false;
-            this.openNotification(error);
-          });
-      }
-    });
-  }
-  handleSubmitEdit(e: any) {
-    e.preventDefault();
-    this.formEdit.validateFields((err: any, values: IComplaintResonse) => {
-      if (!err) {
-        this.isSubmit = true;
-        values.customerId = this.customerId;
-        values.complainId = this.complainId;
-        values.id = this.customerComplainId;
-        this.$axios
-          .$post("/Complain/updatecomplain", values)
-          .then(async(response) => {
-            this.visible2 = false;
-            this.isSubmit = false;
-            this.dataComplaint = await this.$axios.$get("/Complain/getallcomplainstatus2")
-            this.dataComplaint1 = await this.$axios.$get("/Complain/getallcomplainstatus1")
-            this.openNotification(true);
+            this.visibleAdd = false
+            this.isSubmit = false
+            this.openNotification(error)
           })
-          .catch((error) => {
-            this.visible2 = false;
-            this.isSubmit = false;
-            this.openNotification(error);
-          });
       }
     })
   }
-    handleSubmitEdit1(e: any) {
-    e.preventDefault();
-    this.formEdit1.validateFields((err: any, values: IComplaintResonse) => {
+
+  handleSubmitEdit (e: any) {
+    e.preventDefault()
+    this.formEdit.validateFields((err: any, values: IComplaintResonse) => {
       if (!err) {
-        this.isSubmit = true;
-        values.customerId = this.customerId;
-        values.complainId = this.complainId;
-        values.id = this.customerComplainId;
+        this.isSubmit = true
+        values.customerId = this.customerId
+        values.complainId = this.complainId
+        values.id = this.customerComplainId
         this.$axios
-          .$post("/Complain/updatecomplain", values)
+          .$post('/Complain/updatecomplain', values)
           .then(async (response) => {
-            this.visible3 = false;
-            this.isSubmit = false;
-            this.dataComplaint = await this.$axios.$get("/Complain/getallcomplainstatus2")
-            this.dataComplaint1 = await this.$axios.$get("/Complain/getallcomplainstatus1")
-            this.openNotification(true);
+            this.visible2 = false
+            this.isSubmit = false
+            this.dataComplaint = await this.$axios.$get('/Complaint/getallcomplainstatus2')
+            this.dataComplaint1 = await this.$axios.$get('/Complaint/getallcomplainstatus1')
+            this.openNotification(true)
           })
           .catch((error) => {
-            this.visible3 = false;
-            this.isSubmit = false;
-            this.openNotification(error);
-          });
+            this.visible2 = false
+            this.isSubmit = false
+            this.openNotification(error)
+          })
       }
-    });
-  }
-  closeModal() {
-    this.formComplaint.resetFields();
-    this.visible = false;
+    })
   }
 
-  handleCancel() {
-    this.visible = false;
-    this.visible2 = false;
-    this.visibleAdd= false;
-    this.visible3 = false;
+  handleSubmitEdit1 (e: any) {
+    e.preventDefault()
+    this.formEdit1.validateFields((err: any, values: IComplaintResonse) => {
+      if (!err) {
+        this.isSubmit = true
+        values.customerId = this.customerId
+        values.complainId = this.complainId
+        values.id = this.customerComplainId
+        this.$axios
+          .$post('/Complaint/updatecomplain', values)
+          .then(async (response) => {
+            this.visible3 = false
+            this.isSubmit = false
+            this.dataComplaint = await this.$axios.$get('/Complaint/getallcomplainstatus2')
+            this.dataComplaint1 = await this.$axios.$get('/Complaint/getallcomplainstatus1')
+            this.openNotification(true)
+          })
+          .catch((error) => {
+            this.visible3 = false
+            this.isSubmit = false
+            this.openNotification(error)
+          })
+      }
+    })
   }
-  onDelete(key: number) {
+
+  closeModal () {
+    this.formComplaint.resetFields()
+    this.visible = false
+  }
+
+  handleCancel () {
+    this.visible = false
+    this.visible2 = false
+    this.visibleAdd = false
+    this.visible3 = false
+  }
+
+  onDelete (key: number) {
     this.deleteComplain = {
-      id: key,
-    };
+      id: key
+    }
     this.$axios
-      .$post("/Complain/deletecomplain", this.deleteComplain)
+      .$post('/Complaint/deletecomplain', this.deleteComplain)
       .then((response) => {
         this.dataComplaint = this.dataComplaint.filter(
-          (item) => item.id !== key
-        );
+          item => item.id !== key
+        )
         this.dataComplaint1 = this.dataComplaint1.filter(
-          (item) => item.id !== key
-        );
-        this.openNotification(response);
+          item => item.id !== key
+        )
+        this.openNotification(response)
       })
       .catch((error) => {
-        this.openNotification(error);
-      });
+        this.openNotification(error)
+      })
   }
-  onStatus(key: number) {
-    this.statusComplain.id = key;
+
+  onStatus (key: number) {
+    this.statusComplain.id = key
     this.$axios
-      .$post("/Complain/updatestatus", this.statusComplain)
+      .$post('/Complaint/updatestatus', this.statusComplain)
       .then(async (response) => {
         this.dataComplaint = await this.$axios.$get(
-          "/Complain/getallcomplainstatus2"
-        );
+          '/Complaint/getallcomplainstatus2'
+        )
         this.dataComplaint1 = await this.$axios.$get(
-          "/Complain/getallcomplainstatus1"
-        );
-        this.openNotification(response);
+          '/Complaint/getallcomplainstatus1'
+        )
+        this.openNotification(response)
       })
       .catch((error) => {
-        this.openNotification(error);
-      });
+        this.openNotification(error)
+      })
   }
   // changeStatus (key: number) {
   //   this.$axios.$post('/Complaint/change-status-complaint/' + key).then((response) => {
@@ -946,57 +961,64 @@ export default class Complaint extends Vue {
   //     employeeID: { value: this.dataSource.employeeID }
   //   })
   // }
-  callback(key: number) {
-    console.log(key);
-    this.tabkey = key;
+  callback (key: number) {
+    console.log(key)
+    this.tabkey = key
   }
-  onSubmitComplaint(e: any) {
-    e.preventDefault();
+
+  onSubmitComplaint (e: any) {
+    e.preventDefault()
   }
-  async onSearch(values: string) {
-    this.searchComplain.name = values;
-    console.log(this.tabkey);
+
+  async onSearch (values: string) {
+    this.searchComplain.name = values
+    console.log(this.tabkey)
     if (this.tabkey == 1) {
       this.$axios
-        .$post("/Complain/searchcomplainstatus2", this.searchComplain)
+        .$post('/Complaint/searchcomplainstatus2', this.searchComplain)
         .then((response) => {
-          this.dataComplaint = response;
+          this.dataComplaint = response
         })
         .catch((error) => {
-          this.openNotification(error);
-        });
+          this.openNotification(error)
+        })
     } else {
       this.$axios
-        .$post("/Complain/searchcomplainstatus1", this.searchComplain)
+        .$post('/Complaint/searchcomplainstatus1', this.searchComplain)
         .then((response) => {
-          this.dataComplaint1 = response;
+          this.dataComplaint1 = response
         })
         .catch((error) => {
-          this.openNotification(error);
-        });
+          this.openNotification(error)
+        })
     }
   }
-    handleSelectChangeEditCustomerSelect(value: any) {
-    console.log(value);
-    this.customerId = value;
-    this.formEdit.setFieldsValue({ value: value });
+
+  handleSelectChangeEditCustomerSelect (value: any) {
+    console.log(value)
+    this.customerId = value
+    this.formEdit.setFieldsValue({ value })
   }
-    handleSelectChangeAddCustomerSelect(value: any) {
-    console.log(value);
-    this.customerId = value;
-    this.formAdd.setFieldsValue({ value: value });
+
+  handleSelectChangeAddCustomerSelect (value: any) {
+    console.log(value)
+    this.customerId = value
+    this.formAdd.setFieldsValue({ value })
   }
-    handleSelectChangeEditCustomer1Select(value: any) {
-    console.log(value);
-    this.customerId = value;
-    this.formEdit1.setFieldsValue({ value: value });
+
+  handleSelectChangeEditCustomer1Select (value: any) {
+    console.log(value)
+    this.customerId = value
+    this.formEdit1.setFieldsValue({ value })
   }
-    handleSelectChangeEditStatus1Select(value: any) {
-    console.log(value);
-    this.formEdit1.setFieldsValue({ value: value });
+
+  handleSelectChangeEditStatus1Select (value: any) {
+    console.log(value)
+    this.formEdit1.setFieldsValue({ value })
   }
-    handleSelectChangeEditStatusSelect(value: any) {
-    this.formEdit.setFieldsValue({ value: value });
+
+  handleSelectChangeEditStatusSelect (value: any) {
+    this.formEdit.setFieldsValue({ value })
   }
 }
 </script>
