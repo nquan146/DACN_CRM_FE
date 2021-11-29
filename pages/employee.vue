@@ -348,7 +348,7 @@
                       },
                     ]"
                     placeholder="Tài khoản"
-                    disabled="true"
+                    :disabled="true"
                   />
                 </a-form-item>
                 <a-form-item
@@ -385,7 +385,7 @@
                   <a-input
                     v-decorator="['name']"
                     placeholder="Tên nhân viên"
-                    disabled="true"
+                    :disabled="true"
                   />
                 </a-form-item>
                 <a-form-item

@@ -56,7 +56,7 @@
           :loading="isLoaddingLogin"
           :disabled="isLoaddingLogin"
         >
-          Login
+          Đăng nhập
         </a-button>
       </a-form-item>
     </a-form>
