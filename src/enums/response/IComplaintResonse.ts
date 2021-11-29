@@ -5,6 +5,7 @@ export interface IComplaintResonse{
     description: String,
     complainId: number,
     receivedDate: String,
+    customerId:number,
     status: Boolean,
     customerNameUnicode: String,
     complainNameUnicode: String,

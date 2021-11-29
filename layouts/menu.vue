@@ -54,7 +54,13 @@
         <a-menu-item  key="listfeedback">
           <nuxt-link to="/feedbackmanagement">
             <a-icon type="smile" />
-            <span>FeedBack</span>
+            <span>Phản hồi</span>
+          </nuxt-link>
+        </a-menu-item>
+        <a-menu-item v-if="$auth.user.active_View_Lead" key="listlead">
+          <nuxt-link to="/leadsmanagement">
+            <a-icon type="star" />
+            <span>Cơ hội</span>
           </nuxt-link>
         </a-menu-item>
 

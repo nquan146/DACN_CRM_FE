@@ -43,15 +43,15 @@
         <span slot="action" slot-scope="text, record">
           <div style="justify-content: center; display: flex; flex-wrap: wrap; align-items: center">
             <a href="#" @click="showEditUser(record.id)"> <a-icon type="eye" style="font-size: 20px" /> </a>
+            <a-divider type="vertical" />
+            <a-popconfirm
+              v-if="datauser.length"
+              title="Chắc chắn muốn xóa?"
+              @confirm="() => onDeleteUser(record.id)"
+            >
+              <a href="#"><a-icon type="delete" style="font-size: 20px" /></a>
+            </a-popconfirm>
           </div>
-          <a-divider type="vertical" />
-          <a-popconfirm
-            v-if="datauser.length"
-            title="Chắc chắn muốn xóa?"
-            @confirm="() => onDeleteUser(record.id)"
-          >
-            <a href="#"><a-icon type="delete" style="font-size: 20px" /></a>
-          </a-popconfirm>
         </span>
       </a-table>
     </section>
