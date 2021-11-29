@@ -1,0 +1,53 @@
+<template>
+  <a-card :bordered="false" class="widget-1">
+    <a-statistic
+      :title="title"
+      :value="value"
+      :prefix="prefix"
+      :suffix="suffix"
+      :precision="0"
+      class="text-success"
+      :class="'text-' + status"
+    />
+    <div class="icon" v-html="icon" />
+  </a-card>
+</template>
+
+<script>
+
+export default ({
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    value: {
+      type: Number,
+      default: 0
+    },
+    prefix: {
+      type: String,
+      default: ''
+    },
+    suffix: {
+      type: Number,
+      default: 0
+    },
+    icon: {
+      type: String,
+      default: ''
+    },
+    status: {
+      type: String,
+      default: 'success'
+    }
+  },
+  data () {
+    return {
+    }
+  }
+})
+
+</script>
+<style>
+</style>

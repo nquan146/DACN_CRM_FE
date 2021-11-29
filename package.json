@@ -28,8 +28,11 @@
         "eslint": "^7.22.0",
         "eslint-plugin-nuxt": "^2.0.0",
         "eslint-plugin-vue": "^7.7.0",
+        "fibers": "^5.0.0",
         "less": "^4.1.1",
         "less-loader": "6.2.0",
+        "sass": "^1.43.5",
+        "sass-loader": "10",
         "vue-class-component": "^7.2.6",
         "vue-property-decorator": "^9.1.2",
         "vuex-module-decorators": "^1.0.1"

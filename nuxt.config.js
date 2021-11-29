@@ -27,7 +27,8 @@ export default {
   css: [
     'ant-design-vue/dist/antd.less',
     '@/assets/style/global.less',
-    '@/assets/variables.less'
+    '@/assets/variables.less',
+    '@/src/scss/app.scss'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -55,7 +56,7 @@ export default {
     baseURL: 'https://localhost:44348' // Used as fallback if no runtime config is provided
   },
 
-  /* auth: {
+  auth: {
     redirect: {
       login: '/login',
       logout: '/login',
@@ -79,7 +80,7 @@ export default {
   },
   router: {
     middleware: ['auth']
-  }, */
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

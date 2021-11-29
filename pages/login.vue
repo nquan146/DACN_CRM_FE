@@ -28,6 +28,7 @@
               size="large"
               type="text"
               :placeholder="'Tên đăng nhập'"
+              @keydown.enter.prevent
             >
               <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input>
@@ -41,6 +42,7 @@
               ]"
               size="large"
               :placeholder="'Mật khẩu'"
+              @keydown.enter.prevent
             >
               <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input-password>
@@ -93,6 +95,8 @@ export default class LoginPage extends Vue {
     this.form.validateFields((err: any, values: any) => {
       if (!err) {
         this.$auth.loginWith('local', { data: values })
+          .then(async (response) => {
+          })
           .catch(() => {
             this.isLoginError = true
           })
