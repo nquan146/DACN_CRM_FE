@@ -100,6 +100,7 @@ export default class LoginPage extends Vue {
           .catch(() => {
             this.isLoginError = true
           })
+        console.log(this.$auth.user)
       }
     })
   }

@@ -30,8 +30,8 @@ export default ({
       default: ''
     },
     suffix: {
-      type: Number,
-      default: 0
+      type: String,
+      default: ''
     },
     icon: {
       type: String,
