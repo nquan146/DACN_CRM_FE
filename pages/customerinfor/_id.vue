@@ -157,21 +157,22 @@
         </a-form>
       </a-tab-pane>
       <a-tab-pane key="tab2" :tab="'Hợp đồng'">
-        <Contract :contract.sync="dataContract" />
+        <Contract :contract.sync="dataContract" @changeData="changeData" />
       </a-tab-pane>
       <a-tab-pane key="tab3" :tab="'Lịch sử giao dịch'">
-        <Transaction :transaction.sync="dataTransaction" :contract.sync="dataContract" />
+        <Transaction :transaction="dataTransaction" :contract.sync="dataContract" />
       </a-tab-pane>
     </a-tabs>
   </a-card>
 </template>
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Emit } from 'vue-property-decorator'
 import { ICustomer } from '@/src/models/response/customerResponse'
 import { WrappedFormUtils } from 'ant-design-vue/types/form/form'
 import { Context } from '@nuxt/types'
 import Contract from '@/components/contract/contract.vue'
 import Transaction from '@/components/transtaction/transaction.vue'
+
 @Component({
   layout: 'menu',
   components: {
@@ -214,6 +215,11 @@ export default class Customer extends Vue {
     created () {
       this.formCustomer = this.$form.createForm(this)
       this.setFieldFrom()
+    }
+
+    @Emit()
+    async changeData () {
+      this.dataTransaction = await this.$axios.$get('/Transaction/get-all-transaction/' + this.$route.params.id)
     }
 
     setFieldFrom () {

@@ -225,6 +225,7 @@ export default class Contract extends Vue {
             if (response !== null) {
               this.openNotification(true)
               this.dataContract = response
+              this.$emit('changeData')
             } else {
               this.openNotification(false)
             }
@@ -234,6 +235,7 @@ export default class Contract extends Vue {
             if (response !== null) {
               this.openNotification(true)
               this.dataContract = await this.$axios.$get('/Contract/get-all-contract/' + this.$route.params.id)
+              this.$emit('changeData')
             } else {
               this.openNotification(false)
             }

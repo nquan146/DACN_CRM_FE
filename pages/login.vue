@@ -24,7 +24,7 @@
             <a-input
               v-decorator="[
                 'username',
-                {rules: [{ required: true, message: 'username is required' }], validateTrigger: 'change'}]"
+                {rules: [{ required: true, message: 'Hãy nhập tên đăng nhập' }], validateTrigger: 'change'}]"
               size="large"
               type="text"
               :placeholder="'Tên đăng nhập'"
@@ -38,7 +38,7 @@
             <a-input-password
               v-decorator="[
                 'password',
-                {rules: [{ required: true, message: 'Password is require' }], validateTrigger: 'blur'}
+                {rules: [{ required: true, message: 'Hãy nhập mật khẩu' }], validateTrigger: 'blur'}
               ]"
               size="large"
               :placeholder="'Mật khẩu'"

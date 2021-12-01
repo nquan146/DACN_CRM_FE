@@ -7,6 +7,7 @@
       <a @click="showModal()"><a-button> <a-icon type="plus" />Tạo giao dịch </a-button></a>
     </div>
     <a-table
+      v-model="datatransaction"
       :columns="columns"
       :row-key="(record) => record.id"
       :data-source="datatransaction"

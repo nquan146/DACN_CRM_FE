@@ -31,27 +31,27 @@
           </nuxt-link>
         </a-menu-item>
 
-        <a-menu-item  key="listemployee">
+        <a-menu-item key="listemployee">
           <nuxt-link to="/employee">
             <a-icon type="idcard" />
             <span>Nhân viên</span>
           </nuxt-link>
         </a-menu-item>
 
-        <a-menu-item  key="listservice">
+        <a-menu-item key="listservice">
           <nuxt-link to="/servicemanagement">
             <a-icon type="global" />
             <span>Dịch vụ</span>
           </nuxt-link>
         </a-menu-item>
 
-        <a-menu-item  key="listcomplaint">
+        <a-menu-item key="listcomplaint">
           <nuxt-link to="/complaintmanagement">
             <a-icon type="dislike" />
             <span>Khiếu nại</span>
           </nuxt-link>
         </a-menu-item>
-        <a-menu-item  key="listfeedback">
+        <a-menu-item key="listfeedback">
           <nuxt-link to="/feedbackmanagement">
             <a-icon type="smile" />
             <span>Phản hồi</span>
@@ -64,7 +64,7 @@
           </nuxt-link>
         </a-menu-item>
 
-        <a-sub-menu  key="data">
+        <a-sub-menu v-if="$auth.user.active_View_User" key="user">
           <span slot="title"><a-icon type="user" /><span>Người dùng</span></span>
 
           <a-menu-item key="group-user">
@@ -89,7 +89,24 @@
           :type="collapsed ? 'menu-unfold' : 'menu-fold'"
           @click="() => (collapsed = !collapsed)"
         />
-        <a class="user-wrapper" href="#" @click.prevent="logout">Đăng xuất</a>
+        <div class="user-wrapper">
+          <div class="content-box">
+            <a-dropdown>
+              <span class="action ant-dropdown-link user-dropdown-menu">
+                <a-avatar class="avatar" size="small" :src="'https://gw.alipayobjects.com/zos/rmsportal/jZUIxmJycoymBprLOUbT.png'" />
+                <span>{{ $auth.user.name }}</span>
+              </span>
+              <a-menu slot="overlay" class="user-dropdown-menu-wrapper">
+                <a-menu-item key="logout">
+                  <a href="#" @click.prevent="logout">
+                    <a-icon type="logout" />
+                    <span>Đăng xuất</span>
+                  </a>
+                </a-menu-item>
+              </a-menu>
+            </a-dropdown>
+          </div>
+        </div>
       </a-layout-header>
 
       <a-layout-content
@@ -104,7 +121,10 @@
   </a-layout>
 </template>
 <script lang="ts">
+import moment from 'moment'
 import { Vue, Component } from 'vue-property-decorator'
+import 'moment/locale/vi'
+moment.locale('vn')
 @Component({ middleware: 'auth-admin' })
 export default class MenuLayout extends Vue {
   private collapsed: boolean = false;
@@ -129,7 +149,7 @@ export default class MenuLayout extends Vue {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="less">
 #components-layout-custom-trigger .trigger {
   font-size: 18px;
   line-height: 64px;
@@ -160,4 +180,28 @@ export default class MenuLayout extends Vue {
   white-space: nowrap;
   margin-right: 25px;
 }
+.action {
+        cursor: pointer;
+        padding: 0 12px;
+        display: inline-block;
+        transition: all 0.3s;
+        height: 100%;
+        color: rgba(0, 0, 0, 0.65);
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.025);
+        }
+
+        .avatar {
+          margin: 20px 8px 20px 0;
+          color: #1890ff;
+          background: hsla(0, 0%, 100%, 0.85);
+          vertical-align: middle;
+        }
+
+        .icon {
+          font-size: 16px;
+          padding: 4px;
+        }
+      }
 </style>
