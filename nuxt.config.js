@@ -66,7 +66,8 @@ export default {
       local: {
         endpoints: {
           login: { url: '/users/authenticate', method: 'post' },
-          user: { url: '/users/fetch-user', method: 'get', propertyName: false }
+          user: { url: '/users/fetch-user', method: 'get', propertyName: false },
+          per: {url: '/users/testgetper', method: 'get',propertyName:false}
         },
         token: {
           property: 'jwtToken'
