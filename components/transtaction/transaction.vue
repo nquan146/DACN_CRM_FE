@@ -163,11 +163,15 @@ export default class Transaction extends Vue {
       },
       {
         title: 'Số tiền',
-        dataIndex: 'price'
+        dataIndex: 'price',
+        sorter: (a:any, b:any) => a.price - b.price,
+        sortDirections: ['ascend', 'descend']
       },
       {
         title: 'Ngày giao dịch',
-        dataIndex: 'paymentDate'
+        dataIndex: 'paymentDate',
+        sorter: (a:any, b:any) => moment(a.paymentDate, 'DD/MM/YYYY').toDate().getDate() - moment(b.paymentDate, 'DD/MM/YYYY').toDate().getDate(),
+        sortDirections: ['ascend', 'descend']
       },
       {
         title: 'Hóa đơn',

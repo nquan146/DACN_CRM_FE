@@ -42,7 +42,7 @@
           <p style="font-size:16px;font-weight:bold">
             Tổng Số Doanh Thu Năm Nay <span class="text-success"> {{ current.getFullYear() }} </span>
           </p>
-          <chart-bar :height="250" :data="barChartData" />
+          <chart-bar :height="300" :data="barChartData" />
         </a-card>
         <!-- / Widget 1 Card -->
       </a-col>
@@ -52,7 +52,7 @@
             Số Lượng Sử Dụng Dịch Vụ Năm Nay <span class="text-success">{{ current.getFullYear() }}</span>
           </p>
           <chart-bar
-            :height="250"
+            :height="300"
             :data="barChartService"
             text="Tổng tiền"
           />

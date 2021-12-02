@@ -1,7 +1,9 @@
 <template>
   <a-card class="card" title="Thông tin khách hàng" :bordered="false">
     <div class="buttonback">
-      <a :href="'/customermanagement/'"><a-button> <a-icon type="left" />Trở lại danh sách </a-button></a>
+      <nuxt-link to="/customerinfor">
+        <a-button> <a-icon type="left" />Trở lại danh sách </a-button>
+      </nuxt-link>
     </div>
     <a-tabs
       :active-key="tabActive"

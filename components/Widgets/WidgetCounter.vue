@@ -4,7 +4,7 @@
       :title="title"
       :value="value"
       :prefix="prefix"
-      :suffix="suffix"
+      :suffix="suffix+' so với tháng trước'"
       :precision="0"
       class="text-success"
       :class="'text-' + status"

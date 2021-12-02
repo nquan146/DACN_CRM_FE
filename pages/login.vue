@@ -95,12 +95,9 @@ export default class LoginPage extends Vue {
     this.form.validateFields((err: any, values: any) => {
       if (!err) {
         this.$auth.loginWith('local', { data: values })
-          .then(async (response) => {
-          })
           .catch(() => {
             this.isLoginError = true
           })
-        console.log(this.$auth.user)
       }
     })
   }

@@ -487,7 +487,7 @@ export default class Leads extends Vue {
       dataIndex: 'id',
       key: 'id',
       align: 'center',
-      sorter: (a: any, b: any) => a.id.length - b.id.length
+      sorter: (a: any, b: any) => a.id - b.id
     },
     {
       title: 'Tên',
@@ -516,23 +516,16 @@ export default class Leads extends Vue {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      align: 'center',
-      sorter: (a: any, b: any) => a.email.length - b.email.length
+      align: 'center'
     },
     {
       title: 'Mức độ ưu tiên',
       dataIndex: 'priority',
       key: 'priority',
       align: 'center',
+      width: '20%',
       scopedSlots: { customRender: 'priority' },
-      sorter: (a: any, b: any) => a.priority.length - b.priority.length
-    },
-    {
-      title: 'Nội dung',
-      key: 'description',
-      dataIndex: 'description',
-      align: 'center',
-      sorter: (a: any, b: any) => a.description.length - b.description.length
+      sorter: (a: any, b: any) => a.priority - b.priority
     },
     {
       title: 'Hành động',
@@ -542,12 +535,12 @@ export default class Leads extends Vue {
     }
   ];
 
-  async created () {
+  created () {
     this.formEdit = this.$form.createForm(this)
     this.formAdd = this.$form.createForm(this)
   }
 
-  async onSearch (values: string) {
+  onSearch (values: string) {
     this.searchLeads.name = values
     this.$axios
       .$post('/Leads/searchleads', this.searchLeads)
@@ -569,7 +562,7 @@ export default class Leads extends Vue {
     this.isSubmit = false
     this.visible2 = true
     this.formEdit.resetFields()
-    this.leadInfo = this.dataSource.find(x => x.id == key)
+    this.leadInfo = this.dataSource.find(x => x.id === key)
     this.employeeId = this.leadInfo.employeeId
     this.priorityvalue = this.leadInfo.priority
     this.leadId = this.leadInfo.id
@@ -608,13 +601,12 @@ export default class Leads extends Vue {
     })
   }
 
-  handleCancel (e: any) {
-    console.log(e)
+  handleCancel () {
     this.visibleAdd = false
     this.visible2 = false
   }
 
-  handleOk (e: any) {
+  handleOk () {
     this.confirmLoading = true
     setTimeout(() => {
       this.visibleAdd = false
@@ -720,9 +712,8 @@ export default class Leads extends Vue {
   }
 
   handleSelectChangeEditEmployeeSelect (value: any) {
-    console.log(value)
     this.employeeId = value
-    const a = this.dataemployee.find(x => x.id == value)
+    const a = this.dataemployee.find(x => x.id === value)
     this.employeeName = a.name
     this.positionSelect.id = value
     // this.$axios

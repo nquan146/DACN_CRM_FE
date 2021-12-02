@@ -549,6 +549,57 @@
             <a-icon type="delete" style="font-size: 18px; cursor: pointer" />
           </a-popconfirm>
         </span>
+        <div
+          slot="filterDropdown"
+          slot-scope="{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }"
+          style="padding: 8px"
+        >
+          <a-input
+            v-ant-ref="c => (searchInput = c)"
+            :placeholder="`Tìm ${column.title}`"
+            :value="selectedKeys[0]"
+            style="width: 188px; margin-bottom: 8px; display: block;"
+            @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
+            @pressEnter="() => handleSearch(selectedKeys, confirm, column.dataIndex)"
+          />
+          <a-button
+            type="primary"
+            icon="search"
+            size="small"
+            style="width: 90px; margin-right: 8px"
+            @click="() => handleSearch(selectedKeys, confirm, column.dataIndex)"
+          >
+            Tìm kiếm
+          </a-button>
+          <a-button size="small" style="width: 90px" @click="() => handleReset(clearFilters)">
+            Đặt lại
+          </a-button>
+        </div>
+        <a-icon
+          slot="filterIcon"
+          slot-scope="filtered"
+          type="search"
+          :style="{ color: filtered ? '#108ee9' : undefined }"
+        />
+        <template slot="customRender" slot-scope="text, record, index, column">
+          <span v-if="searchText && searchedColumn === column.dataIndex">
+            <template
+              v-for="(fragment, i) in text
+                .toString()
+                .split(new RegExp(`(?<=${searchText})|(?=${searchText})`, 'i'))"
+            >
+              <mark
+                v-if="fragment.toLowerCase() === searchText.toLowerCase()"
+                :key="i"
+                class="highlight"
+              >{{ fragment }}</mark>
+              <template v-else>{{ fragment }}</template>
+            </template>
+          </span>
+          <template v-else>
+            {{ text }}
+          </template>
+        </template>
       </a-table>
     </div>
   </div>
@@ -581,6 +632,9 @@ export default class Employee extends Vue {
   private visibleFeedBack: boolean = false;
   private visible2: boolean = false;
   private $message: any;
+  searchText:string = ''
+  searchInput:any = null
+  searchedColumn:string = ''
   private cities: Array<String> = [];
   private districts: Array<String> = [];
   private warded: IWardsResponse = {
@@ -632,7 +686,7 @@ export default class Employee extends Vue {
       dataIndex: 'id',
       key: 'id',
       align: 'center',
-      sorter: (a: any, b: any) => a.id.length - b.id.length
+      sorter: (a: any, b: any) => a.id - b.id
     },
     {
       title: 'Họ và tên',
@@ -646,30 +700,35 @@ export default class Employee extends Vue {
       title: 'Số điện thoại',
       dataIndex: 'phone',
       key: 'phone',
-      align: 'center',
-      sorter: (a: any, b: any) => a.receivedDate.length - b.receivedDate.length
+      align: 'center'
     },
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      align: 'center',
-      sorter: (a: any, b: any) => a.studentName.length - b.studentName.length
+      align: 'center'
     },
     {
       title: 'Chức vụ',
       dataIndex: 'position',
       key: 'position',
       align: 'center',
-      scopedSlots: { customRender: 'positions' },
-      sorter: (a: any, b: any) => a.receiver.length - b.receiver.length
+      scopedSlots: {
+        customRender: 'positions',
+        filterDropdown: 'filterDropdown',
+        filterIcon: 'filterIcon'
+      },
+      onFilter: (value:any, record:any) =>
+        record.position
+          .toString()
+          .toLowerCase()
+          .includes(value.toLowerCase())
     },
     {
       title: 'Địa chỉ',
       key: 'address',
       dataIndex: 'address',
-      align: 'center',
-      sorter: (a: any, b: any) => a.type.length - b.type.length
+      align: 'center'
     },
     {
       title: 'Hành động',
@@ -685,7 +744,7 @@ export default class Employee extends Vue {
       dataIndex: 'id',
       key: 'id',
       align: 'center',
-      sorter: (a: any, b: any) => a.id.length - b.id.length
+      sorter: (a: any, b: any) => a.id - b.id
     },
     {
       title: 'Tên Nhân Viên',
@@ -693,7 +752,7 @@ export default class Employee extends Vue {
       key: 'employeeName',
       align: 'center',
       scopedSlots: { customRender: 'employeenames' },
-      sorter: (a: any, b: any) => a.name.length - b.name.length
+      sorter: (a: any, b: any) => a.employeeName.length - b.employeeName.length
     },
     {
       title: 'Tên Khách Hàng',
@@ -745,6 +804,17 @@ export default class Employee extends Vue {
       .catch((error) => {
         console.log(error)
       })
+  }
+
+  handleSearch (selectedKeys:any, confirm:any, dataIndex:any) {
+    confirm()
+    this.searchText = selectedKeys[0]
+    this.searchedColumn = dataIndex
+  }
+
+  handleReset (clearFilters:any) {
+    clearFilters()
+    this.searchText = ''
   }
 
   showModalFeedBack (key: number) {

@@ -25,7 +25,7 @@
         </a-menu-item>
 
         <a-menu-item key="listcustomer">
-          <nuxt-link to="/customermanagement">
+          <nuxt-link to="/customerinfor">
             <a-icon type="team" />
             <span>Khách hàng</span>
           </nuxt-link>

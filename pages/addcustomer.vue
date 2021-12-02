@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="buttonback">
-      <a :href="'/customermanagement/'"><a-button> <a-icon type="left" />Trở lại danh sách </a-button></a>
+      <nuxt-link to="/customerinfor"><a-button> <a-icon type="left" />Trở lại danh sách </a-button></nuxt-link>
     </div>
     <a-card class="card" title="Thông tin khách hàng" :bordered="false">
       <a-form :form="formCustomer" class="form" @submit="handleSubmit">

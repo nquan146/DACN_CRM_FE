@@ -272,7 +272,9 @@ export default class Contract extends Vue {
     },
     {
       title: 'Ngày ký',
-      dataIndex: 'signday'
+      dataIndex: 'signday',
+      sorter: (a:any, b:any) => moment(a.signday, 'DD/MM/YYYY').toDate().getDate() - moment(b.signday, 'DD/MM/YYYY').toDate().getDate(),
+      sortDirections: ['ascend', 'descend']
     },
     {
       title: 'Phương thức thanh toán',

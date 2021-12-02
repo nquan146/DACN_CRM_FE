@@ -7,7 +7,7 @@
       Đến hạn đóng tiền
     </a-button>
     <div class="buttonback">
-      <a :href="'/addcustomer/'"><a-button> <a-icon type="plus" />Thêm khách hàng </a-button></a>
+      <nuxt-link to="/addcustomer/"><a-button> <a-icon type="plus" />Thêm khách hàng </a-button></nuxt-link>
     </div>
     <a-table
       :columns="columns"
@@ -26,7 +26,7 @@
       </template>
       <span slot="action" slot-scope="text, record">
         <div style="justify-content: center; display: flex; flex-wrap: wrap; align-items: center">
-          <a :href="'/customerinfor/' + record.id"> <a-icon type="eye" style="font-size: 20px" /> </a>
+          <nuxt-link :to="{name:'customerinfor-id',params:{id:record.id}}"> <a-icon type="eye" style="font-size: 20px" /> </nuxt-link>
           <a-divider type="vertical" />
           <a-popconfirm
             v-if="dataCustomers.length"
