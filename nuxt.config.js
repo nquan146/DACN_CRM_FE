@@ -55,7 +55,7 @@ export default {
     baseURL: 'https://localhost:44348' // Used as fallback if no runtime config is provided
   },
 
-  /* auth: {
+   auth: {
     redirect: {
       login: '/login',
       logout: '/login',
@@ -67,7 +67,7 @@ export default {
         endpoints: {
           login: { url: '/users/authenticate', method: 'post' },
           user: { url: '/users/fetch-user', method: 'get', propertyName: false },
-          per: {url: '/users/testgetper', method: 'get',propertyName:false}
+          actions: {url: '/users/getactions', method: 'get',propertyName:false}
         },
         token: {
           property: 'jwtToken'
@@ -80,7 +80,7 @@ export default {
   },
   router: {
     middleware: ['auth']
-  }, */
+  }, 
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
