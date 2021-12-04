@@ -20,7 +20,7 @@
           <a-popconfirm
             v-if="dataservice.length"
             title="Chắc chắn muốn xóa?"
-            @confirm="() => onDeleteCustomer(record.id)"
+            @confirm="() => onDeleteService(record.id)"
           >
             <a href="#"><a-icon type="delete" style="font-size: 20px" /></a>
           </a-popconfirm>
@@ -135,22 +135,27 @@ export default class ServiceFamily extends Vue {
     private dataSource: any
     private formService!: WrappedFormUtils
     $notification: any
+    $message: any
 
     created () {
       this.formService = this.$form.createForm(this)
     }
 
-    openNotification (result: boolean): void {
+    openNotification (result: string): void {
       this.$notification.config({
-        duration: 1
+        duration: 3
       })
-      if (result === true) {
+      if (result === 'Xóa thành công') {
         this.$notification.success({
           message: 'Thao tác thành công'
         })
-      } else {
+      } else if (result === 'Xóa không thành công') {
         this.$notification.error({
           message: 'Thao tác không thành công'
+        })
+      } else {
+        this.$notification.warning({
+          message: result
         })
       }
     }
@@ -180,15 +185,23 @@ export default class ServiceFamily extends Vue {
         if (!err) {
           this.$axios.$put('/Service/update-service/' + values.id, values).then(async (response) => {
             if (response === true) {
-              this.openNotification(response)
               this.dataservice = await this.$axios.$get('/Service/get-all-service-by-type/1')
-            } else {
-              this.openNotification(response)
             }
-          })
+            this.openNotification(response)
+          }).catch((error) => { this.$message.warning('Bạn không có quyền thực hiện') })
         }
         this.closeModal()
       })
+    }
+
+    onDeleteService (key :any) {
+      this.$axios.$delete('/Service/delete-service/' + key)
+        .then((response) => {
+          if (response === true) {
+            this.dataservice = this.dataservice.filter(item => item.id !== key)
+          }
+          this.openNotification(response)
+        }).catch((error) => { this.$message.warning('Bạn không có quyền thực hiện') })
     }
 
     showModal () {

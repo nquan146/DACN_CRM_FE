@@ -139,6 +139,7 @@ export default class Service extends Vue {
   private tabActive: string = 'tab1'
   private visible: boolean = false
   $notification: any
+  $message: any
   private formService!: WrappedFormUtils
   dataservicefamily: Array<IService> =[]
   dataservicecompany: Array<IService> =[]
@@ -169,7 +170,7 @@ export default class Service extends Vue {
           this.$axios.$post('/Service/create-service', values).then(async (response) => {
             if (response === true) {
               this.openNotification(response)
-              if (values.type === 1) {
+              if (values.type == 1) {
                 this.dataservicefamily = await this.$axios.$get('/Service/get-all-service-by-type/1')
               } else {
                 this.dataservicecompany = await this.$axios.$get('/Service/get-all-service-by-type/2')
@@ -177,7 +178,7 @@ export default class Service extends Vue {
             } else {
               this.openNotification(response)
             }
-          })
+          }).catch((error) => { this.$message.warning('Bạn không có quyền thực hiện') })
         }
       }
       this.closeModal()

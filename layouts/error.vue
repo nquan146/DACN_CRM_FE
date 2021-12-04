@@ -7,7 +7,7 @@
     <template #extra>
       <nuxt-link to="/">
         <a-button type="primary">
-          Back to home
+          Trở về trang chủ
         </a-button>
       </nuxt-link>
     </template>

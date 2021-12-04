@@ -225,6 +225,8 @@ export default class Transaction extends Vue {
               } else {
                 this.openNotification(false)
               }
+            }).catch((error) => {
+              this.$message.warning('Bạn không có quyền thực hiện')
             })
           } else {
             this.$axios.$put('/Transaction/update-transaction/' + values.id, values).then(async (response) => {
@@ -234,6 +236,8 @@ export default class Transaction extends Vue {
               } else {
                 this.openNotification(false)
               }
+            }).catch((error) => {
+              this.$message.warning('Bạn không có quyền thực hiện')
             })
           }
           this.closeModal()
@@ -267,8 +271,12 @@ export default class Transaction extends Vue {
     onDeleteTrans (key: number) {
       this.$axios.$delete('/Transaction/delete-transaction/' + key)
         .then((response) => {
-          this.datatransaction = this.datatransaction.filter(item => item.id !== key)
+          if (response === true) {
+            this.datatransaction = this.datatransaction.filter(item => item.id !== key)
+          }
           this.openNotification(response)
+        }).catch((error) => {
+          this.$message.warning('Bạn không có quyền thực hiện')
         })
     }
 }

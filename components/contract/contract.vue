@@ -158,6 +158,7 @@ export default class Contract extends Vue {
 
   private dataService:Array<any>=[]
   $notification: any
+  $message: any
   private dataSource: any
   private loading:boolean = false
   private visible: boolean = false
@@ -229,6 +230,8 @@ export default class Contract extends Vue {
             } else {
               this.openNotification(false)
             }
+          }).catch((error) => {
+            this.$message.warning('Bạn không có quyền thực hiện')
           })
         } else {
           this.$axios.$put('/Contract/update-contract/' + values.id, values).then(async (response) => {
@@ -239,6 +242,8 @@ export default class Contract extends Vue {
             } else {
               this.openNotification(false)
             }
+          }).catch((error) => {
+            this.$message.warning('Bạn không có quyền thực hiện')
           })
         }
       }
@@ -253,6 +258,8 @@ export default class Contract extends Vue {
           this.dataContract = this.dataContract.filter(item => item.id !== key)
         }
         this.openNotification(response)
+      }).catch((error) => {
+        this.$message.warning('Bạn không có quyền thực hiện')
       })
   }
 

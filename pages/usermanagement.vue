@@ -149,6 +149,7 @@ export default class UserManagement extends Vue {
   private loading:boolean = false
   datauser!: Array<any>
   $notification: any
+  $message: any
 
   created () {
     this.formUser = this.$form.createForm(this)
@@ -233,6 +234,8 @@ export default class UserManagement extends Vue {
             this.datauser = await this.$axios.$get('/Users')
           }
           this.openNotification(response)
+        }).catch((error) => {
+          this.$message.warning('Bạn không có quyền thực hiện')
         })
       }
       this.closeModal()
@@ -245,14 +248,15 @@ export default class UserManagement extends Vue {
         if (response === true) {
           this.datauser = this.datauser.filter(item => item.id !== key)
         }
-
         this.openNotification(response)
+      }).catch((error) => {
+        this.$message.warning('Bạn không có quyền thực hiện')
       })
   }
 
   private active!:boolean
   onStatus (key:number) {
-    this.$axios.$post('/Users/change-active-user/' + key).then((response) => {
+    this.$axios.$put('/Users/change-active-user/' + key).then((response) => {
       if (response === true) {
         this.active = this.datauser.find(item => item.id === key).active
         if (this.active === true) {
@@ -263,7 +267,7 @@ export default class UserManagement extends Vue {
       }
       this.openNotification(response)
     }).catch((error) => {
-      this.openNotification(error)
+      this.$message.warning('Bạn không có quyền thực hiện')
     })
   }
 }

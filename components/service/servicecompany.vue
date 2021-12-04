@@ -135,12 +135,12 @@ export default class ServiceFamily extends Vue {
     private dataSource: any
     private formService!: WrappedFormUtils
     $notification: any
-
+    $message: any
     created () {
       this.formService = this.$form.createForm(this)
     }
 
-    openNotification (result: boolean): void {
+    openNotification (result: any): void {
       this.$notification.config({
         duration: 1
       })
@@ -148,9 +148,13 @@ export default class ServiceFamily extends Vue {
         this.$notification.success({
           message: 'Thao tác thành công'
         })
-      } else {
+      } else if (result === false) {
         this.$notification.error({
           message: 'Thao tác không thành công'
+        })
+      } else {
+        this.$notification.warning({
+          message: result
         })
       }
     }
@@ -185,7 +189,7 @@ export default class ServiceFamily extends Vue {
             } else {
               this.openNotification(response)
             }
-          })
+          }).catch((error) => { this.$message.warning('Bạn không có quyền thực hiện') })
         }
         this.closeModal()
       })
@@ -198,7 +202,7 @@ export default class ServiceFamily extends Vue {
             this.dataservice = this.dataservice.filter(item => item.id !== key)
           }
           this.openNotification(response)
-        })
+        }).catch((error) => { this.$message.warning('Bạn không có quyền thực hiện') })
     }
 
     showModal () {

@@ -198,6 +198,7 @@ export default class Customer extends Vue {
     dataContract:Array<any>=[]
     dataTransaction:Array<any>=[]
     $notification: any
+    $message: any
     private tabActive: string = 'tab1'
     openNotification (result: boolean): void {
       this.$notification.config({
@@ -269,7 +270,9 @@ export default class Customer extends Vue {
               if (response) {
                 this.customer = await this.$axios.$get('/Customer/get-customer/' + this.$route.params.id)
               }
-            }).catch(() => this.openNotification(false))
+            }).catch((error) => {
+              this.$message.warning('Bạn không có quyền thực hiện')
+            })
           }
         }
       })
