@@ -672,12 +672,10 @@ export default class Leads extends Vue {
   }
 
   handleSelectChangeEdit (value: any) {
-    console.log(value)
     this.formEdit.setFieldsValue({ value })
   }
 
   handleSelectChangeAdd (value: any) {
-    console.log(value)
     this.formAdd.setFieldsValue({ value })
   }
 

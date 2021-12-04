@@ -15,14 +15,14 @@
         <a-tab-pane key="tab1" :tab="'Cho hộ gia đình'">
           <ServiceFamily :servicefamily.sync="dataservicefamily" />
         </a-tab-pane>
-        <a-tab-pane key="tab2" :tab="'Cho hộ doanh nghiệp'">
+        <a-tab-pane key="tab2" :tab="'Cho doanh nghiệp'">
           <ServiceCompany :servicecompany.sync="dataservicecompany" />
         </a-tab-pane>
       </a-tabs>
     </section>
     <a-modal
       v-model="visible"
-      title="Thông tin hợp đồng"
+      title="Thông tin dịch vụ"
       on-ok="closeModal"
     >
       <template slot="footer">
