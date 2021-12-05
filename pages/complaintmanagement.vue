@@ -637,6 +637,7 @@ import { IEmail } from '~/src/models/request/emailRequest'
 export default class Complaint extends Vue {
   private visible: boolean = false;
   private visible2: boolean = false;
+     private $message: any;
   private visible3: boolean = false;
   private isSubmit: boolean = false;
   private dataComplaint: Array<IComplaintResonse> = [];
@@ -714,7 +715,7 @@ export default class Complaint extends Vue {
     this.$notification.config({
       duration: 1
     })
-    if (result === true) {
+    if (result) {
       this.$notification.success({
         message: 'Thao tác thành công'
       })
@@ -835,7 +836,7 @@ export default class Complaint extends Vue {
           .catch((error) => {
             this.visibleAdd = false
             this.isSubmit = false
-            this.openNotification(error)
+             this.$message.warning('Bạn không có quyền thực hiện')
           })
       }
     })
@@ -861,7 +862,7 @@ export default class Complaint extends Vue {
           .catch((error) => {
             this.visible2 = false
             this.isSubmit = false
-            this.openNotification(error)
+            this.$message.warning('Bạn không có quyền thực hiện')
           })
       }
     })
@@ -887,7 +888,7 @@ export default class Complaint extends Vue {
           .catch((error) => {
             this.visible3 = false
             this.isSubmit = false
-            this.openNotification(error)
+            this.$message.warning('Bạn không có quyền thực hiện')
           })
       }
     })
@@ -921,7 +922,7 @@ export default class Complaint extends Vue {
         this.openNotification(response)
       })
       .catch((error) => {
-        this.openNotification(error)
+        this.$message.warning('Bạn không có quyền thực hiện')
       })
   }
 
@@ -939,7 +940,7 @@ export default class Complaint extends Vue {
         this.openNotification(response)
       })
       .catch((error) => {
-        this.openNotification(error)
+        this.$message.warning('Bạn không có quyền thực hiện')
       })
   }
 

@@ -630,15 +630,15 @@ export default class Leads extends Vue {
             this.visibleAdd = false
             this.isSubmit = false
             this.dataSource = response
-            this.openNotificationWithSuccess('Thêm tiềm năng thành công')
+            this.openNotification(response)
           })
           .catch((error) => {
             this.visibleAdd = false
             this.isSubmit = false
-            this.openNotificationWithEror('Thêm tiềm năng không thành công')
+             this.$message.warning('Bạn không có quyền thực hiện')
           })
       }
-    })
+    })  
   }
 
   handleSubmitEdit (e: any) {
@@ -655,17 +655,13 @@ export default class Leads extends Vue {
           .then((response) => {
             this.visible2 = false
             this.isSubmit = false
-            this.openNotificationWithSuccess(
-              'Cập nhập thông tin tiềm năng thành công'
-            )
+            this.openNotification(response);
             this.dataSource = response
           })
           .catch((error) => {
             this.visible2 = false
             this.isSubmit = false
-            this.openNotificationWithEror(
-              'Cập nhập thông tin tiềm năng không thành công'
-            )
+            this.$message.warning('Bạn không có quyền thực hiện')
           })
       }
     })
@@ -687,26 +683,26 @@ export default class Leads extends Vue {
         this.dataSource = this.dataSource.filter(
           (item: any) => item.id !== key
         )
-        this.openNotificationWithSuccess('Xóa tiềm năng thành công')
+        this.openNotification(response)
       })
       .catch((error) => {
-        console.log(error)
-        this.openNotificationWithEror('Xóa tiềm năng không thành công')
+      this.$message.warning('Bạn không có quyền thực hiện')
       })
   }
 
-  private openNotificationWithSuccess (description: string) {
-    this.$notification.success({
-      message: 'Thao tác thành công',
-      description
+  openNotification (result: boolean): void {
+    this.$notification.config({
+      duration: 1
     })
-  }
-
-  private openNotificationWithEror (description: string) {
-    this.$notification.error({
-      message: 'Có lỗi gì đó đã xãy ra',
-      description
-    })
+    if (result) {
+      this.$notification.success({
+        message: 'Thao tác thành công'
+      })
+    } else {
+      this.$notification.error({
+        message: 'Thao tác không thành công'
+      })
+    }
   }
 
   handleSelectChangeEditEmployeeSelect (value: any) {

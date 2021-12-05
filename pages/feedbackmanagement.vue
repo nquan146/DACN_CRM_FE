@@ -773,6 +773,7 @@ export default class Feedback extends Vue {
   private disabled2: boolean = false;
   private disabled1: boolean = true;
   private customerId: number = 0;
+    private $message: any;
   private searchFeedBack: SearchFeedBack = {
     value: ''
   };
@@ -889,7 +890,7 @@ export default class Feedback extends Vue {
         this.openNotification(response)
       })
       .catch((error) => {
-        this.openNotification(error)
+        this.$message.warning('Bạn không có quyền thực hiện')
       })
   }
 
@@ -915,7 +916,7 @@ export default class Feedback extends Vue {
           .then(async (response) => {
             this.visibleAdd = false
             this.isSubmit = false
-            this.openNotification(true)
+            this.openNotification(response)
             this.dataFeedBack1 = await this.$axios.$get(
               '/FeedBacks/GetFeedBack1'
             )
@@ -926,7 +927,7 @@ export default class Feedback extends Vue {
           .catch((error) => {
             this.visibleAdd = false
             this.isSubmit = false
-            this.openNotification(error)
+            this.$message.warning('Bạn không có quyền thực hiện')
           })
       }
     })
@@ -1087,12 +1088,12 @@ export default class Feedback extends Vue {
             this.dataFeedBack2 = await this.$axios.$get(
               '/FeedBacks/GetFeedBack2'
             )
-            this.openNotification(true)
+            this.openNotification(response)
           })
           .catch((error) => {
             this.visible2 = false
             this.isSubmit = false
-            this.openNotification(error)
+           this.$message.warning('Bạn không có quyền thực hiện')
           })
       }
     })
@@ -1121,12 +1122,12 @@ export default class Feedback extends Vue {
             this.dataFeedBack2 = await this.$axios.$get(
               '/FeedBacks/GetFeedBack2'
             )
-            this.openNotification(true)
+            this.openNotification(response)
           })
           .catch((error) => {
             this.visible3 = false
             this.isSubmit = false
-            this.openNotification(error)
+            this.$message.warning('Bạn không có quyền thực hiện')
           })
       }
     })
@@ -1163,7 +1164,7 @@ export default class Feedback extends Vue {
     this.$notification.config({
       duration: 1
     })
-    if (result === true) {
+    if (result) {
       this.$notification.success({
         message: 'Thao tác thành công'
       })

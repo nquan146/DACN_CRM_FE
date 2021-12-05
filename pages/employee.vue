@@ -828,7 +828,6 @@ export default class Employee extends Vue {
       .catch((error) => {
         this.visibleFeedBack = false
         this.isSubmit = false
-        this.openNotificationWithEror(error)
       })
   }
 
@@ -913,13 +912,13 @@ export default class Employee extends Vue {
           .then(async (response) => {
             this.visibleAdd = false
             this.isSubmit = false
-            this.openNotificationWithSuccess('Thêm nhân viên thành công')
+            this.openNotification(response);
             this.dataSource = response
           })
           .catch((error) => {
             this.visibleAdd = false
             this.isSubmit = false
-            this.openNotificationWithEror(error)
+            this.$message.warning('Bạn không có quyền thực hiện')
           })
       }
     })
@@ -936,15 +935,13 @@ export default class Employee extends Vue {
           .then((response) => {
             this.visible2 = false
             this.isSubmit = false
-            this.openNotificationWithSuccess(
-              'Cập nhập thông tin nhân viên thành công'
-            )
+            this.openNotification(response);
             this.dataSource = response
           })
           .catch((error) => {
             this.visible2 = false
             this.isSubmit = false
-            this.openNotificationWithEror(error)
+           this.$message.warning('Bạn không có quyền thực hiện')
           })
       }
     })
@@ -990,24 +987,26 @@ export default class Employee extends Vue {
       .$post('Employee/DeleteEmployee', this.delete)
       .then((response) => {
         this.dataSource = response.filter((item: any) => item.id !== key)
+        this.openNotification(response);
       })
       .catch((error) => {
-        console.log(error)
+        this.$message.warning('Bạn không có quyền thực hiện')
       })
   }
 
-  private openNotificationWithSuccess (description: string) {
-    this.$notification.success({
-      message: 'Thao tác thành công',
-      description
+  openNotification (result: boolean): void {
+    this.$notification.config({
+      duration: 1
     })
-  }
-
-  private openNotificationWithEror (description: string) {
-    this.$notification.error({
-      message: 'Có lỗi gì đó đã xãy ra',
-      description
-    })
+    if (result) {
+      this.$notification.success({
+        message: 'Thao tác thành công'
+      })
+    } else {
+      this.$notification.error({
+        message: 'Thao tác không thành công'
+      })
+    }
   }
 
   toggle () {
