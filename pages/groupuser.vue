@@ -300,12 +300,12 @@ export default class GroupUser extends Vue {
 
     .account-settings-info-left {
       border-right: 1px solid #e8e8e8;
-      width: 224px;
+      width: 250px;
     }
 
     .account-settings-info-right {
       flex: 1 1;
-      padding: 8px 40px;
+      padding: 0px 40px 8px 40px;
 
       .account-settings-info-title {
         color: rgba(0,0,0,.85);

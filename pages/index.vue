@@ -37,7 +37,7 @@
       </a-col>
     </a-row>
     <a-row :gutter="20" type="flex" align="stretch">
-      <a-col :span="24" :lg="10" :md="12" class="mb-24">
+      <a-col :span="24" :lg="12" :md="24" class="mb-24">
         <a-card :bordered="false" class="dashboard-bar-chart">
           <p style="font-size:16px;font-weight:bold">
             Tổng Số Doanh Thu Năm Nay <span class="text-success"> {{ current.getFullYear() }} </span>
@@ -46,7 +46,7 @@
         </a-card>
         <!-- / Widget 1 Card -->
       </a-col>
-      <a-col :span="24" :lg="14" :md="12" class="mb-24">
+      <a-col :span="24" :lg="12" :md="24" class="mb-24">
         <a-card :bordered="false" class="dashboard-bar-chart">
           <p style="font-size:16px;font-weight:bold">
             Số Lượng Sử Dụng Dịch Vụ Năm Nay <span class="text-success">{{ current.getFullYear() }}</span>

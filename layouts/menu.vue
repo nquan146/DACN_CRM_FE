@@ -125,7 +125,7 @@ import moment from 'moment'
 import { Vue, Component } from 'vue-property-decorator'
 import 'moment/locale/vi'
 moment.locale('vn')
-@Component({ middleware: 'auth-admin' })
+@Component({ })
 export default class MenuLayout extends Vue {
   private collapsed: boolean = false;
   private selectedKeys: string[] = [];

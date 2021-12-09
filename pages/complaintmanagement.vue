@@ -826,7 +826,7 @@ export default class Complaint extends Vue {
         this.isSubmit = true
         values.customerId = this.customerId
         this.$axios
-          .$post('/Complain/createcomplain', values)
+          .$post('/Complaint/createcomplain', values)
           .then(async (response) => {
             this.visibleAdd = false
             this.isSubmit = false
@@ -851,7 +851,7 @@ export default class Complaint extends Vue {
         values.complainId = this.complainId
         values.id = this.customerComplainId
         this.$axios
-          .$post('/Complain/updatecomplain', values)
+          .$post('/Complaint/updatecomplain', values)
           .then(async (response) => {
             this.visible2 = false
             this.isSubmit = false
