@@ -152,6 +152,9 @@
               <div style="display: flex">
                 <a-select
                   v-decorator="['employeeName']"
+                  show-search
+                  option-filter-prop="children"
+                  :filter-option="filterOption"
                   :disabled="disabled"
                   placeholder="Chọn Nhân Viên"
                   @change="handleSelectChangeAddEmployeeSelect"
@@ -354,6 +357,9 @@
                       <div style="display: flex">
                         <a-select
                           v-decorator="['employeeName']"
+                          show-search
+                          option-filter-prop="children"
+                          :filter-option="filterOption"
                           :disabled="disabled1"
                           placeholder="Chọn Nhân Viên"
                           @change="handleSelectChangeEditEmployeeSelect"
@@ -574,6 +580,9 @@
                       <div style="display: flex">
                         <a-select
                           v-decorator="['employeeName']"
+                          show-search
+                          option-filter-prop="children"
+                          :filter-option="filterOption"
                           :disabled="disabled2"
                           placeholder="Chọn Nhân Viên"
                           @change="handleSelectChangeEdit1EmployeeSelect"
@@ -874,9 +883,9 @@ export default class Feedback extends Vue {
     }
   ];
 
-  filterOption (input:any, option:any) {
+  filterOption (input:string, option:any) {
     return (
-      option.componentOptions.employeeName[0].text.toLowerCase().includes(input.toLowerCase()) >= 0
+      option.componentOptions.children[0].text.toLowerCase().includes(input.toLowerCase())
     )
   }
 
