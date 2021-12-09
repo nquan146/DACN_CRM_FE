@@ -104,6 +104,7 @@ export default class GroupUser extends Vue {
     private loading:boolean = false
     dataAction:Array<any> =[]
     dataGroup:Array<any> =[]
+    $message: any
 
     created () {
       this.formGroup = this.$form.createForm(this)
@@ -208,6 +209,8 @@ export default class GroupUser extends Vue {
       this.$axios.$post('/UserPermission/update-action-permission', this.dataAction)
         .then((response) => {
           this.openNotification(response)
+        }).catch((error) => {
+          this.$message.warning('Bạn không có quyền thực hiện')
         })
     }
 
@@ -238,7 +241,9 @@ export default class GroupUser extends Vue {
             } else {
               this.openNotification(false)
             }
-          }).catch(() => this.openNotification(false))
+          }).catch((error) => {
+            this.$message.warning('Bạn không có quyền thực hiện')
+          })
           this.formGroup.resetFields()
         }
       }

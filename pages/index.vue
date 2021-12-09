@@ -95,7 +95,7 @@ import { IService } from '~/src/models/response/serviceRespone'
     const dataNewCustomer = await context.$axios.$get('/Statistic/statistic-new-customer')
     const dataNewLead = await context.$axios.$get('/Statistic/statistic-new-lead')
     const dataRevenue = await context.$axios.$get('/Statistic/statistic-revenue')
-    const dataService = await context.$axios.$get('/Service/get-all-service')
+    const dataService = await context.$axios.$get('/Statistic/get-all-service')
     const dataStatisticService = await context.$axios.$get('/Statistic/statistic-service')
     const dataNewContract = await context.$axios.$get('/Statistic/statistic-contract')
     return {

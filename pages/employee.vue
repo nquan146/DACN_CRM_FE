@@ -843,6 +843,22 @@ export default class Employee extends Vue {
     this.formEdit.resetFields()
     this.employeeInfo = this.dataSource.find(x => x.id == key)
     this.employeeId = this.employeeInfo.id
+    this.cityname = this.employeeInfo.city
+    this.districted.name = this.employeeInfo.city
+    this.warded.citied = this.employeeInfo.city
+    this.warded.districted = this.employeeInfo.district
+    this.$axios
+      .$post('/Employee/GetDistricts', this.districted)
+      .then((response) => {
+        this.districts = response
+      })
+      .catch((error) => {})
+    this.$axios
+      .$post('/Employee/GetWards', this.warded)
+      .then((response) => {
+        this.wards = response
+      })
+      .catch((error) => {})
     this.formEdit.getFieldDecorator('username', { initialValue: '' })
     this.formEdit.getFieldDecorator('password', { initialValue: '' })
     this.formEdit.getFieldDecorator('name', { initialValue: '' })

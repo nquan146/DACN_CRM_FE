@@ -874,6 +874,12 @@ export default class Feedback extends Vue {
     }
   ];
 
+  filterOption (input:any, option:any) {
+    return (
+      option.componentOptions.employeeName[0].text.toLowerCase().includes(input.toLowerCase()) >= 0
+    )
+  }
+
   onDelete (key: number) {
     this.deleteFeedBack = {
       id: key
@@ -934,14 +940,13 @@ export default class Feedback extends Vue {
   }
 
   handleSelectChangeAddTypeSelect (value: any) {
-    console.log(value)
     this.typeId = value
-    if (this.typeId == 1) {
+    if (this.typeId === 1) {
       this.disabled = !this.disabled
     } else {
       this.disabled = true
     }
-    const a = this.datatypefeed.find(x => x.id == value)
+    const a = this.datatypefeed.find(x => x.id === value)
     this.typefeedname = a.name
     this.formAdd.setFieldsValue({ value })
   }
@@ -949,7 +954,7 @@ export default class Feedback extends Vue {
   handleSelectChangeAddCustomerSelect (value: any) {
     console.log(value)
     this.customerId = value
-    const a = this.datacustomer.find(x => x.id == value)
+    const a = this.datacustomer.find(x => x.id === value)
     this.customername = a.name
     this.formAdd.setFieldsValue({ value })
   }
@@ -968,7 +973,7 @@ export default class Feedback extends Vue {
     } else {
       this.disabled2 = true
     }
-    const a = this.datatypefeed.find(x => x.id == value)
+    const a = this.datatypefeed.find(x => x.id === value)
     this.typefeedname = a.name
     this.formEdit1.setFieldsValue({ value })
   }
@@ -976,7 +981,7 @@ export default class Feedback extends Vue {
   handleSelectChangeEdit1CustomerSelect (value: any) {
     console.log(value)
     this.customerId = value
-    const a = this.datacustomer.find(x => x.id == value)
+    const a = this.datacustomer.find(x => x.id === value)
     this.customername = a.name
     this.formEdit1.setFieldsValue({ value })
   }
@@ -991,7 +996,7 @@ export default class Feedback extends Vue {
     this.isSubmit = false
     this.visible2 = true
     this.formEdit.resetFields()
-    this.feedbackInfo = this.dataFeedBack2.find(x => x.id == key)
+    this.feedbackInfo = this.dataFeedBack2.find(x => x.id === key)
     this.customerId = this.feedbackInfo.customerId
     this.customername = this.feedbackInfo.customerName
     this.employeename = this.feedbackInfo.employeeName
@@ -1030,7 +1035,7 @@ export default class Feedback extends Vue {
     this.disabled2 = false
     this.visible3 = true
     this.formEdit1.resetFields()
-    this.feedbackInfo = this.dataFeedBack1.find(x => x.id == key)
+    this.feedbackInfo = this.dataFeedBack1.find(x => x.id === key)
     this.customerId = this.feedbackInfo.customerId
     this.customername = this.feedbackInfo.customerName
     this.typefeedname = this.feedbackInfo.typefeedname
@@ -1093,7 +1098,7 @@ export default class Feedback extends Vue {
           .catch((error) => {
             this.visible2 = false
             this.isSubmit = false
-           this.$message.warning('Bạn không có quyền thực hiện')
+            this.$message.warning('Bạn không có quyền thực hiện')
           })
       }
     })
