@@ -128,6 +128,7 @@ export default class CustomerManagement extends Vue {
     searchText:string = ''
     searchInput:any = null
     searchedColumn:string = ''
+    $message: any
     private visibleAlert: boolean = false
 
     showModalAlert () {
@@ -234,7 +235,7 @@ export default class CustomerManagement extends Vue {
         .then((response) => {
           this.dataCustomers = this.dataCustomers.filter(item => item.id !== key)
           this.openNotification(response)
-        })
+        }).catch((error) => { this.$message.warning('Bạn không có quyền thực hiện') })
     }
 
     handleSearch (selectedKeys:any, confirm:any, dataIndex:any) {

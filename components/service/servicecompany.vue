@@ -142,7 +142,7 @@ export default class ServiceFamily extends Vue {
 
     openNotification (result: any): void {
       this.$notification.config({
-        duration: 1
+        duration: 3
       })
       if (result === true) {
         this.$notification.success({
@@ -198,7 +198,7 @@ export default class ServiceFamily extends Vue {
     onDeleteService (key :any) {
       this.$axios.$delete('/Service/delete-service/' + key)
         .then((response) => {
-          if (response === true) {
+          if (response === 'Xóa thành công') {
             this.dataservice = this.dataservice.filter(item => item.id !== key)
           }
           this.openNotification(response)

@@ -197,7 +197,7 @@ export default class ServiceFamily extends Vue {
     onDeleteService (key :any) {
       this.$axios.$delete('/Service/delete-service/' + key)
         .then((response) => {
-          if (response === true) {
+          if (response === 'Xóa thành công') {
             this.dataservice = this.dataservice.filter(item => item.id !== key)
           }
           this.openNotification(response)
