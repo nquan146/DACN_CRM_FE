@@ -912,6 +912,7 @@ export default class Feedback extends Vue {
   showAdd () {
     this.isSubmit = false
     this.visibleAdd = true
+    this.disabled = true
     this.formAdd.resetFields()
   }
 

@@ -122,7 +122,7 @@
                 type="email"
               />
             </a-form-item>
-            <a-form-item label="Chức vụ">
+            <!-- <a-form-item label="Chức vụ">
               <a-select
                 v-decorator="[
                   'position',
@@ -146,7 +146,7 @@
                   {{ position.name }}
                 </a-select-option>
               </a-select>
-            </a-form-item>
+            </a-form-item> -->
             <a-form-item label="Địa chỉ">
               <a-input
                 v-decorator="[
@@ -285,17 +285,24 @@
             </a-table>
           </a-modal>
         </span>
-        <span slot="positions" slot-scope="positions">
+        <span slot="position" slot-scope="position">
           <a-tag
+            v-if="position != 'default' "
             :color="
-              positions === 'Giám đốc'
+              position === 'Trưởng phòng'
                 ? 'volcano'
-                : positions == 'Chức khác'
+                : position == 'Chức khác'
                   ? 'geekblue'
                   : 'green'
             "
           >
-            {{ positions }}
+            {{ position }}
+          </a-tag>
+          <a-tag
+            v-else
+            :color="'geekblue'"
+          >
+            Mặc định
           </a-tag>
         </span>
         <span slot="action" slot-scope="text, record">
@@ -714,7 +721,7 @@ export default class Employee extends Vue {
       key: 'position',
       align: 'center',
       scopedSlots: {
-        customRender: 'positions',
+        customRender: 'position',
         filterDropdown: 'filterDropdown',
         filterIcon: 'filterIcon'
       },
@@ -902,7 +909,6 @@ export default class Employee extends Vue {
   }
 
   handleCancel (e: any) {
-    console.log(e)
     this.visibleAdd = false
     this.visible2 = false
     this.visibleFeedBack = false
@@ -928,7 +934,7 @@ export default class Employee extends Vue {
           .then(async (response) => {
             this.visibleAdd = false
             this.isSubmit = false
-            this.openNotification(response);
+            this.openNotification(response)
             this.dataSource = response
           })
           .catch((error) => {
@@ -951,13 +957,13 @@ export default class Employee extends Vue {
           .then((response) => {
             this.visible2 = false
             this.isSubmit = false
-            this.openNotification(response);
+            this.openNotification(response)
             this.dataSource = response
           })
           .catch((error) => {
             this.visible2 = false
             this.isSubmit = false
-           this.$message.warning('Bạn không có quyền thực hiện')
+            this.$message.warning('Bạn không có quyền thực hiện')
           })
       }
     })
@@ -1003,7 +1009,7 @@ export default class Employee extends Vue {
       .$post('Employee/DeleteEmployee', this.delete)
       .then((response) => {
         this.dataSource = response.filter((item: any) => item.id !== key)
-        this.openNotification(response);
+        this.openNotification(response)
       })
       .catch((error) => {
         this.$message.warning('Bạn không có quyền thực hiện')

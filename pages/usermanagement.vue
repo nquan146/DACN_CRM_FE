@@ -20,10 +20,18 @@
         </span>
         <template slot="group" slot-scope="text, record">
           <a-tag
+            v-if="record.groupName !== 'default'"
             color="geekblue"
             style="font-size: 14px"
           >
             {{ record.groupName }}
+          </a-tag>
+          <a-tag
+            v-else
+            color="geekblue"
+            style="font-size: 14px"
+          >
+            Mặc định
           </a-tag>
         </template>
         <template slot="active" slot-scope="text, record">
