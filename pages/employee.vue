@@ -122,7 +122,7 @@
                 type="email"
               />
             </a-form-item>
-            <!-- <a-form-item label="Chức vụ">
+            <a-form-item label="Chức vụ">
               <a-select
                 v-decorator="[
                   'position',
@@ -146,7 +146,7 @@
                   {{ position.name }}
                 </a-select-option>
               </a-select>
-            </a-form-item> -->
+            </a-form-item>
             <a-form-item label="Địa chỉ">
               <a-input
                 v-decorator="[
